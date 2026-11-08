@@ -123,19 +123,34 @@ function pdf(puskuri, pelaajat) {
     pdfNaytetty = true;
     console.log("=== PDF-NÄYTE-ALKU ===\n" + teksti.split("\n").slice(0, 60).join("\n") + "\n=== PDF-NÄYTE-LOPPU ===");
   }
+  return pdfTekstista(teksti, pelaajat);
+}
+
+// Arkansasin PDF-pöytäkirja (pdftotext -layout). Pelaajarivi:
+//   "3 Miikka Muurinen   F 17:44 3-9 0-2 4-5  2 2 4  4 7  10 2 1 2  0 0  18"
+//   = Min, FG M-A, 3P M-A, FT M-A, OR DR TOT, PF FD, TP AS TO ST, BS BA, +/-
+// Pitkillä nimillä rivi katkeaa FT-sarakkeen jälkeen, jolloin loput luvut ovat seuraavalla rivillä.
+function pdfTekstista(teksti, pelaajat) {
+  const rivit = teksti.split("\n");
+  const yhdistetyt = [];
+  for (let i = 0; i < rivit.length; i++) {
+    let r = rivit[i];
+    if (/\d{1,2}:\d{2}\s+\d+-\d+\s+\d+-\d+\s+\d+-\d+\s*$/.test(r) && i + 1 < rivit.length) r += " " + rivit[++i];
+    yhdistetyt.push(r);
+  }
+  const re = /(\d{1,2}):(\d{2})\s+(\d+)-(\d+)\s+(\d+)-(\d+)\s+(\d+)-(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/;
   const tulos = {};
   let rivejaLoytyi = false;
-  // StatCrew: "## NIMI ... FG-FGA 3FG-FGA FT-FTA OR DR TOT PF TP A TO BLK STL MIN"
-  const re = /(\d+)-(\d+)\s+(\d+)-(\d+)\s+(\d+)-(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*$/;
-  for (const rivi of teksti.split("\n")) {
-    const m = rivi.match(re);
+  for (const r of yhdistetyt) {
+    const m = r.match(re);
     if (!m) continue;
     rivejaLoytyi = true;
-    const nimiosa = rivi.slice(0, m.index);
+    const nimiosa = r.slice(0, m.index);
+    const n = m.slice(1).map(Number);
     for (const p of pelaajat) {
-      if (tulos[p.id] || !onPelaaja(nimiosa.replace(/[.,]/g, " "), p)) continue;
-      const n = m.slice(1).map(Number);
-      tulos[p.id] = { kh: [n[0], n[1]], kolme: [n[2], n[3]], vh: [n[4], n[5]], lp: n[8], p: n[10], s: n[11], m: n[12], t: n[13], r: n[14], min: n[15] };
+      if (tulos[p.id] || !onPelaaja(nimiosa, p)) continue;
+      tulos[p.id] = { min: Math.round(n[0] + n[1] / 60), kh: [n[2], n[3]], kolme: [n[4], n[5]], vh: [n[6], n[7]],
+        lp: n[10], p: n[13], s: n[14], m: n[15], r: n[16], t: n[17] };
     }
   }
   return rivejaLoytyi ? tulos : null;
@@ -191,4 +206,4 @@ async function haeTilastot({ ottelut, pelaajat, hae, haePuskuri, tauko, tiedosto
   return { haettu, uusia, virheet };
 }
 
-module.exports = { haeTilastot, sidearm, wmtXml, wmtGames, pdf };
+module.exports = { haeTilastot, sidearm, wmtXml, wmtGames, pdf, pdfTekstista };

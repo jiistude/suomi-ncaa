@@ -30,7 +30,7 @@
   .ottelu { background: var(--pinta); border: 1px solid var(--viiva); border-radius: 10px; padding: 10px 14px;
     display: grid; grid-template-columns: 58px 1fr auto; gap: 4px 12px; align-items: center; margin-bottom: 6px; }
   .ottelu .klo { font-variant-numeric: tabular-nums; font-weight: 600; }
-  .ottelu .kaynnissa { font-size: .7rem; font-weight: 600; color: var(--tappio); text-transform: uppercase; letter-spacing: .04em; }
+  .ottelu .kaynnissa { font-size: .66rem; font-weight: 600; color: var(--tappio); white-space: nowrap; }
   .ottelu .klo.tba { color: var(--heikko); font-weight: normal; font-size: .85rem; }
   .ottelu .kuka { font-weight: 600; }
   .ottelu .kuka .koulu { font-weight: normal; color: var(--heikko); }
@@ -166,7 +166,7 @@ const DATA = /*__DATA__*/null;
     const derby = o.osapuolet.length > 1;
     const aika = naytaPvm
       ? `<div class="klo tba">${esc(lyhytPvm(d))}</div>`
-      : o.tba ? `<div class="klo tba">aika auki</div>` : `<div class="klo">${klo(d)}${d.getTime() < nyt ? `<div class="kaynnissa">käynnissä</div>` : ""}</div>`;
+      : o.tba ? `<div class="klo tba">aika auki</div>` : `<div class="klo">${klo(d)}${d.getTime() < nyt && !pelattu(o) ? `<div class="kaynnissa">${nyt - d.getTime() < 3 * 3600e3 ? "käynnissä" : "ei tulosta"}</div>` : ""}</div>`;
     let kuka, vastaan;
     if (derby) {
       const [a, b] = o.osapuolet;
