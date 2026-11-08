@@ -30,6 +30,7 @@
   .ottelu { background: var(--pinta); border: 1px solid var(--viiva); border-radius: 10px; padding: 10px 14px;
     display: grid; grid-template-columns: 58px 1fr auto; gap: 4px 12px; align-items: center; margin-bottom: 6px; }
   .ottelu .klo { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .ottelu .kaynnissa { font-size: .7rem; font-weight: 600; color: var(--tappio); text-transform: uppercase; letter-spacing: .04em; }
   .ottelu .klo.tba { color: var(--heikko); font-weight: normal; font-size: .85rem; }
   .ottelu .kuka { font-weight: 600; }
   .ottelu .kuka .koulu { font-weight: normal; color: var(--heikko); }
@@ -136,7 +137,7 @@ const DATA = /*__DATA__*/null;
     const derby = o.osapuolet.length > 1;
     const aika = naytaPvm
       ? `<div class="klo tba">${esc(lyhytPvm(d))}</div>`
-      : o.tba ? `<div class="klo tba">aika auki</div>` : `<div class="klo">${klo(d)}</div>`;
+      : o.tba ? `<div class="klo tba">aika auki</div>` : `<div class="klo">${klo(d)}${d.getTime() < nyt ? `<div class="kaynnissa">käynnissä</div>` : ""}</div>`;
     let kuka, vastaan;
     if (derby) {
       const [a, b] = o.osapuolet;
@@ -145,7 +146,7 @@ const DATA = /*__DATA__*/null;
     } else {
       const p = o.osapuolet[0];
       const merkki = p.paikka === "vieras" ? "@" : p.paikka === "neutraali" ? "vs." : "vs.";
-      const paikka = p.paikka === "neutraali" ? ` <span class="paikka">(${esc(o.sijainti || "neutraali kenttä")})</span>` : p.paikka === "vieras" ? ` <span class="paikka">(vieras)</span>` : ` <span class="paikka">(koti)</span>`;
+      const paikka = p.paikka === "neutraali" ? ` <span class="paikka">(${esc((o.sijainti || "neutraali kenttä").replace(/[()]/g, "").replace(/\s+/g, " ").trim())})</span>` : p.paikka === "vieras" ? ` <span class="paikka">(vieras)</span>` : ` <span class="paikka">(koti)</span>`;
       kuka = `${nimet(p.joukkue)} <span class="koulu">· ${esc(joukkue[p.joukkue].koulu)}</span>`;
       vastaan = `${merkki} ${esc(p.vastustaja)}${paikka}`;
     }
@@ -160,7 +161,7 @@ const DATA = /*__DATA__*/null;
     }
     const striimi = o.osapuolet.map((p) => p.striimi).find(Boolean);
     if (striimi && !tulos) linkit.push(`<a class="katso" href="${esc(striimi)}" target="_blank" rel="noopener">Katso</a>`);
-    if (p0.linkki) linkit.push(`<a href="${esc(p0.linkki)}" target="_blank" rel="noopener">${tulos ? "Pöytäkirja" : "Ottelu"}</a>`);
+    if (p0.linkki) linkit.push(`<a href="${esc(p0.linkki)}" target="_blank" rel="noopener">${/boxscore/i.test(p0.linkki) && tulos ? "Pöytäkirja" : "Ottelu"}</a>`);
     return `<div class="ottelu${derby ? " suomiderby" : ""}">${aika}<div><div class="kuka">${kuka}</div><div class="vastaan">${vastaan}</div></div><div class="linkit">${linkit.join("")}</div></div>`;
   }
 
