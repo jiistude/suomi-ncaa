@@ -1,0 +1,21 @@
+name: Koeajo – kalenterisyötteet
+
+# Ajetaan pull requestissa ja käsin. Ei ajastettu, ei tallenna mitään.
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  koeajo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Hae syötteet
+        run: node tyokalut/koeajo.js
