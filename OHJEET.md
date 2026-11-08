@@ -49,7 +49,7 @@ Harjoitusottelut ja kauden alkua (`kauden_alku`) edeltävät ottelut jätetään
 
 ## Tilastorivit
 
-Kun ottelu on pelattu ja pöytäkirja löytyy, robotti lukee pöytäkirjasta suomalaisten tilastot (minuutit, pisteet, levypallot, syötöt, riistot, torjunnat ja heitot) ja tallentaa ne tiedostoon `docs/tilastot.json`. Pöytäkirja haetaan vain kerran.
+Kun ottelu on pelattu ja pöytäkirja löytyy, robotti lukee pöytäkirjasta suomalaisten tilastot ja tallentaa ne tiedostoon `docs/tilastot.json`. Sivulla käytetään suomalaisissakin tilastoissa yleisiä englanninkielisiä lyhenteitä: MIN (minuutit), PTS (pisteet), REB (levypallot), AST (syötöt), STL (riistot), BLK (torjunnat), FG (kenttäheitot), 3P (kolmen pisteen heitot) ja FT (vapaaheitot). Pöytäkirja haetaan vain kerran.
 
 - **Pelaaja puuttuu pöytäkirjasta:** sivulla lukee "ei pelannut".
 - **Pöytäkirja ei ole vielä valmis:** tilastoriviä ei näytetä, ja robotti yrittää uudelleen seuraavalla ajolla.

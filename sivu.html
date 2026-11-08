@@ -152,11 +152,11 @@ const DATA = /*__DATA__*/null;
       const t = o.tilastot[p.id];
       if (!t) continue;
       if (t.eiPelannut) { rivit.push(`<div class="tilasto"><b>${esc(p.nimi)}</b> <span class="heikko">ei pelannut</span></div>`); continue; }
-      const osat = [`${t.p} p`, `${t.lp} lp`, `${t.s} syö`];
-      if (t.r) osat.push(`${t.r} riist`);
-      if (t.t) osat.push(`${t.t} torj`);
-      const heitot = `kenttä ${osuus(t.kh)} · 3p ${osuus(t.kolme)} · vapaat ${osuus(t.vh)}`;
-      rivit.push(`<div class="tilasto"><b>${esc(p.nimi)}</b> <span class="luvut">${osat.join(", ")}</span> <span class="heikko luvut">· ${t.min != null ? t.min + " min · " : ""}${heitot}</span></div>`);
+      const osat = [`${t.p} PTS`, `${t.lp} REB`, `${t.s} AST`];
+      if (t.r) osat.push(`${t.r} STL`);
+      if (t.t) osat.push(`${t.t} BLK`);
+      const heitot = `FG ${osuus(t.kh)} · 3P ${osuus(t.kolme)} · FT ${osuus(t.vh)}`;
+      rivit.push(`<div class="tilasto"><b>${esc(p.nimi)}</b> <span class="luvut">${osat.join(", ")}</span> <span class="heikko luvut">· ${t.min != null ? t.min + " MIN · " : ""}${heitot}</span></div>`);
     }
     return rivit.length ? `<div class="tilastot">${rivit.join("")}</div>` : "";
   }
@@ -293,7 +293,7 @@ const DATA = /*__DATA__*/null;
       const t = DATA.ottelut.map((o) => o.tilastot && o.tilastot[p.id]).filter((x) => x && !x.eiPelannut);
       if (!t.length) return "–";
       const ka = (k) => (t.reduce((s, x) => s + (x[k] || 0), 0) / t.length).toFixed(1).replace(".", ",");
-      return `${ka("p")} p, ${ka("lp")} lp, ${ka("s")} syö<br><span class="pieni">${t.length} ott., ${ka("min")} min</span>`;
+      return `${ka("p")} PTS, ${ka("lp")} REB, ${ka("s")} AST<br><span class="pieni">${t.length} ott., ${ka("min")} MIN</span>`;
     };
     let html = `<table><thead><tr><th>Pelaaja</th><th>Joukkue</th><th class="piilo-mobiili">Luokka</th><th>Kausi (ka.)</th><th>V–T</th><th class="piilo-mobiili">Seuraava ottelu</th></tr></thead><tbody>`;
     for (const p of lista) {
