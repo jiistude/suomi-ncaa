@@ -30,9 +30,10 @@
   .ottelu { background: var(--pinta); border: 1px solid var(--viiva); border-radius: 10px; padding: 10px 14px;
     display: grid; grid-template-columns: 58px 1fr auto; gap: 4px 12px; align-items: center; margin-bottom: 6px; }
   .ottelu .klo { font-variant-numeric: tabular-nums; font-weight: 600; }
-  .ottelu .kaynnissa { font-size: .7rem; font-weight: 600; color: var(--tappio); text-transform: uppercase; letter-spacing: .04em; }
+  .ottelu .kaynnissa { font-size: .66rem; font-weight: 600; color: var(--tappio); white-space: nowrap; }
   .ottelu .klo.tba { color: var(--heikko); font-weight: normal; font-size: .85rem; }
   .ottelu .kuka { font-weight: 600; }
+  .ottelu .paikka-rivi { color: var(--heikko); font-size: .85rem; }
   .ottelu .kuka .koulu { font-weight: normal; color: var(--heikko); }
   .ottelu .vastaan { color: var(--teksti); font-size: .93rem; }
   .ottelu .vastaan .paikka { color: var(--heikko); }
@@ -42,6 +43,14 @@
   .ottelu a.katso { background: var(--sini-vaalea); padding: 3px 10px; border-radius: 999px; font-weight: 600; }
   .ottelu.suomiderby { border-color: var(--korostus); box-shadow: inset 4px 0 0 var(--korostus); }
   .ottelu .merkki { font-size: .75rem; color: #7a5a00; font-weight: 600; }
+  .tilastot { grid-column: 1 / -1; border-top: 1px dashed var(--viiva); margin-top: 4px; padding-top: 6px; display: grid; gap: 3px; }
+  .tilasto { font-size: .88rem; color: var(--teksti); }
+  .tilasto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
+  .tilasto b { font-weight: 700; color: var(--sini); font-size: .95rem; display: inline-flex; align-items: center; gap: 6px; }
+  .lippu { width: 16px; height: 11px; flex: none; border-radius: 1px; box-shadow: 0 0 0 1px rgba(0,0,0,.12); position: relative; top: -1px; }
+  .tilasto .luvut { font-variant-numeric: tabular-nums; }
+  .tilasto .heikko { color: var(--heikko); }
+  @media (min-width: 561px) { .tilastot { margin-left: 70px; } }
   .tulos { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .tulos.v { color: var(--voitto); } .tulos.t { color: var(--tappio); }
   .lisaa { margin: 8px 0 0; }
@@ -78,10 +87,16 @@
     <select class="nappi" id="pelaaja" aria-label="Pelaaja"></select>
   </div>
 
+  <h2 id="viimeyo-otsikko">Viime yö <small id="viimeyo-info"></small></h2>
+  <div id="viimeyo"></div>
+
+  <h2>Tänään ja ensi yönä <small id="tanaan-info"></small></h2>
+  <div id="tanaan"></div>
+
   <h2>Tulevat ottelut <small id="tulevat-info"></small></h2>
   <div id="tulevat"></div>
 
-  <h2>Tulokset <small id="tulokset-info"></small></h2>
+  <h2>Aiemmat tulokset <small id="tulokset-info"></small></h2>
   <div id="tulokset"></div>
 
   <h2>Pelaajat <small id="pelaajat-info"></small></h2>
@@ -126,10 +141,24 @@ const DATA = /*__DATA__*/null;
   }
   const pelattu = (o) => o.osapuolet.some((p) => p.tulos);
 
-  function nimet(avain) {
-    let lista = pelaajatJoukkueessa[avain] || [];
-    if (valinta.pelaaja) lista = lista.filter((p) => p.id === valinta.pelaaja).concat(lista.filter((p) => p.id !== valinta.pelaaja));
-    return lista.map((p) => esc(p.nimi)).join(", ");
+
+  const osuus = (x) => x && x[1] ? `${x[0]}/${x[1]}` : x ? "0/0" : "–";
+  const LIPPU = `<svg class="lippu" viewBox="0 0 18 11" aria-label="Suomi" role="img"><rect width="18" height="11" fill="#fff"/><rect x="5" width="3" height="11" fill="#002f6c"/><rect y="4" width="18" height="3" fill="#002f6c"/></svg>`;
+  // Jokaisen ottelun alla suomalaisten rivit: pelatuissa tilastot, tulevissa pelkkä nimi.
+  function tilastoRivit(o) {
+    const rivit = [];
+    for (const a of o.osapuolet) for (const p of pelaajatJoukkueessa[a.joukkue] || []) {
+      const nimi = `<b>${LIPPU}${esc(p.nimi)}</b>`;
+      const t = o.tilastot && o.tilastot[p.id];
+      if (!t) { rivit.push(`<div class="tilasto">${nimi}${o.osapuolet.length > 1 ? ` <span class="heikko">${esc(joukkue[a.joukkue].koulu)}</span>` : ""}</div>`); continue; }
+      if (t.eiPelannut) { rivit.push(`<div class="tilasto">${nimi} <span class="heikko">ei pelannut</span></div>`); continue; }
+      const osat = [`${t.p} PTS`, `${t.lp} REB`, `${t.s} AST`];
+      if (t.r) osat.push(`${t.r} STL`);
+      if (t.t) osat.push(`${t.t} BLK`);
+      const heitot = `FG ${osuus(t.kh)} · 3P ${osuus(t.kolme)} · FT ${osuus(t.vh)}`;
+      rivit.push(`<div class="tilasto">${nimi} <span class="luvut">${osat.join(", ")}</span> <span class="heikko luvut">· ${t.min != null ? t.min + " MIN · " : ""}${heitot}</span></div>`);
+    }
+    return rivit.length ? `<div class="tilastot">${rivit.join("")}</div>` : "";
   }
 
   function otteluRivi(o, naytaPvm) {
@@ -137,18 +166,18 @@ const DATA = /*__DATA__*/null;
     const derby = o.osapuolet.length > 1;
     const aika = naytaPvm
       ? `<div class="klo tba">${esc(lyhytPvm(d))}</div>`
-      : o.tba ? `<div class="klo tba">aika auki</div>` : `<div class="klo">${klo(d)}${d.getTime() < nyt ? `<div class="kaynnissa">käynnissä</div>` : ""}</div>`;
+      : o.tba ? `<div class="klo tba">aika auki</div>` : `<div class="klo">${klo(d)}${d.getTime() < nyt && !pelattu(o) ? `<div class="kaynnissa">${nyt - d.getTime() < 3 * 3600e3 ? "käynnissä" : "ei tulosta"}</div>` : ""}</div>`;
     let kuka, vastaan;
     if (derby) {
       const [a, b] = o.osapuolet;
-      kuka = `${nimet(a.joukkue)} <span class="koulu">· ${esc(joukkue[a.joukkue].koulu)}</span> <span class="merkki">vs.</span> ${nimet(b.joukkue)} <span class="koulu">· ${esc(joukkue[b.joukkue].koulu)}</span>`;
+      const koti = b.paikka === "koti" ? b : a, vieras = koti === a ? b : a;
+      kuka = `${esc(joukkue[koti.joukkue].koulu)} vs. ${esc(joukkue[vieras.joukkue].koulu)}`;
       vastaan = `<span class="merkki">Suomalaiset vastakkain</span>`;
     } else {
       const p = o.osapuolet[0];
-      const merkki = p.paikka === "vieras" ? "@" : p.paikka === "neutraali" ? "vs." : "vs.";
-      const paikka = p.paikka === "neutraali" ? ` <span class="paikka">(${esc((o.sijainti || "neutraali kenttä").replace(/[()]/g, "").replace(/\s+/g, " ").trim())})</span>` : p.paikka === "vieras" ? ` <span class="paikka">(vieras)</span>` : ` <span class="paikka">(koti)</span>`;
-      kuka = `${nimet(p.joukkue)} <span class="koulu">· ${esc(joukkue[p.joukkue].koulu)}</span>`;
-      vastaan = `${merkki} ${esc(p.vastustaja)}${paikka}`;
+      const oma = esc(joukkue[p.joukkue].koulu);
+      kuka = p.paikka === "vieras" ? `${oma} @ ${esc(p.vastustaja)}` : `${oma} vs. ${esc(p.vastustaja)}`;
+      vastaan = `<span class="paikka-rivi">${p.paikka === "neutraali" ? "neutraali kenttä" + (o.sijainti ? ": " + esc(o.sijainti.replace(/[()]/g, "").replace(/\s+/g, " ").trim()) : "") : p.paikka === "vieras" ? "vierasottelu" : "kotiottelu"}</span>`;
     }
     const linkit = [];
     const p0 = o.osapuolet[0];
@@ -165,18 +194,32 @@ const DATA = /*__DATA__*/null;
     const lp = o.osapuolet.find((p) => p.linkkiTyyppi === "poytakirja") || p0;
     const NIMI = { poytakirja: "Pöytäkirja", raportti: "Otteluraportti", live: "Live-tilastot", ohjelma: "Otteluohjelma" };
     if (lp.linkki) linkit.push(`<a href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"}</a>`);
-    return `<div class="ottelu${derby ? " suomiderby" : ""}">${aika}<div><div class="kuka">${kuka}</div><div class="vastaan">${vastaan}</div></div><div class="linkit">${linkit.join("")}</div></div>`;
+    return `<div class="ottelu${derby ? " suomiderby" : ""}">${aika}<div><div class="kuka">${kuka}</div><div class="vastaan">${vastaan}</div></div><div class="linkit">${linkit.join("")}</div>${tilastoRivit(o)}</div>`;
   }
 
-  function piirraTulevat() {
-    // Ottelu katsotaan tulevaksi, kunnes tulos on tiedossa tai alusta on kulunut 3 tuntia.
-    const lista = DATA.ottelut.filter((o) => sopii(o) && !pelattu(o) && new Date(o.alku).getTime() > nyt - 3 * 3600e3);
-    const raja = nyt + 7 * 864e5;
-    const naytettavat = nayta.tulevat ? lista : lista.filter((o) => new Date(o.alku).getTime() < raja);
-    const el = document.getElementById("tulevat");
-    if (!lista.length) { el.innerHTML = `<div class="tyhja">Ei tulevia otteluita.</div>`; document.getElementById("tulevat-info").textContent = ""; return; }
+  // Seuraava klo 10.00 Suomen aikaa, joka on vähintään 12 tunnin päässä: "tänään ja ensi yönä" -ikkunan loppu.
+  function vyoSiirtyma(ts) {
+    const o = new Intl.DateTimeFormat("en-US", { timeZone: VY, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }).formatToParts(new Date(ts));
+    const g = (t) => Number(o.find((x) => x.type === t).value);
+    return Date.UTC(g("year"), g("month") - 1, g("day"), g("hour"), g("minute"), g("second")) - ts;
+  }
+  function seuraavaAamu() {
+    for (let i = 0; i < 3; i++) {
+      const [v, k, p] = pvmAvain(new Date(nyt + i * 864e5)).split("-").map(Number);
+      const arvaus = Date.UTC(v, k - 1, p, 10, 0);
+      const t = arvaus - vyoSiirtyma(arvaus);
+      if (t >= nyt + 12 * 3600e3) return t;
+    }
+    return nyt + 36 * 3600e3;
+  }
+  const AAMU = seuraavaAamu();
+  const alkuMs = (o) => new Date(o.alku).getTime();
+  // Ottelu on "viime yön" ottelu, jos se on alkanut viimeisen vuorokauden aikana (pelattu tai käynnissä).
+  const viimeYo = (o) => alkuMs(o) <= nyt && alkuMs(o) > nyt - 24 * 3600e3;
+
+  function paivittain(lista) {
     let html = "", edellinen = "";
-    for (const o of naytettavat) {
+    for (const o of lista) {
       const d = new Date(o.alku), k = pvmAvain(d);
       if (k !== edellinen) {
         const nimi = k === tanaan ? "Tänään" : k === huomenna ? "Huomenna" : paivaOtsikko(d);
@@ -185,9 +228,42 @@ const DATA = /*__DATA__*/null;
       }
       html += otteluRivi(o, false);
     }
-    if (!naytettavat.length) html = `<div class="tyhja">Ei otteluita seuraavan viikon aikana.</div>`;
+    return html;
+  }
+
+  function piirraViimeYo() {
+    const el = document.getElementById("viimeyo");
+    let lista = DATA.ottelut.filter((o) => sopii(o) && viimeYo(o));
+    let otsikko = "Viime yö", info = "viimeiset 24 tuntia";
+    if (!lista.length) {
+      // Ei otteluita viime vuorokautena: näytetään viimeisin pelipäivä.
+      const pelatut = DATA.ottelut.filter((o) => sopii(o) && pelattu(o));
+      if (pelatut.length) {
+        const viim = pvmAvain(new Date(pelatut[pelatut.length - 1].alku));
+        lista = pelatut.filter((o) => pvmAvain(new Date(o.alku)) === viim);
+        otsikko = "Viimeisimmät ottelut"; info = paivaOtsikko(new Date(lista[0].alku));
+      }
+    }
+    document.getElementById("viimeyo-otsikko").firstChild.textContent = otsikko + " ";
+    document.getElementById("viimeyo-info").textContent = info;
+    el.innerHTML = lista.length ? lista.map((o) => otteluRivi(o, false)).join("") : `<div class="tyhja">Ei vielä pelattuja otteluita.</div>`;
+  }
+
+  function piirraTanaan() {
+    const lista = DATA.ottelut.filter((o) => sopii(o) && !pelattu(o) && alkuMs(o) > nyt && alkuMs(o) < AAMU);
+    document.getElementById("tanaan-info").textContent = `klo ${klo(new Date(AAMU))} asti`;
+    document.getElementById("tanaan").innerHTML = lista.length ? paivittain(lista) : `<div class="tyhja">Ei otteluita ennen huomisaamua.</div>`;
+  }
+
+  function piirraTulevat() {
+    const lista = DATA.ottelut.filter((o) => sopii(o) && !pelattu(o) && alkuMs(o) >= AAMU);
+    const raja = nyt + 7 * 864e5;
+    const naytettavat = nayta.tulevat ? lista : lista.filter((o) => alkuMs(o) < raja);
+    const el = document.getElementById("tulevat");
+    if (!lista.length) { el.innerHTML = `<div class="tyhja">Ei tulevia otteluita.</div>`; document.getElementById("tulevat-info").textContent = ""; return; }
+    let html = naytettavat.length ? paivittain(naytettavat) : `<div class="tyhja">Ei otteluita seuraavan viikon aikana.</div>`;
     if (lista.length > naytettavat.length) html += `<button class="nappi lisaa" id="lisaa-tulevat">Näytä kaikki tulevat (${lista.length})</button>`;
-    else if (nayta.tulevat && lista.length) html += `<button class="nappi lisaa" id="lisaa-tulevat">Näytä vain seuraava viikko</button>`;
+    else if (nayta.tulevat) html += `<button class="nappi lisaa" id="lisaa-tulevat">Näytä vain seuraava viikko</button>`;
     el.innerHTML = html;
     document.getElementById("tulevat-info").textContent = nayta.tulevat ? "koko kausi" : "seuraavat 7 päivää";
     const b = document.getElementById("lisaa-tulevat");
@@ -195,13 +271,13 @@ const DATA = /*__DATA__*/null;
   }
 
   function piirraTulokset() {
-    const lista = DATA.ottelut.filter((o) => sopii(o) && pelattu(o)).reverse();
+    const viimeYossa = new Set(DATA.ottelut.filter((o) => sopii(o) && viimeYo(o)).map((o) => o.id));
+    const lista = DATA.ottelut.filter((o) => sopii(o) && pelattu(o) && !viimeYossa.has(o.id)).reverse();
     const raja = nyt - 7 * 864e5;
-    const naytettavat = nayta.tulokset ? lista : lista.filter((o) => new Date(o.alku).getTime() > raja);
+    const naytettavat = nayta.tulokset ? lista : lista.filter((o) => alkuMs(o) > raja);
     const el = document.getElementById("tulokset");
-    if (!lista.length) { el.innerHTML = `<div class="tyhja">Ei vielä pelattuja otteluita.</div>`; return; }
-    let html = naytettavat.map((o) => otteluRivi(o, true)).join("");
-    if (!naytettavat.length) html = `<div class="tyhja">Ei otteluita viimeisen viikon aikana.</div>`;
+    if (!lista.length) { el.innerHTML = `<div class="tyhja">Ei aiempia tuloksia.</div>`; return; }
+    let html = naytettavat.length ? naytettavat.map((o) => otteluRivi(o, true)).join("") : `<div class="tyhja">Ei otteluita viimeisen viikon aikana.</div>`;
     if (lista.length > naytettavat.length) html += `<button class="nappi lisaa" id="lisaa-tulokset">Näytä koko kausi (${lista.length})</button>`;
     else if (nayta.tulokset) html += `<button class="nappi lisaa" id="lisaa-tulokset">Näytä vain viime viikko</button>`;
     el.innerHTML = html;
@@ -213,7 +289,13 @@ const DATA = /*__DATA__*/null;
   function piirraPelaajat() {
     const lista = DATA.pelaajat.filter((p) => valinta.pelaaja ? p.id === valinta.pelaaja : valinta.sarja === "kaikki" || p.sarja === valinta.sarja);
     const seuraava = (p) => DATA.ottelut.find((o) => o.joukkueet.includes(p.joukkue) && !pelattu(o) && new Date(o.alku).getTime() > nyt - 3 * 3600e3);
-    let html = `<table><thead><tr><th>Pelaaja</th><th>Joukkue</th><th class="piilo-mobiili">Luokka</th><th>V–T</th><th class="piilo-mobiili">Seuraava ottelu</th></tr></thead><tbody>`;
+    const keskiarvo = (p) => {
+      const t = DATA.ottelut.map((o) => o.tilastot && o.tilastot[p.id]).filter((x) => x && !x.eiPelannut);
+      if (!t.length) return "–";
+      const ka = (k) => (t.reduce((s, x) => s + (x[k] || 0), 0) / t.length).toFixed(1).replace(".", ",");
+      return `${ka("p")} PTS, ${ka("lp")} REB, ${ka("s")} AST<br><span class="pieni">${t.length} ott., ${ka("min")} MIN</span>`;
+    };
+    let html = `<table><thead><tr><th>Pelaaja</th><th>Joukkue</th><th class="piilo-mobiili">Luokka</th><th>Kausi (ka.)</th><th>V–T</th><th class="piilo-mobiili">Seuraava ottelu</th></tr></thead><tbody>`;
     for (const p of lista) {
       const j = joukkue[p.joukkue], s = seuraava(p);
       let seur = "–";
@@ -224,6 +306,7 @@ const DATA = /*__DATA__*/null;
       html += `<tr><td><strong>${esc(p.nimi)}</strong><br><span class="pieni">${esc([p.pelipaikka, p.kotipaikka].filter(Boolean).join(" · "))}</span></td>
         <td>${esc(j.koulu)}<br><span class="pieni">${p.sarja === "M" ? "miehet" : "naiset"}</span></td>
         <td class="piilo-mobiili">${esc(luokka(p.vuosiluokka))}</td>
+        <td class="saldo">${keskiarvo(p)}</td>
         <td class="saldo">${j.saldo.v}–${j.saldo.t}</td>
         <td class="piilo-mobiili">${seur}</td></tr>`;
     }
@@ -241,7 +324,7 @@ const DATA = /*__DATA__*/null;
     sel.setAttribute("aria-pressed", String(Boolean(valinta.pelaaja)));
   }
 
-  function piirra() { piirraSuodattimet(); piirraTulevat(); piirraTulokset(); piirraPelaajat(); }
+  function piirra() { piirraSuodattimet(); piirraViimeYo(); piirraTanaan(); piirraTulevat(); piirraTulokset(); piirraPelaajat(); }
 
   for (const b of document.querySelectorAll("[data-sarja]")) b.onclick = () => { valinta.sarja = b.dataset.sarja; valinta.pelaaja = ""; tallenna(); piirra(); };
   document.getElementById("pelaaja").onchange = (e) => { valinta.pelaaja = e.target.value; tallenna(); piirra(); };

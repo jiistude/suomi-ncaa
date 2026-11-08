@@ -17,7 +17,9 @@ Haun voi käynnistää myös käsin: **Actions → Päivitä ottelut → Run wor
 | `pelaajat.json` | Pelaajat ja joukkueiden lähteet | Kyllä, kun pelaajia tulee tai lähtee |
 | `hae.js` | Haku ja sivun rakennus | Vain korjauksiin |
 | `sivu.html` | Sivun pohja (ulkoasu) | Ulkoasumuutoksiin |
+| `tilastot.js` | Tilastorivien luku pöytäkirjoista | Vain korjauksiin |
 | `docs/` | Robotin tuottama valmis sivu | **Ei.** Kansio syntyy uudelleen joka ajossa |
+| `docs/tilastot.json` | Jo luetut tilastorivit (välimuisti) | **Ei.** Jos tilastorivi on virheellinen, poista sen rivi: robotti hakee pöytäkirjan uudelleen |
 | `tyokalut/koeajo.js` | Testaa, toimivatko kaikki lähteet | Ei |
 | `tyokalut/tarkistus.js` | Tulostaa pull requestin ajossa yhteenvedon | Ei |
 
@@ -45,6 +47,14 @@ Poista rivi `pelaajat`-listasta. Jos joukkueella ei ole enää muita suomalaisia
 
 Harjoitusottelut ja kauden alkua (`kauden_alku`) edeltävät ottelut jätetään pois. Suomalaisten keskinäiset ottelut näytetään yhtenä otteluna.
 
+## Tilastorivit
+
+Kun ottelu on pelattu ja pöytäkirja löytyy, robotti lukee pöytäkirjasta suomalaisten tilastot ja tallentaa ne tiedostoon `docs/tilastot.json`. Sivulla käytetään suomalaisissakin tilastoissa yleisiä englanninkielisiä lyhenteitä: MIN (minuutit), PTS (pisteet), REB (levypallot), AST (syötöt), STL (riistot), BLK (torjunnat), FG (kenttäheitot), 3P (kolmen pisteen heitot) ja FT (vapaaheitot). Pöytäkirja haetaan vain kerran.
+
+- **Pelaaja puuttuu pöytäkirjasta:** sivulla lukee "ei pelannut".
+- **Pöytäkirja ei ole vielä valmis:** tilastoriviä ei näytetä, ja robotti yrittää uudelleen seuraavalla ajolla.
+- **Lähteet:** koulujen pöytäkirjasivut (26 joukkuetta), WMT:n tilastopalvelut (UCLA, Northwestern, San Jose State) ja Arkansasin PDF-pöytäkirjat. PDF:n lukemiseen robotti asentaa joka ajossa `pdftotext`-ohjelman.
+
 ## Jos jokin menee rikki
 
 | Oire | Syy ja korjaus |
@@ -53,6 +63,7 @@ Harjoitusottelut ja kauden alkua (`kauden_alku`) edeltävät ottelut jätetään
 | Robotin ajo on punainen (epäonnistui) | Yli kolmasosa lähteistä ei toiminut. Todennäköisesti verkko- tai GitHub-häiriö. Käynnistä ajo uudelleen käsin. Jos ongelma jatkuu, aja **Actions → Koeajo → Run workflow** ja katso tulostaulukosta, mitkä lähteet eivät toimi |
 | Yhden pelaajan ottelut puuttuvat tai ovat vanhoja | Koulu on vaihtanut sivustoaan tai kalenterinsa osoitetta. Lähde päivitetään `pelaajat.json`-tiedostoon |
 | Kellonaika on "aika auki" | Koulu ei ole vielä ilmoittanut alkamisaikaa. Päivittyy itsestään |
+| Pelatulta ottelulta puuttuu tilastorivi päiväkausia | Koulun pöytäkirjan rakenne on muuttunut. Korjataan `tilastot.js`:ään. Muu sivu toimii normaalisti |
 | Vastustajan nimessä on ylimääräistä tekstiä | Koulu on lisännyt otsikkoon kampanjatekstin uudessa muodossa. Korjataan `hae.js`:ään |
 
 ## Kausi vaihtuu

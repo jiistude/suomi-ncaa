@@ -30,6 +30,20 @@ for (const o of d.ottelut.filter((x) => !x.osapuolet.some((p) => p.tulos) && new
   console.log(`${aika(o.alku)}${o.tba ? " (TBA)" : ""} | ${o.osapuolet.map((p) => `${p.joukkue} ${p.paikka === "vieras" ? "@" : p.paikka === "neutraali" ? "N" : "vs"} ${p.vastustaja}${p.striimi ? " [striimi]" : ""}`).join(" || ")}`);
 }
 
+console.log("\n=== TILASTORIVIT ===");
+const nimi = Object.fromEntries(d.pelaajat.map((p) => [p.id, p.nimi]));
+let rivit = 0, puuttuu = [];
+for (const o of d.ottelut.filter((x) => x.osapuolet.some((p) => p.tulos))) {
+  const t = o.tilastot || {};
+  for (const p of d.pelaajat.filter((p) => o.joukkueet.includes(p.joukkue))) {
+    const s = t[p.id];
+    if (!s) { puuttuu.push(`${o.alku.slice(0, 10)} ${p.nimi}`); continue; }
+    rivit++;
+    console.log(`${o.alku.slice(0, 10)} ${nimi[p.id].padEnd(20)} ${s.eiPelannut ? "ei pelannut" : `${s.min} min, ${s.p} p, ${s.lp} lp, ${s.s} s, ${s.r} r, ${s.t} t, ${s.m} m, kh ${s.kh}, 3p ${s.kolme}, vh ${s.vh}`}`);
+  }
+}
+console.log(`Tilastorivejä ${rivit}, puuttuu ${puuttuu.length}: ${puuttuu.join("; ")}`);
+
 console.log("\n=== SUOMALAISET VASTAKKAIN ===");
 for (const o of d.ottelut.filter((x) => x.osapuolet.length > 1)) console.log(`${aika(o.alku)} | ${o.joukkueet.join(" vs ")}`);
 

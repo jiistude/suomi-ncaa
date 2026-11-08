@@ -55,6 +55,21 @@ async function hae(url, accept) {
   }
 }
 
+async function haePuskuri(url) {
+  if (process.env.RAAKA_LUE) return fs.readFileSync(path.join(process.env.RAAKA_LUE, tiedostonimi(url)));
+  const ohjain = new AbortController();
+  const ajastin = setTimeout(() => ohjain.abort(), AIKARAJA_MS);
+  try {
+    const r = await fetch(url, { headers: { "User-Agent": UA }, redirect: "follow", signal: ohjain.signal });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const b = Buffer.from(await r.arrayBuffer());
+    if (process.env.RAAKA_TALLENNA) fs.writeFileSync(path.join(process.env.RAAKA_TALLENNA, tiedostonimi(url)), b);
+    return b;
+  } finally {
+    clearTimeout(ajastin);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Aikavyöhykkeet: paikallinen aika -> UTC
 
@@ -176,7 +191,7 @@ async function sidearmIcs(j) {
         if (!v) continue;
         const osuma = linkit.find((l) => vapaat.has(l) && l.slug === v) ||
           linkit.find((l) => vapaat.has(l) && l.slug && (l.slug.startsWith(v) || v.startsWith(l.slug)));
-        if (osuma) { o.linkki = osuma.url; o.linkkiTyyppi = "poytakirja"; vapaat.delete(osuma); }
+        if (osuma) { o.linkki = osuma.url; o.linkkiTyyppi = "poytakirja"; o.tilastolahde = { tyyppi: "sidearm", url: osuma.url }; vapaat.delete(osuma); }
       }
     } catch (e) {
       console.error(`       ${j.avain}: box score -linkkejä ei saatu (${e.message}), käytetään otteluohjelmaa`);
@@ -204,6 +219,12 @@ async function wmtApi(j) {
       striimi: null,
       linkki: r && r.result && e.box_score_url ? e.box_score_url : `${j.sivusto}/sports/${j.laji}/schedule`,
       linkkiTyyppi: r && r.result && e.box_score_url ? "poytakirja" : "ohjelma",
+      // Tilastot: wmt.games (esim. Northwestern) tai koulun oma stats-palvelu (esim. UCLA).
+      tilastolahde: r && r.result ? {
+        tyyppi: "wmt",
+        games: e.wmt_stats2_game_id || null,
+        xml: e.box_score_url ? `${j.sivusto.replace("://", "://stats.")}/api/v1/game/xml/${(e.box_score_url.match(/(\d+)\/?$/) || [])[1]}` : null,
+      } : null,
       harjoitus: Boolean(e.is_exhibition) || onHarjoitus(e.opponent_name),
     };
   });
@@ -248,6 +269,7 @@ async function wmtSivu(j) {
       striimi,
       linkki: mt ? poytakirja || raportti || j.sivu : live || j.sivu,
       linkkiTyyppi: mt ? (poytakirja ? "poytakirja" : raportti ? "raportti" : "ohjelma") : live ? "live" : "ohjelma",
+      tilastolahde: mt && poytakirja && /\.pdf($|\?)/i.test(poytakirja) ? { tyyppi: "pdf", url: poytakirja } : null,
       harjoitus: onHarjoitus(vast),
     });
   }
@@ -332,10 +354,18 @@ function vastustajaOnJoukkue(vastustaja, joukkue) {
       joukkueet: ryhma.map((o) => o.joukkue),
       osapuolet: ryhma.map((o) => ({
         joukkue: o.joukkue, vastustaja: o.vastustaja, paikka: o.paikka, tulos: o.tulos,
-        striimi: o.striimi, linkki: o.linkki, linkkiTyyppi: o.linkkiTyyppi || "ohjelma",
+        striimi: o.striimi, linkki: o.linkki, linkkiTyyppi: o.linkkiTyyppi || "ohjelma", tilastolahde: o.tilastolahde || null,
       })),
     });
   }
+
+  // Suomalaisten tilastorivit pöytäkirjoista (kukin pöytäkirja haetaan vain kerran).
+  fs.mkdirSync(DOCS, { recursive: true });
+  const til = await require("./tilastot").haeTilastot({
+    ottelut, pelaajat, hae, haePuskuri, tauko, tiedosto: path.join(DOCS, "tilastot.json"), nyt: NYT,
+  });
+  console.log(`Tilastot: ${til.haettu} pöytäkirjaa haettu, ${til.uusia} uutta tilastoriviä, ${til.virheet.length} virhettä.`);
+  for (const v of til.virheet) console.log("  tilastovirhe: " + v);
 
   // Joukkueiden voitto-tappio-saldo.
   const saldo = {};

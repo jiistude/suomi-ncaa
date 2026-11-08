@@ -31,10 +31,14 @@ jobs:
         with:
           node-version: 20
 
+      - name: Asenna pdftotext (Arkansasin PDF-pöytäkirjat)
+        run: sudo apt-get install -y -qq poppler-utils >/dev/null
+
       - name: Hae ottelut ja rakenna sivu
         run: node hae.js
         env:
           RAAKA_TALLENNA: ${{ github.event_name == 'pull_request' && 'raaka' || '' }}
+          PDF_NAYTE: ${{ github.event_name == 'pull_request' && '1' || '' }}
 
       - name: Tarkistus (vain pull request)
         if: github.event_name == 'pull_request'
