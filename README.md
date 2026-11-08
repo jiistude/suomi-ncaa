@@ -1,13 +1,11 @@
 # Suomalaiset NCAA:ssa 2026-27
 
-Kokoaa NCAA Division I:ssä pelaavien suomalaisten koripalloilijoiden otteluohjelmat ja tulokset yhdelle sivulle.
+Kokoaa NCAA Division I:ssä pelaavien suomalaisten koripalloilijoiden otteluohjelmat ja tulokset yhdelle sivulle, Suomen ajassa.
 
-## Tiedot
+Sivu: https://jiistude.github.io/suomi-ncaa/ (väliaikainen osoite)
 
-- `pelaajat.json`: pelaajarekisteri ja joukkueiden kalenterisyötteet.
-  - Pelaaja on mukana, jos Koripalloliitto listaa hänet suomalaispelaajaksi ja hän löytyy joukkueen virallisesta rosterista. Nimi ei vaikuta mihinkään.
-- Otteluohjelmat ja tulokset tulevat koulujen omista, kalenteritilauksia varten julkaistuista syötteistä. Ne haetaan muutaman kerran päivässä, samaan tapaan kuin kalenterisovellus tekisi. Tilastosivuja tai ncaa.comia ei kaavita.
+- `pelaajat.json`: pelaajat ja joukkueiden lähteet. Pelaaja on mukana, jos Koripalloliitto listaa hänet suomalaispelaajaksi ja hän löytyy joukkueen virallisesta rosterista.
+- Otteluohjelmat ja tulokset tulevat koulujen omista otteluohjelmista. Ne haetaan kolmesti päivässä, yksi pyyntö joukkuetta kohden. Tilastosivuja tai ncaa.comia ei kaavita.
+- Ylläpito-ohjeet: [OHJEET.md](OHJEET.md).
 
-## Tila
-
-Rakenteilla. Ensimmäinen vaihe on koeajo: toimivatko koulujen syötteet GitHub Actionsista.
+Ei NCAA:n eikä koulujen virallinen palvelu.
