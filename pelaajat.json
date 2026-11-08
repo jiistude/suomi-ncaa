@@ -21,7 +21,8 @@
     "UTRGV",
     "Texas Rio Grande Valley",
     "UT Rio Grande Valley"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "tulsa-n",
@@ -33,7 +34,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Tulsa"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "wyoming-n",
@@ -45,7 +47,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Wyoming"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "ucla-n",
@@ -72,7 +75,8 @@
    "nimet": [
     "North Dakota",
     "UND"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "xavier-n",
@@ -84,7 +88,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Xavier"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "ohio-state-n",
@@ -96,7 +101,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Ohio State"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "sacramento-state-n",
@@ -109,7 +115,8 @@
    "nimet": [
     "Sacramento State",
     "Sac State"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "california-n",
@@ -122,7 +129,8 @@
    "nimet": [
     "California",
     "Cal"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "north-alabama-n",
@@ -135,7 +143,8 @@
    "nimet": [
     "North Alabama",
     "UNA"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "western-kentucky-n",
@@ -148,7 +157,8 @@
    "nimet": [
     "Western Kentucky",
     "WKU"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "iona-n",
@@ -160,7 +170,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Iona"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "kent-state-n",
@@ -172,7 +183,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Kent State"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "san-jose-state-n",
@@ -200,7 +212,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Utah State"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "davidson-n",
@@ -212,7 +225,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Davidson"
-   ]
+   ],
+   "laji": "womens-basketball"
   },
   {
    "avain": "ucsb-m",
@@ -226,7 +240,8 @@
     "UC Santa Barbara",
     "UCSB",
     "Santa Barbara"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "portland-state-m",
@@ -238,7 +253,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Portland State"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "stony-brook-m",
@@ -250,7 +266,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Stony Brook"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "nc-state-m",
@@ -264,7 +281,8 @@
     "NC State",
     "N.C. State",
     "North Carolina State"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "northwestern-m",
@@ -290,7 +308,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Utah"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "loyola-maryland-m",
@@ -304,7 +323,8 @@
     "Loyola Maryland",
     "Loyola (Md.)",
     "Loyola (MD)"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "troy-m",
@@ -316,7 +336,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Troy"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "uc-san-diego-m",
@@ -329,7 +350,8 @@
    "nimet": [
     "UC San Diego",
     "UCSD"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "butler-m",
@@ -341,7 +363,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Butler"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "citadel-m",
@@ -354,7 +377,8 @@
    "nimet": [
     "The Citadel",
     "Citadel"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "davidson-m",
@@ -366,7 +390,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Davidson"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "pepperdine-m",
@@ -378,7 +403,8 @@
    "syote_tulokset": true,
    "nimet": [
     "Pepperdine"
-   ]
+   ],
+   "laji": "mens-basketball"
   },
   {
    "avain": "arkansas-m",
