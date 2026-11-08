@@ -33,6 +33,7 @@
   .ottelu .kaynnissa { font-size: .66rem; font-weight: 600; color: var(--tappio); white-space: nowrap; }
   .ottelu .klo.tba { color: var(--heikko); font-weight: normal; font-size: .85rem; }
   .ottelu .kuka { font-weight: 600; }
+  .ottelu .paikka-rivi { color: var(--heikko); font-size: .85rem; }
   .ottelu .kuka .koulu { font-weight: normal; color: var(--heikko); }
   .ottelu .vastaan { color: var(--teksti); font-size: .93rem; }
   .ottelu .vastaan .paikka { color: var(--heikko); }
@@ -44,7 +45,9 @@
   .ottelu .merkki { font-size: .75rem; color: #7a5a00; font-weight: 600; }
   .tilastot { grid-column: 1 / -1; border-top: 1px dashed var(--viiva); margin-top: 4px; padding-top: 6px; display: grid; gap: 3px; }
   .tilasto { font-size: .88rem; color: var(--teksti); }
-  .tilasto b { font-weight: 600; }
+  .tilasto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
+  .tilasto b { font-weight: 700; color: var(--sini); font-size: .95rem; display: inline-flex; align-items: center; gap: 6px; }
+  .lippu { width: 16px; height: 11px; flex: none; border-radius: 1px; box-shadow: 0 0 0 1px rgba(0,0,0,.12); position: relative; top: -1px; }
   .tilasto .luvut { font-variant-numeric: tabular-nums; }
   .tilasto .heikko { color: var(--heikko); }
   @media (min-width: 561px) { .tilastot { margin-left: 70px; } }
@@ -138,25 +141,22 @@ const DATA = /*__DATA__*/null;
   }
   const pelattu = (o) => o.osapuolet.some((p) => p.tulos);
 
-  function nimet(avain) {
-    let lista = pelaajatJoukkueessa[avain] || [];
-    if (valinta.pelaaja) lista = lista.filter((p) => p.id === valinta.pelaaja).concat(lista.filter((p) => p.id !== valinta.pelaaja));
-    return lista.map((p) => esc(p.nimi)).join(", ");
-  }
 
   const osuus = (x) => x && x[1] ? `${x[0]}/${x[1]}` : x ? "0/0" : "–";
+  const LIPPU = `<svg class="lippu" viewBox="0 0 18 11" aria-label="Suomi" role="img"><rect width="18" height="11" fill="#fff"/><rect x="5" width="3" height="11" fill="#002f6c"/><rect y="4" width="18" height="3" fill="#002f6c"/></svg>`;
+  // Jokaisen ottelun alla suomalaisten rivit: pelatuissa tilastot, tulevissa pelkkä nimi.
   function tilastoRivit(o) {
-    if (!o.tilastot) return "";
     const rivit = [];
     for (const a of o.osapuolet) for (const p of pelaajatJoukkueessa[a.joukkue] || []) {
-      const t = o.tilastot[p.id];
-      if (!t) continue;
-      if (t.eiPelannut) { rivit.push(`<div class="tilasto"><b>${esc(p.nimi)}</b> <span class="heikko">ei pelannut</span></div>`); continue; }
+      const nimi = `<b>${LIPPU}${esc(p.nimi)}</b>`;
+      const t = o.tilastot && o.tilastot[p.id];
+      if (!t) { rivit.push(`<div class="tilasto">${nimi}${o.osapuolet.length > 1 ? ` <span class="heikko">${esc(joukkue[a.joukkue].koulu)}</span>` : ""}</div>`); continue; }
+      if (t.eiPelannut) { rivit.push(`<div class="tilasto">${nimi} <span class="heikko">ei pelannut</span></div>`); continue; }
       const osat = [`${t.p} PTS`, `${t.lp} REB`, `${t.s} AST`];
       if (t.r) osat.push(`${t.r} STL`);
       if (t.t) osat.push(`${t.t} BLK`);
       const heitot = `FG ${osuus(t.kh)} · 3P ${osuus(t.kolme)} · FT ${osuus(t.vh)}`;
-      rivit.push(`<div class="tilasto"><b>${esc(p.nimi)}</b> <span class="luvut">${osat.join(", ")}</span> <span class="heikko luvut">· ${t.min != null ? t.min + " MIN · " : ""}${heitot}</span></div>`);
+      rivit.push(`<div class="tilasto">${nimi} <span class="luvut">${osat.join(", ")}</span> <span class="heikko luvut">· ${t.min != null ? t.min + " MIN · " : ""}${heitot}</span></div>`);
     }
     return rivit.length ? `<div class="tilastot">${rivit.join("")}</div>` : "";
   }
@@ -170,14 +170,14 @@ const DATA = /*__DATA__*/null;
     let kuka, vastaan;
     if (derby) {
       const [a, b] = o.osapuolet;
-      kuka = `${nimet(a.joukkue)} <span class="koulu">· ${esc(joukkue[a.joukkue].koulu)}</span> <span class="merkki">vs.</span> ${nimet(b.joukkue)} <span class="koulu">· ${esc(joukkue[b.joukkue].koulu)}</span>`;
+      const koti = b.paikka === "koti" ? b : a, vieras = koti === a ? b : a;
+      kuka = `${esc(joukkue[koti.joukkue].koulu)} vs. ${esc(joukkue[vieras.joukkue].koulu)}`;
       vastaan = `<span class="merkki">Suomalaiset vastakkain</span>`;
     } else {
       const p = o.osapuolet[0];
-      const merkki = p.paikka === "vieras" ? "@" : p.paikka === "neutraali" ? "vs." : "vs.";
-      const paikka = p.paikka === "neutraali" ? ` <span class="paikka">(${esc((o.sijainti || "neutraali kenttä").replace(/[()]/g, "").replace(/\s+/g, " ").trim())})</span>` : p.paikka === "vieras" ? ` <span class="paikka">(vieras)</span>` : ` <span class="paikka">(koti)</span>`;
-      kuka = `${nimet(p.joukkue)} <span class="koulu">· ${esc(joukkue[p.joukkue].koulu)}</span>`;
-      vastaan = `${merkki} ${esc(p.vastustaja)}${paikka}`;
+      const oma = esc(joukkue[p.joukkue].koulu);
+      kuka = p.paikka === "vieras" ? `${oma} @ ${esc(p.vastustaja)}` : `${oma} vs. ${esc(p.vastustaja)}`;
+      vastaan = `<span class="paikka-rivi">${p.paikka === "neutraali" ? "neutraali kenttä" + (o.sijainti ? ": " + esc(o.sijainti.replace(/[()]/g, "").replace(/\s+/g, " ").trim()) : "") : p.paikka === "vieras" ? "vierasottelu" : "kotiottelu"}</span>`;
     }
     const linkit = [];
     const p0 = o.osapuolet[0];
