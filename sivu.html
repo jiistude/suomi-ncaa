@@ -40,7 +40,6 @@
   .ottelu .linkit { display: flex; gap: 8px; justify-content: flex-end; align-items: center; flex-wrap: wrap; }
   .ottelu a { color: var(--sini); text-decoration: none; font-size: .88rem; }
   .ottelu a:hover { text-decoration: underline; }
-  .ottelu a.katso { background: var(--sini-vaalea); padding: 3px 10px; border-radius: 999px; font-weight: 600; }
   .ottelu.suomiderby { border-color: var(--korostus); box-shadow: inset 4px 0 0 var(--korostus); }
   .ottelu .merkki { font-size: .75rem; color: #7a5a00; font-weight: 600; }
   .tilastot { grid-column: 1 / -1; border-top: 1px dashed var(--viiva); margin-top: 4px; padding-top: 6px; display: grid; gap: 3px; }
@@ -188,11 +187,9 @@ const DATA = /*__DATA__*/null;
       const teksti = derby ? `${tulos.oma}–${tulos.vast} ${esc(joukkue[omat.joukkue].koulu)}${tulos.voitto ? "" : "lle tappio"}` : `${tulos.voitto ? "V" : "T"} ${tulos.oma}–${tulos.vast}`;
       linkit.push(derby ? `<span class="tulos">${tulos.voitto ? esc(joukkue[omat.joukkue].koulu) : esc(joukkue[o.osapuolet.find((p) => p !== omat).joukkue].koulu)} voitti ${Math.max(tulos.oma, tulos.vast)}–${Math.min(tulos.oma, tulos.vast)}</span>` : `<span class="tulos ${vt}">${teksti}</span>`);
     }
-    const striimi = o.osapuolet.map((p) => p.striimi).find(Boolean);
-    if (striimi && !tulos) linkit.push(`<a class="katso" href="${esc(striimi)}" target="_blank" rel="noopener">Katso</a>`);
     // Derbyssä käytetään sen lähteen linkkiä, josta pöytäkirja löytyi.
     const lp = o.osapuolet.find((p) => p.linkkiTyyppi === "poytakirja") || p0;
-    const NIMI = { poytakirja: "Pöytäkirja", raportti: "Otteluraportti", live: "Live-tilastot", ohjelma: "Otteluohjelma" };
+    const NIMI = { poytakirja: "Boxscore", raportti: "Otteluraportti", live: "Live-tilastot", ohjelma: "Otteluohjelma" };
     if (lp.linkki) linkit.push(`<a href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"}</a>`);
     return `<div class="ottelu${derby ? " suomiderby" : ""}">${aika}<div><div class="kuka">${kuka}</div><div class="vastaan">${vastaan}</div></div><div class="linkit">${linkit.join("")}</div>${tilastoRivit(o)}</div>`;
   }
