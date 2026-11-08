@@ -16,7 +16,12 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://goutrgv.com/calendar.ashx/calendar.ics?sport_id=8",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "UTRGV",
+    "Texas Rio Grande Valley",
+    "UT Rio Grande Valley"
+   ]
   },
   {
    "avain": "tulsa-n",
@@ -25,7 +30,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://tulsahurricane.com/calendar.ashx/calendar.ics?sport_id=10",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Tulsa"
+   ]
   },
   {
    "avain": "wyoming-n",
@@ -34,7 +42,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://gowyo.com/calendar.ashx/calendar.ics?sport_id=11",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Wyoming"
+   ]
   },
   {
    "avain": "ucla-n",
@@ -45,7 +56,10 @@
    "syote": null,
    "sivusto": "https://uclabruins.com",
    "laji": "womens-basketball",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "UCLA"
+   ]
   },
   {
    "avain": "north-dakota-n",
@@ -54,7 +68,11 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://fightinghawks.com/calendar.ashx/calendar.ics?sport_id=12",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "North Dakota",
+    "UND"
+   ]
   },
   {
    "avain": "xavier-n",
@@ -63,7 +81,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://goxavier.com/calendar.ashx/calendar.ics?sport_id=13",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Xavier"
+   ]
   },
   {
    "avain": "ohio-state-n",
@@ -72,7 +93,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://ohiostatebuckeyes.com/calendar.ashx/calendar.ics?sport_id=21",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Ohio State"
+   ]
   },
   {
    "avain": "sacramento-state-n",
@@ -81,7 +105,11 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://hornetsports.com/calendar.ashx/calendar.ics?sport_id=11",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Sacramento State",
+    "Sac State"
+   ]
   },
   {
    "avain": "california-n",
@@ -90,7 +118,11 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://calbears.com/calendar.ashx/calendar.ics?sport_id=19",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "California",
+    "Cal"
+   ]
   },
   {
    "avain": "north-alabama-n",
@@ -99,7 +131,11 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://roarlions.com/calendar.ashx/calendar.ics?sport_id=9",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "North Alabama",
+    "UNA"
+   ]
   },
   {
    "avain": "western-kentucky-n",
@@ -108,7 +144,11 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://wkusports.com/calendar.ashx/calendar.ics?sport_id=10",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Western Kentucky",
+    "WKU"
+   ]
   },
   {
    "avain": "iona-n",
@@ -117,7 +157,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://ionagaels.com/calendar.ashx/calendar.ics?sport_id=11",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Iona"
+   ]
   },
   {
    "avain": "kent-state-n",
@@ -126,7 +169,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://kentstatesports.com/calendar.ashx/calendar.ics?sport_id=10",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Kent State"
+   ]
   },
   {
    "avain": "san-jose-state-n",
@@ -137,7 +183,12 @@
    "syote": null,
    "sivusto": "https://sjsuspartans.com",
    "laji": "womens-basketball",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "San Jose State",
+    "San José State",
+    "SJSU"
+   ]
   },
   {
    "avain": "utah-state-n",
@@ -146,7 +197,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://utahstateaggies.com/calendar.ashx/calendar.ics?sport_id=9",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Utah State"
+   ]
   },
   {
    "avain": "davidson-n",
@@ -155,7 +209,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://davidsonwildcats.com/calendar.ashx/calendar.ics?sport_id=13",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Davidson"
+   ]
   },
   {
    "avain": "ucsb-m",
@@ -164,7 +221,12 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://ucsbgauchos.com/calendar.ashx/calendar.ics?sport_id=3",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "UC Santa Barbara",
+    "UCSB",
+    "Santa Barbara"
+   ]
   },
   {
    "avain": "portland-state-m",
@@ -173,7 +235,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://goviks.com/calendar.ashx/calendar.ics?sport_id=3",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Portland State"
+   ]
   },
   {
    "avain": "stony-brook-m",
@@ -182,7 +247,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://stonybrookathletics.com/calendar.ashx/calendar.ics?sport_id=5",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Stony Brook"
+   ]
   },
   {
    "avain": "nc-state-m",
@@ -191,7 +259,12 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://gopack.com/calendar.ashx/calendar.ics?sport_id=5",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "NC State",
+    "N.C. State",
+    "North Carolina State"
+   ]
   },
   {
    "avain": "northwestern-m",
@@ -202,7 +275,10 @@
    "syote": null,
    "sivusto": "https://nusports.com",
    "laji": "mens-basketball",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Northwestern"
+   ]
   },
   {
    "avain": "utah-m",
@@ -211,7 +287,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://utahutes.com/calendar.ashx/calendar.ics?sport_id=4",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Utah"
+   ]
   },
   {
    "avain": "loyola-maryland-m",
@@ -220,7 +299,12 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://loyolagreyhounds.com/calendar.ashx/calendar.ics?sport_id=2",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Loyola Maryland",
+    "Loyola (Md.)",
+    "Loyola (MD)"
+   ]
   },
   {
    "avain": "troy-m",
@@ -229,7 +313,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://troytrojans.com/calendar.ashx/calendar.ics?sport_id=6",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Troy"
+   ]
   },
   {
    "avain": "uc-san-diego-m",
@@ -238,7 +325,11 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://ucsdtritons.com/calendar.ashx/calendar.ics?sport_id=5",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "UC San Diego",
+    "UCSD"
+   ]
   },
   {
    "avain": "butler-m",
@@ -247,7 +338,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://butlersports.com/calendar.ashx/calendar.ics?sport_id=5",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Butler"
+   ]
   },
   {
    "avain": "citadel-m",
@@ -256,7 +350,11 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://citadelsports.com/calendar.ashx/calendar.ics?sport_id=4",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "The Citadel",
+    "Citadel"
+   ]
   },
   {
    "avain": "davidson-m",
@@ -265,7 +363,10 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://davidsonwildcats.com/calendar.ashx/calendar.ics?sport_id=4",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Davidson"
+   ]
   },
   {
    "avain": "pepperdine-m",
@@ -274,17 +375,25 @@
    "tyyppi": "sidearm-ics",
    "alusta": "SIDEARM",
    "syote": "https://pepperdinewaves.com/calendar.ashx/calendar.ics?sport_id=4",
-   "syote_tulokset": true
+   "syote_tulokset": true,
+   "nimet": [
+    "Pepperdine"
+   ]
   },
   {
    "avain": "arkansas-m",
    "koulu": "Arkansas",
    "sarja": "M",
-   "tyyppi": "wmt-ics+sivu",
+   "tyyppi": "wmt-sivu",
    "alusta": "WMT (WordPress)",
-   "syote": "https://api.calendar.wmt.digital/api/calendar/calendar.ics?username=arkansasrazorbacks&category%5B%5D=19",
-   "tulossivu": "https://arkansasrazorbacks.com/sport/m-baskbl/schedule/",
-   "syote_tulokset": false
+   "syote_tulokset": true,
+   "nimet": [
+    "Arkansas"
+   ],
+   "sivu": "https://arkansasrazorbacks.com/sport/m-baskbl/schedule/",
+   "syote_varalla": "https://api.calendar.wmt.digital/api/calendar/calendar.ics?username=arkansasrazorbacks&category%5B%5D=19",
+   "aikavyohyke": "America/Chicago",
+   "syote": null
   }
  ],
  "pelaajat": [
@@ -785,5 +894,6 @@
    "huom": "Susijengi. Tuli KK Partizanista"
   }
  ],
- "syote_huom": "sidearm-ics: koulun ICS-syöte, pelatun ottelun tulos DESCRIPTION-kentässä (esim. \"W 76-61\"). wmt-api: koulun sivuston JSON-rajapinta website-api/schedule-events; schedule_id haetaan joka kerta osoitteesta website-api/sports?filter[slug]=<laji>, koska se vaihtuu kausittain. Tulos kentässä schedule_event_result. wmt-ics+sivu (Arkansas): WMT-kalenterisyöte sisältää vain tulevat ottelut ilman tuloksia; tulokset luetaan koulun julkiselta otteluohjelmasivulta."
+ "syote_huom": "sidearm-ics: koulun ICS-syöte, pelatun ottelun tulos DESCRIPTION-kentässä (esim. \"W 76-61\"). wmt-api: koulun sivuston JSON-rajapinta website-api/schedule-events; schedule_id haetaan joka kerta lajin nimellä, koska se vaihtuu kausittain. wmt-sivu (Arkansas): koulun julkinen otteluohjelmasivu, josta luetaan sekä ottelut että tulokset. syote_varalla = WMT-kalenterisyöte (vain tulevat ottelut).",
+ "kauden_alku": "2026-11-01"
 }

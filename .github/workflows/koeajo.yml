@@ -1,8 +1,8 @@
 name: Koeajo – kalenterisyötteet
 
-# Ajetaan pull requestissa ja käsin. Ei ajastettu, ei tallenna mitään.
+# Vianetsintään: ajetaan vain käsin (Actions → Koeajo → Run workflow).
+# Kertoo jokaisen lähteen tilan. Ei tallenna mitään.
 on:
-  pull_request:
   workflow_dispatch:
 
 permissions:

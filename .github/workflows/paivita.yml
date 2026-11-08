@@ -1,0 +1,61 @@
+name: Päivitä ottelut
+
+# main-haarassa: hakee ottelut ja julkaisee sivun (docs/) kolmesti päivässä
+# sekä jokaisen muutoksen jälkeen.
+# Pull requestissa: ajaa saman haun mutta ei julkaise, vaan tallentaa tuloksen
+# ajon liitteeksi (Artifacts: esikatselu) tarkistamista varten.
+on:
+  schedule:
+    # UTC. Talviaikana Suomessa 06.40, 12.40 ja 19.40. Aamun ajo hakee yön tulokset.
+    - cron: "40 4,10,17 * * *"
+  push:
+    branches: [main]
+    paths-ignore: ["docs/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: paivita-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  paivita:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Hae ottelut ja rakenna sivu
+        run: node hae.js
+        env:
+          RAAKA_TALLENNA: ${{ github.event_name == 'pull_request' && 'raaka' || '' }}
+
+      - name: Tallenna esikatselu (vain pull request)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: esikatselu
+          path: |
+            docs/
+            raaka/
+          retention-days: 7
+
+      - name: Julkaise (vain main)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          if git diff --cached --quiet; then
+            echo "Ei muutoksia."
+          else
+            git commit -m "Päivitetyt ottelutiedot"
+            git pull --rebase origin main
+            git push
+          fi
