@@ -129,10 +129,15 @@ function icsAika(kentta, oletusVyohyke) {
 //   { alku: Date, tba, vastustaja, paikka: "koti"|"vieras"|"neutraali", sijainti,
 //     tulos: {voitto, oma, vast} | null, striimi, linkki, harjoitus }
 
+const slugiksi = (s) => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  .replace(/&/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
 async function sidearmIcs(j) {
   const teksti = await hae(j.syote, "text/calendar, */*");
   if (!teksti.includes("BEGIN:VCALENDAR")) throw new Error("vastaus ei ole kalenteri");
-  return jasennaIcs(teksti).map((t) => {
+  const juuri = new URL(j.syote).origin;
+  const ohjelma = `${juuri}/sports/${j.laji}/schedule`;
+  const ottelut = jasennaIcs(teksti).map((t) => {
     const otsikko = icsTeksti(t.SUMMARY && t.SUMMARY.arvo).replace(/^\[[A-Z]\]\s*/, "");
     const kuvaus = icsTeksti(t.DESCRIPTION && t.DESCRIPTION.arvo);
     const aika = icsAika(t.DTSTART, "America/New_York");
@@ -141,7 +146,6 @@ async function sidearmIcs(j) {
     const m = loppu.match(/^(vs\.?|at)\s+(.+)$/i);
     const tm = kuvaus.match(/(?:^|\n)\s*([WLT])\s+(\d{1,3})\s*-\s*(\d{1,3})/);
     const striimi = (kuvaus.match(/Streaming Video:\s*(\S+)/i) || [])[1] || null;
-    const linkki = t.URL ? t.URL.arvo.replace("&amp;", "&").replace("//admin.", "//") : null;
     return {
       alku: aika && aika.alku, tba: aika ? aika.tba : true,
       // Osa kouluista lisää nimen perään kampanjatekstin: "Incarnate Word - Season Opener | …"
@@ -149,10 +153,36 @@ async function sidearmIcs(j) {
       paikka: m && /^at$/i.test(m[1]) ? "vieras" : "koti",
       sijainti: siisti(icsTeksti(t.LOCATION && t.LOCATION.arvo)),
       tulos: tm ? tulos(tm[1], tm[2], tm[3]) : null,
-      striimi, linkki,
+      striimi, linkki: ohjelma, linkkiTyyppi: "ohjelma",
       harjoitus: onHarjoitus(otsikko),
     };
   });
+
+  // Kalenterin linkki vie koulun yleiskalenteriin, ei ottelusivulle. Pelattujen
+  // otteluiden box score -linkit luetaan joukkueen otteluohjelmasivulta, jossa ne
+  // ovat muodossa /sports/<laji>/stats/<kausi>/<vastustaja>/boxscore/<id>.
+  // Tunnus ei aina ole sama kuin kalenterin, joten ottelut yhdistetään vastustajan
+  // nimen perusteella aikajärjestyksessä (sama vastustaja kahdesti = järjestys ratkaisee).
+  const pelatut = ottelut.filter((o) => o.tulos && o.alku).sort((a, b) => a.alku - b.alku);
+  if (pelatut.length) {
+    try {
+      await tauko(300);
+      const html = await hae(ohjelma, "text/html");
+      const linkit = [...new Set(html.match(/\/sports\/[a-z-]+\/stats\/[0-9-]+\/[a-z0-9-]*\/boxscore\/\d+/g) || [])]
+        .map((polku) => ({ url: juuri + polku, slug: polku.split("/")[5] }));
+      const vapaat = new Set(linkit);
+      for (const o of pelatut) {
+        const v = slugiksi(o.vastustaja);
+        if (!v) continue;
+        const osuma = linkit.find((l) => vapaat.has(l) && l.slug === v) ||
+          linkit.find((l) => vapaat.has(l) && l.slug && (l.slug.startsWith(v) || v.startsWith(l.slug)));
+        if (osuma) { o.linkki = osuma.url; o.linkkiTyyppi = "poytakirja"; vapaat.delete(osuma); }
+      }
+    } catch (e) {
+      console.error(`       ${j.avain}: box score -linkkejä ei saatu (${e.message}), käytetään otteluohjelmaa`);
+    }
+  }
+  return ottelut;
 }
 
 async function wmtApi(j) {
@@ -172,7 +202,8 @@ async function wmtApi(j) {
       sijainti: siisti(e.location),
       tulos: r && r.result ? tulos(r.result, r.winning_score, r.losing_score) : null,
       striimi: null,
-      linkki: e.box_score_url || `${j.sivusto}/sports/${j.laji}/schedule`,
+      linkki: r && r.result && e.box_score_url ? e.box_score_url : `${j.sivusto}/sports/${j.laji}/schedule`,
+      linkkiTyyppi: r && r.result && e.box_score_url ? "poytakirja" : "ohjelma",
       harjoitus: Boolean(e.is_exhibition) || onHarjoitus(e.opponent_name),
     };
   });
@@ -204,13 +235,19 @@ async function wmtSivu(j) {
     let h = 12, min = 0, tba = true;
     if (mk) { h = (+mk[1] % 12) + (/p/i.test(mk[3]) ? 12 : 0); min = +mk[2]; tba = false; }
     const mt = tul.match(/([WL]),?\s*(\d{1,3})\s*-\s*(\d{1,3})/);
+    const ankkurit = [...l.matchAll(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map((a) => ({ url: a[1].replace(/&amp;/g, "&"), teksti: siisti(a[2].replace(/<[^>]+>/g, " ")) }));
+    const etsi = (re) => (ankkurit.find((a) => re.test(a.teksti)) || {}).url || null;
+    const poytakirja = etsi(/final stats|box score/i), raportti = etsi(/^recap/i), live = etsi(/live stats/i);
+    const striimi = (ankkurit.find((a) => /espn\.com\/watch|secnetwork|flosports|youtube\.com/i.test(a.url)) || {}).url || null;
     ottelut.push({
       alku: paikallinenUtc(vuosi, kk, +mp[2], h, min, j.aikavyohyke || "America/Chicago"), tba,
       vastustaja: vastustajanNimi(vast),
       paikka: tyyppi.includes("neutral") ? "neutraali" : tyyppi.includes("away") ? "vieras" : "koti",
       sijainti: paikka,
       tulos: mt ? tulos(mt[1], mt[2], mt[3]) : null,
-      striimi: null, linkki: j.sivu,
+      striimi,
+      linkki: mt ? poytakirja || raportti || j.sivu : live || j.sivu,
+      linkkiTyyppi: mt ? (poytakirja ? "poytakirja" : raportti ? "raportti" : "ohjelma") : live ? "live" : "ohjelma",
       harjoitus: onHarjoitus(vast),
     });
   }
@@ -295,7 +332,7 @@ function vastustajaOnJoukkue(vastustaja, joukkue) {
       joukkueet: ryhma.map((o) => o.joukkue),
       osapuolet: ryhma.map((o) => ({
         joukkue: o.joukkue, vastustaja: o.vastustaja, paikka: o.paikka, tulos: o.tulos,
-        striimi: o.striimi, linkki: o.linkki,
+        striimi: o.striimi, linkki: o.linkki, linkkiTyyppi: o.linkkiTyyppi || "ohjelma",
       })),
     });
   }
