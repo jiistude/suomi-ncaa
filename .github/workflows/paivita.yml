@@ -36,6 +36,10 @@ jobs:
         env:
           RAAKA_TALLENNA: ${{ github.event_name == 'pull_request' && 'raaka' || '' }}
 
+      - name: Tarkistus (vain pull request)
+        if: github.event_name == 'pull_request'
+        run: node tyokalut/tarkistus.js
+
       - name: Tallenna esikatselu (vain pull request)
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
