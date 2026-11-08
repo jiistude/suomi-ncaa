@@ -144,7 +144,8 @@ async function sidearmIcs(j) {
     const linkki = t.URL ? t.URL.arvo.replace("&amp;", "&").replace("//admin.", "//") : null;
     return {
       alku: aika && aika.alku, tba: aika ? aika.tba : true,
-      vastustaja: vastustajanNimi(m ? m[2] : loppu),
+      // Osa kouluista lisää nimen perään kampanjatekstin: "Incarnate Word - Season Opener | …"
+      vastustaja: vastustajanNimi((m ? m[2] : loppu).split(/\s+[-–|]\s+|\s+\|/)[0]),
       paikka: m && /^at$/i.test(m[1]) ? "vieras" : "koti",
       sijainti: siisti(icsTeksti(t.LOCATION && t.LOCATION.arvo)),
       tulos: tm ? tulos(tm[1], tm[2], tm[3]) : null,

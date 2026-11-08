@@ -31,3 +31,9 @@ for (const o of d.ottelut.filter((x) => !x.osapuolet.some((p) => p.tulos) && new
 
 console.log("\n=== SUOMALAISET VASTAKKAIN ===");
 for (const o of d.ottelut.filter((x) => x.osapuolet.length > 1)) console.log(`${aika(o.alku)} | ${o.joukkueet.join(" vs ")}`);
+
+// Pakattu data lokiin, jotta sivun voi esikatsella muualla.
+const zlib = require("zlib");
+console.log("\n=== DATA-BASE64-ALKU ===");
+console.log(zlib.gzipSync(fs.readFileSync(path.join(__dirname, "..", "docs", "ottelut.json"))).toString("base64"));
+console.log("=== DATA-BASE64-LOPPU ===");
