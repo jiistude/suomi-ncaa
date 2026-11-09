@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tilastot – Suomalaiset NCAA:ssa 2026–27</title>
+<meta name="theme-color" content="#1A1A1A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Suomi NCAA">
+<link rel="icon" href="../ikoni.svg" type="image/svg+xml">
+<link rel="icon" href="../ikoni-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="description" content="Suomalaisten koripalloilijoiden kausitilastot NCAA Division I:ssä.">
+<style>
+  :root {
+    --punainen: #E3343A; --musta: #1A1A1A; --hopea: #C4C8CD; --hopea-vaalea: #E9EBEE; --tausta: #F1F2F4;
+    --pinta: #FFFFFF; --heikko: #6B7078; --viiva: #DCDFE3;
+    --kapea: "Arial Narrow", "Roboto Condensed", "Helvetica Neue Condensed", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--tausta); color: var(--musta);
+    font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .sisalto { max-width: 1240px; margin: 0 auto; padding: 0 14px; }
+  button { font: inherit; color: inherit; }
+
+  header { background: var(--musta); color: #fff; }
+  header .sisalto { padding-top: 18px; padding-bottom: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .otsake { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .otsake:active { opacity: .7; }
+  .logo { width: 40px; height: 40px; flex: none; }
+  header h1 { margin: 0; font: 800 1.45rem/1.1 var(--kapea); text-transform: uppercase; letter-spacing: .01em; }
+  header h1 span { color: var(--punainen); }
+  header p { margin: 4px 0 0; color: var(--hopea); font-size: .82rem; }
+  .valilehdet { display: flex; gap: 22px; }
+  header .sisalto.valilehdet { padding-top: 0; padding-bottom: 0; display: flex; align-items: stretch; justify-content: flex-start; flex-direction: row; }
+  .valilehdet a { color: var(--hopea); text-decoration: none; font-weight: 700; font-size: .9rem; text-transform: uppercase; letter-spacing: .04em; padding: 8px 0 9px; border-bottom: 3px solid transparent; }
+  .valilehdet a[aria-current="page"] { color: #fff; border-bottom-color: var(--punainen); }
+  .suodattimet { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .nappi { border: 1px solid #44474d; background: transparent; color: #fff; padding: 5px 11px; border-radius: 999px; font-size: .82rem; cursor: pointer; }
+  .nappi[aria-pressed="true"] { background: #fff; color: var(--musta); border-color: #fff; }
+
+  .paneeli { background: var(--pinta); border-bottom: 1px solid var(--viiva); }
+  .paneeli .sisalto { padding-top: 14px; padding-bottom: 14px; }
+  .paneeli[hidden] { display: none; }
+  .valinnat { display: flex; flex-wrap: wrap; gap: 6px; }
+  .valinta { border: 1px solid var(--viiva); background: var(--pinta); border-radius: 999px; padding: 5px 11px; font-size: .85rem; cursor: pointer; }
+  .valinta[aria-pressed="true"] { background: var(--musta); color: #fff; border-color: var(--musta); }
+  .paneeli-alla { display: flex; gap: 8px; margin-top: 12px; }
+  .paneeli-alla button { border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer; font-size: .86rem; }
+  .paneeli-alla .valmis { background: var(--musta); color: #fff; }
+  .paneeli-alla .tyhjenna { background: var(--hopea-vaalea); }
+
+  .ohjaimet { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin: 18px 0 10px; }
+  .ohjaimet h2 { margin: 0; font: 800 1.25rem/1.1 var(--kapea); text-transform: uppercase; }
+  .tila { display: flex; background: var(--hopea-vaalea); border-radius: 999px; padding: 3px; }
+  .tila button { border: 0; background: none; border-radius: 999px; padding: 5px 12px; font-size: .85rem; cursor: pointer; color: var(--heikko); }
+  .tila button[aria-pressed="true"] { background: var(--pinta); color: var(--musta); font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
+  .info { color: var(--heikko); font-size: .8rem; margin: -4px 0 10px; }
+  .valitut { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+  .valitut button { border: 0; background: var(--musta); color: #fff; border-radius: 999px; padding: 4px 10px; font-size: .8rem; cursor: pointer; }
+
+  .kehys { overflow-x: auto; background: var(--pinta); border-radius: 16px; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: .88rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 9px 9px; border-bottom: 1px solid var(--hopea-vaalea); text-align: right; white-space: nowrap; }
+  th { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--heikko); font-weight: 700; background: #FAFAFB; position: sticky; top: 0; }
+  th.ryhma-alku, td.ryhma-alku { border-left: 1px solid var(--hopea-vaalea); }
+  tr:last-child td { border-bottom: 0; }
+  th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; background: var(--pinta); box-shadow: 1px 0 0 var(--hopea-vaalea); }
+  th:first-child { background: #FAFAFB; z-index: 2; }
+  td:first-child { min-width: 150px; }
+  td:first-child strong { display: block; }
+  td:first-child .pieni { color: var(--heikko); font-size: .76rem; }
+  th button { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; cursor: pointer; }
+  th button:hover, th.aktiivinen button { color: var(--musta); }
+  th .nuoli { color: var(--punainen); }
+  td.aktiivinen { background: #FBF3F3; font-weight: 700; }
+  tr.ei-peleja td { color: var(--heikko); }
+  .tyhja { padding: 22px; text-align: center; color: var(--heikko); }
+
+  .selitteet { margin-top: 22px; color: var(--heikko); font-size: .8rem; columns: 2 220px; }
+  .selitteet span { display: block; break-inside: avoid; }
+  .selitteet b { color: var(--musta); display: inline-block; min-width: 44px; }
+  footer { margin: 26px 0 40px; color: var(--heikko); font-size: .8rem; }
+  footer p { margin: 4px 0; }
+  @media (max-width: 560px) {
+    header .sisalto { flex-direction: column; align-items: flex-start; }
+    .suodattimet { justify-content: flex-start; }
+    table { font-size: .82rem; }
+    th, td { padding: 8px 7px; }
+    td:first-child { min-width: 128px; max-width: 150px; white-space: normal; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="sisalto">
+    <a class="otsake" id="koti" href="../" title="Ottelut"><svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="170" fill="#E3343A"/><g fill="none" stroke="#1A1A1A" stroke-width="18"><path d="M86 256 H426 M256 86 V426"/><path d="M136 124 A200 200 0 0 1 136 388"/><path d="M376 124 A200 200 0 0 0 376 388"/></g><circle cx="256" cy="256" r="170" fill="none" stroke="#C4C8CD" stroke-width="10"/></svg><div>
+      <h1>Suomalaiset <span>NCAA</span>:ssa</h1>
+      <p>Division I 2026–27 · kausitilastot</p>
+    </div></a>
+    <div class="suodattimet" role="group" aria-label="Suodata">
+      <button class="nappi" data-sarja="kaikki">Kaikki</button>
+      <button class="nappi" data-sarja="M">Miehet</button>
+      <button class="nappi" data-sarja="N">Naiset</button>
+      <button class="nappi" id="pelaajanappi" aria-expanded="false" aria-controls="paneeli">Pelaajat ▾</button>
+    </div>
+  </div>
+  <nav class="sisalto valilehdet" aria-label="Sivut"><a href="../">Ottelut</a><a href="./" aria-current="page">Tilastot</a></nav>
+</header>
+<div class="paneeli" id="paneeli" hidden>
+  <div class="sisalto">
+    <div class="valinnat" id="valinnat"></div>
+    <div class="paneeli-alla"><button class="valmis" id="valmis">Valmis</button><button class="tyhjenna" id="tyhjenna">Tyhjennä valinta</button></div>
+  </div>
+</div>
+<main class="sisalto">
+  <div class="ohjaimet">
+    <h2>Kausitilastot</h2>
+    <div class="tila" role="group" aria-label="Näytä"><button data-tila="ka">Keskiarvot</button><button data-tila="yht">Yhteensä</button></div>
+  </div>
+  <div class="valitut" id="valitut"></div>
+  <p class="info" id="info"></p>
+  <div class="kehys"><table id="taulukko"></table></div>
+
+  <div class="selitteet">
+    <span><b>GP</b> pelatut ottelut</span><span><b>MIN</b> peliminuutit</span><span><b>PTS</b> pisteet</span>
+    <span><b>REB</b> levypallot</span><span><b>OREB</b> hyökkäyslevypallot</span><span><b>DREB</b> puolustuslevypallot</span>
+    <span><b>AST</b> syötöt</span><span><b>STL</b> riistot</span><span><b>BLK</b> torjunnat</span>
+    <span><b>TO</b> menetykset</span><span><b>PF</b> henkilökohtaiset virheet</span><span><b>FG</b> kenttäheitot (M = sisään, A = yritykset)</span>
+    <span><b>3P</b> kolmen pisteen heitot</span><span><b>FT</b> vapaaheitot</span><span><b>%</b> onnistumisprosentti</span>
+  </div>
+
+  <footer>
+    <p>Tilastot koulujen pöytäkirjoista (boxscore). Mukana vain ottelut, joissa pelaaja on pelannut. Harjoitusottelut eivät ole mukana.</p>
+    <p>Kävijämäärät lasketaan GoatCounterilla ilman evästeitä ja henkilötietoja.</p>
+    <p id="paivitetty"></p>
+  </footer>
+</main>
+<script>
+const DATA = /*__DATA__*/null;
+(function () {
+  const VY = "Europe/Helsinki";
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const joukkue = Object.fromEntries(DATA.joukkueet.map((j) => [j.avain, j]));
+  const sukunimi = (p) => p.nimi.trim().split(/\s+/).pop();
+  const sukunimittain = (a, b) => sukunimi(a).localeCompare(sukunimi(b), "fi") || a.nimi.localeCompare(b.nimi, "fi");
+
+  // Kausisummat pelaajittain. Puuttuva kenttä (lähde ei kerro) lasketaan vain niistä otteluista, joista se löytyy.
+  const KENTAT = ["min", "p", "lp", "hl", "pl", "s", "r", "t", "m", "vi"];
+  const summat = {};
+  for (const p of DATA.pelaajat) summat[p.id] = { gp: 0, dnp: 0, n: {}, s: {}, kh: [0, 0], kolme: [0, 0], vh: [0, 0] };
+  for (const r of DATA.pelirivit) {
+    const x = summat[r.pelaaja]; if (!x) continue;
+    if (r.t.eiPelannut) { x.dnp++; continue; }
+    x.gp++;
+    for (const k of KENTAT) if (r.t[k] != null) { x.s[k] = (x.s[k] || 0) + r.t[k]; x.n[k] = (x.n[k] || 0) + 1; }
+    for (const k of ["kh", "kolme", "vh"]) if (r.t[k]) { x[k][0] += r.t[k][0] || 0; x[k][1] += r.t[k][1] || 0; }
+  }
+
+  // Sarakkeet: avain, otsikko, arvo(summa, tila) -> luku tai null, muoto ("d" = desimaali, "i" = kokonaisluku, "%")
+  const per = (x, k, tila) => x.n[k] ? (tila === "ka" ? x.s[k] / x.n[k] : x.s[k]) : null;
+  const heitto = (x, k, i, tila) => x.gp ? (tila === "ka" ? x[k][i] / x.gp : x[k][i]) : null;
+  const pros = (x, k) => x[k][1] ? (100 * x[k][0]) / x[k][1] : null;
+  const SARAKKEET = [
+    { a: "gp", o: "GP", f: (x) => x.gp, m: "i", alku: true },
+    { a: "min", o: "MIN", f: (x, t) => per(x, "min", t) },
+    { a: "p", o: "PTS", f: (x, t) => per(x, "p", t), alku: true },
+    { a: "lp", o: "REB", f: (x, t) => per(x, "lp", t) },
+    { a: "hl", o: "OREB", f: (x, t) => per(x, "hl", t) },
+    { a: "pl", o: "DREB", f: (x, t) => per(x, "pl", t) },
+    { a: "s", o: "AST", f: (x, t) => per(x, "s", t) },
+    { a: "r", o: "STL", f: (x, t) => per(x, "r", t) },
+    { a: "t", o: "BLK", f: (x, t) => per(x, "t", t) },
+    { a: "m", o: "TO", f: (x, t) => per(x, "m", t) },
+    { a: "vi", o: "PF", f: (x, t) => per(x, "vi", t) },
+    { a: "fgm", o: "FGM", f: (x, t) => heitto(x, "kh", 0, t), alku: true },
+    { a: "fga", o: "FGA", f: (x, t) => heitto(x, "kh", 1, t) },
+    { a: "fgp", o: "FG%", f: (x) => pros(x, "kh"), m: "%" },
+    { a: "3pm", o: "3PM", f: (x, t) => heitto(x, "kolme", 0, t), alku: true },
+    { a: "3pa", o: "3PA", f: (x, t) => heitto(x, "kolme", 1, t) },
+    { a: "3pp", o: "3P%", f: (x) => pros(x, "kolme"), m: "%" },
+    { a: "ftm", o: "FTM", f: (x, t) => heitto(x, "vh", 0, t), alku: true },
+    { a: "fta", o: "FTA", f: (x, t) => heitto(x, "vh", 1, t) },
+    { a: "ftp", o: "FT%", f: (x) => pros(x, "vh"), m: "%" },
+  ];
+  const muotoile = (v, sar, tila) => {
+    if (v == null) return "–";
+    if (sar.m === "%") return v.toFixed(1).replace(".", ",");
+    if (sar.m === "i" || tila === "yht") return String(Math.round(v));
+    return v.toFixed(1).replace(".", ",");
+  };
+
+  // Tila: sarja, valitut pelaajat, keskiarvot/yhteensä, järjestys. Pelaajavalinta tallentuu osoitteeseen (#p=id,id), jotta näkymän voi jakaa.
+  let sarja = "kaikki", tila = "ka", jarj = { a: "p", suunta: -1 };
+  let valitut = new Set();
+  const hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get("p")) for (const id of hash.get("p").split(",")) if (DATA.pelaajat.some((p) => p.id === id)) valitut.add(id);
+  if (hash.get("s") === "M" || hash.get("s") === "N") sarja = hash.get("s");
+  const paivitaHash = () => {
+    const h = new URLSearchParams();
+    if (sarja !== "kaikki") h.set("s", sarja);
+    if (valitut.size) h.set("p", [...valitut].join(","));
+    try { history.replaceState(null, "", h.toString() ? "#" + h.toString() : location.pathname); } catch (e) {}
+  };
+
+  function piirraTaulukko() {
+    const lista = DATA.pelaajat.filter((p) => (sarja === "kaikki" || p.sarja === sarja) && (!valitut.size || valitut.has(p.id)));
+    const sar = jarj.a === "nimi" ? null : SARAKKEET.find((s) => s.a === jarj.a);
+    lista.sort((a, b) => {
+      const x = summat[a.id], y = summat[b.id];
+      if (!x.gp !== !y.gp) return x.gp ? -1 : 1; // pelaamattomat aina loppuun
+      if (!sar) return jarj.suunta * sukunimittain(a, b);
+      const u = sar.f(x, tila), v = sar.f(y, tila);
+      if (u == null || v == null) return u == null && v == null ? sukunimittain(a, b) : u == null ? 1 : -1;
+      return (u - v) * jarj.suunta || sukunimittain(a, b);
+    });
+    const otsake = (a, teksti, title) => {
+      const akt = jarj.a === a;
+      return `<th class="${akt ? "aktiivinen" : ""}${(SARAKKEET.find((s) => s.a === a) || {}).alku ? " ryhma-alku" : ""}" aria-sort="${akt ? (jarj.suunta > 0 ? "ascending" : "descending") : "none"}"><button data-j="${a}"${title ? ` title="${title}"` : ""}>${teksti}${akt ? `<span class="nuoli">${jarj.suunta > 0 ? " ▲" : " ▼"}</span>` : ""}</button></th>`;
+    };
+    let html = `<thead><tr>${otsake("nimi", "Pelaaja")}${SARAKKEET.map((s) => otsake(s.a, s.o)).join("")}</tr></thead><tbody>`;
+    for (const p of lista) {
+      const x = summat[p.id], j = joukkue[p.joukkue];
+      html += `<tr class="${x.gp ? "" : "ei-peleja"}"><td><strong>${esc(p.nimi)}</strong><span class="pieni">${esc(j.koulu)} · ${p.sarja === "M" ? "M" : "N"}${x.dnp ? ` · ${x.dnp} ei pel.` : ""}</span></td>`;
+      for (const s of SARAKKEET) html += `<td class="${jarj.a === s.a ? "aktiivinen" : ""}${s.alku ? " ryhma-alku" : ""}">${x.gp ? muotoile(s.f(x, tila), s, tila) : "–"}</td>`;
+      html += `</tr>`;
+    }
+    html += `</tbody>`;
+    const t = document.getElementById("taulukko");
+    t.innerHTML = lista.length ? html : `<tbody><tr><td class="tyhja">Ei pelaajia valinnoilla.</td></tr></tbody>`;
+    for (const b of t.querySelectorAll("button[data-j]")) b.onclick = () => {
+      const a = b.dataset.j;
+      jarj = jarj.a === a ? { a, suunta: -jarj.suunta } : { a, suunta: a === "nimi" ? 1 : -1 };
+      piirraTaulukko();
+    };
+    const pelanneet = lista.filter((p) => summat[p.id].gp).length;
+    document.getElementById("info").textContent = `${lista.length} pelaajaa, joista ${pelanneet} on pelannut · ${tila === "ka" ? "keskiarvot ottelua kohden; prosentit koko kauden heitoista" : "kauden yhteismäärät"} · napauta sarakeotsikkoa järjestääksesi`;
+  }
+
+  function piirraValinnat() {
+    for (const b of document.querySelectorAll("[data-sarja]")) b.setAttribute("aria-pressed", String(b.dataset.sarja === sarja));
+    for (const b of document.querySelectorAll("[data-tila]")) b.setAttribute("aria-pressed", String(b.dataset.tila === tila));
+    const nappi = document.getElementById("pelaajanappi");
+    nappi.textContent = valitut.size ? `Pelaajat (${valitut.size}) ▾` : "Pelaajat ▾";
+    nappi.setAttribute("aria-pressed", String(valitut.size > 0));
+    const vaihtoehdot = DATA.pelaajat.filter((p) => sarja === "kaikki" || p.sarja === sarja || valitut.has(p.id)).slice().sort(sukunimittain);
+    const v = document.getElementById("valinnat");
+    v.innerHTML = vaihtoehdot.map((p) => `<button class="valinta" data-id="${esc(p.id)}" aria-pressed="${valitut.has(p.id)}">${esc(p.nimi)}</button>`).join("");
+    for (const b of v.querySelectorAll(".valinta")) b.onclick = () => { valitut.has(b.dataset.id) ? valitut.delete(b.dataset.id) : valitut.add(b.dataset.id); paivita(); };
+    const vt = document.getElementById("valitut");
+    vt.innerHTML = [...valitut].map((id) => DATA.pelaajat.find((p) => p.id === id)).sort(sukunimittain)
+      .map((p) => `<button data-id="${esc(p.id)}" aria-label="Poista ${esc(p.nimi)}">${esc(p.nimi)} ×</button>`).join("");
+    for (const b of vt.querySelectorAll("button")) b.onclick = () => { valitut.delete(b.dataset.id); paivita(); };
+  }
+
+  function paivita() { paivitaHash(); piirraValinnat(); piirraTaulukko(); }
+
+  const paneeli = document.getElementById("paneeli");
+  const avaa = (auki) => { paneeli.hidden = !auki; document.getElementById("pelaajanappi").setAttribute("aria-expanded", String(auki)); };
+  document.getElementById("pelaajanappi").onclick = () => avaa(paneeli.hidden);
+  document.getElementById("valmis").onclick = () => avaa(false);
+  document.getElementById("tyhjenna").onclick = () => { valitut.clear(); paivita(); };
+  for (const b of document.querySelectorAll("[data-sarja]")) b.onclick = () => { sarja = b.dataset.sarja; paivita(); };
+  for (const b of document.querySelectorAll("[data-tila]")) b.onclick = () => { tila = b.dataset.tila; paivita(); };
+
+  document.getElementById("paivitetty").textContent = "Päivitetty " + new Intl.DateTimeFormat("fi-FI", { timeZone: VY, day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(DATA.paivitetty)) + ".";
+  paivita();
+})();
+</script>
+<script>
+  if (location.hostname === "ncaa.stude.fi") {
+    const gc = document.createElement("script");
+    gc.async = true;
+    gc.src = "https://gc.zgo.at/count.js";
+    gc.dataset.goatcounter = "https://ncaa.goatcounter.com/count";
+    document.head.appendChild(gc);
+  }
+</script>
+</body>
+</html>
