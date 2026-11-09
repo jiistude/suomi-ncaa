@@ -390,6 +390,23 @@ function vastustajaOnJoukkue(vastustaja, joukkue) {
   const json = JSON.stringify(ulos).replace(/</g, "\\u003c");
   fs.writeFileSync(path.join(DOCS, "index.html"), pohja.replace("/*__DATA__*/null", json));
 
+  // Tilastosivu (docs/tilastot/index.html): vain pelatut ottelut ja suomalaisten tilastorivit.
+  const pelirivit = [];
+  for (const o of ottelut) {
+    if (!o.tilastot) continue;
+    for (const [pid, t] of Object.entries(o.tilastot)) {
+      const pel = pelaajat.find((p) => p.id === pid);
+      const os_ = pel && o.osapuolet.find((x) => x.joukkue === pel.joukkue);
+      if (!os_) continue;
+      const lp = o.osapuolet.find((x) => x.linkkiTyyppi === "poytakirja") || os_;
+      pelirivit.push({ pelaaja: pid, alku: o.alku, vastustaja: os_.vastustaja, paikka: os_.paikka, tulos: os_.tulos, linkki: lp.linkki || null, t });
+    }
+  }
+  const tilastoData = { paivitetty: ulos.paivitetty, kausi: ulos.kausi, joukkueet: ulos.joukkueet, pelaajat: ulos.pelaajat, pelirivit };
+  fs.mkdirSync(path.join(DOCS, "tilastot"), { recursive: true });
+  fs.writeFileSync(path.join(DOCS, "tilastot", "index.html"),
+    fs.readFileSync(path.join(JUURI, "tilastot.html"), "utf8").replace("/*__DATA__*/null", () => JSON.stringify(tilastoData).replace(/</g, "\\u003c")));
+
   const pelattu = ottelut.filter((o) => o.osapuolet.some((p) => p.tulos)).length;
   console.log(`\n${ottelut.length} ottelua (${pelattu} pelattu), ${virheet.length} virhettä.`);
   if (process.env.GITHUB_STEP_SUMMARY) {

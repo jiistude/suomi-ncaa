@@ -39,10 +39,19 @@ for (const o of d.ottelut.filter((x) => x.osapuolet.some((p) => p.tulos))) {
     const s = t[p.id];
     if (!s) { puuttuu.push(`${o.alku.slice(0, 10)} ${p.nimi}`); continue; }
     rivit++;
-    console.log(`${o.alku.slice(0, 10)} ${nimi[p.id].padEnd(20)} ${s.eiPelannut ? "ei pelannut" : `${s.min} min, ${s.p} p, ${s.lp} lp, ${s.s} s, ${s.r} r, ${s.t} t, ${s.m} m, kh ${s.kh}, 3p ${s.kolme}, vh ${s.vh}`}`);
+    console.log(`${o.alku.slice(0, 10)} ${nimi[p.id].padEnd(20)} ${s.eiPelannut ? "ei pelannut" : `${s.min} min, ${s.p} p, ${s.lp} lp, ${s.s} s, ${s.r} r, ${s.t} t, ${s.m} m, kh ${s.kh}, 3p ${s.kolme}, vh ${s.vh}, hl ${s.hl}, pl ${s.pl}, vi ${s.vi}, ver ${s.ver}`}`);
   }
 }
 console.log(`Tilastorivejä ${rivit}, puuttuu ${puuttuu.length}: ${puuttuu.join("; ")}`);
+{
+  const kaikki = d.ottelut.flatMap((o) => Object.values(o.tilastot || {})).filter((s) => !s.eiPelannut);
+  for (const k of ["hl", "pl", "vi"]) console.log(`Kenttä ${k}: ${kaikki.filter((s) => s[k] != null).length}/${kaikki.length}`);
+  for (const j of d.joukkueet) {
+    const r = d.ottelut.filter((o) => o.joukkueet.includes(j.avain)).flatMap((o) => d.pelaajat.filter((p) => p.joukkue === j.avain).map((p) => (o.tilastot || {})[p.id])).filter((s) => s && !s.eiPelannut);
+    const puute = r.filter((s) => s.hl == null || s.pl == null || s.vi == null).length;
+    if (puute) console.log(`  OREB/DREB/PF puuttuu: ${j.avain} ${puute}/${r.length}`);
+  }
+}
 
 console.log("\n=== SUOMALAISET VASTAKKAIN ===");
 for (const o of d.ottelut.filter((x) => x.osapuolet.length > 1)) console.log(`${aika(o.alku)} | ${o.joukkueet.join(" vs ")}`);

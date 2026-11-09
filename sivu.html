@@ -38,6 +38,10 @@
   .asennus b { display: block; font-size: .92rem; }
   .asennus .jaa { display: inline-block; width: 14px; height: 16px; vertical-align: -2px; }
   .asennus button { position: absolute; top: 6px; right: 6px; background: none; border: 0; color: var(--hopea); font-size: 1.3rem; line-height: 1; padding: 6px; cursor: pointer; }
+  .valilehdet { display: flex; gap: 22px; }
+  header .sisalto.valilehdet { padding-top: 0; padding-bottom: 0; display: flex; align-items: stretch; justify-content: flex-start; }
+  .valilehdet a { color: var(--hopea); text-decoration: none; font-weight: 700; font-size: .9rem; text-transform: uppercase; letter-spacing: .04em; padding: 8px 0 9px; border-bottom: 3px solid transparent; }
+  .valilehdet a[aria-current="page"] { color: #fff; border-bottom-color: var(--punainen); }
   header h1 { margin: 0; font: 800 1.45rem/1.1 var(--kapea); text-transform: uppercase; letter-spacing: .01em; }
   header h1 span { color: var(--punainen); }
   header p { margin: 4px 0 0; color: var(--hopea); font-size: .82rem; }
@@ -172,6 +176,7 @@
       <select class="nappi" id="pelaaja" aria-label="Pelaaja"></select>
     </div>
   </div>
+  <nav class="sisalto valilehdet" aria-label="Sivut"><a href="./" aria-current="page">Ottelut</a><a href="tilastot/">Tilastot</a></nav>
 </header>
 <nav class="kalenteri" aria-label="Valitse päivä">
   <div class="sisalto">

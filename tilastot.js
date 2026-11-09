@@ -32,6 +32,7 @@ function onPelaaja(teksti, pelaaja) {
 
 // --- SIDEARM: HTML-pöytäkirja ------------------------------------------------
 
+const sidearmOtsikot = new Set();
 function sidearm(html, pelaajat) {
   const taulut = html.match(/<table[\s\S]*?<\/table>/g) || [];
   const tulos = {};
@@ -44,9 +45,12 @@ function sidearm(html, pelaajat) {
     // Vain pelaajataulukot (ei pelikuvausta): otsikossa minuutit ja pisteet.
     if (!otsikko.includes("min") || !otsikko.some((x) => x === "pts" || x === "tp")) continue;
     pelaajaTauluja++;
+    if (process.env.PDF_NAYTE && !sidearmOtsikot.has(otsikko.join(","))) { sidearmOtsikot.add(otsikko.join(",")); console.log("SIDEARM-otsikot: " + otsikko.join(",")); }
     const sarake = (...nimet) => otsikko.findIndex((x) => nimet.includes(x));
     const s = { min: sarake("min"), fg: sarake("fg", "fgmfga", "fgfga"), kolme: sarake("3pt", "3fg", "3ptfga", "3fgfga"),
       ft: sarake("ft", "ftmfta", "ftfta"), reb: sarake("reb", "tot", "treb"), a: sarake("a", "ast"), to: sarake("to"),
+      or: sarake("oreb", "or", "off", "offreb"), dr: sarake("dreb", "dr", "def", "defreb"), pf: sarake("pf", "fouls"),
+      ordr: sarake("orbdrb", "ordr", "orebdreb", "offdef"),
       blk: sarake("blk"), stl: sarake("stl"), pts: sarake("pts", "tp") };
     for (const r of rivit.slice(1)) {
       const c = solut(r);
@@ -57,7 +61,10 @@ function sidearm(html, pelaajat) {
           min: minuutit(c[s.min]), p: luku(c[s.pts]), lp: luku(c[s.reb]), s: luku(c[s.a]),
           r: luku(c[s.stl]), t: luku(c[s.blk]), m: luku(c[s.to]),
           kh: pari(c[s.fg]), kolme: pari(c[s.kolme]), vh: pari(c[s.ft]),
+          hl: s.or >= 0 ? luku(c[s.or]) : null, pl: s.dr >= 0 ? luku(c[s.dr]) : null, vi: s.pf >= 0 ? luku(c[s.pf]) : null,
         };
+        // Osa kouluista näyttää hyökkäys- ja puolustuslevypallot yhdessä sarakkeessa ("2-3").
+        if (s.ordr >= 0 && tulos[p.id].hl == null) { const x = pari(c[s.ordr]); if (x) { tulos[p.id].hl = x[0]; tulos[p.id].pl = x[1]; } }
       }
     }
   }
@@ -77,7 +84,8 @@ function wmtXml(xml, pelaajat) {
     for (const p of pelaajat) {
       if (tulos[p.id] || !onPelaaja(nimi.replace(",", " "), p)) continue;
       tulos[p.id] = { min: a("min"), p: a("tp"), lp: a("treb"), s: a("ast"), r: a("stl"), t: a("blk"), m: a("to"),
-        kh: [a("fgm"), a("fga")], kolme: [a("fgm3"), a("fga3")], vh: [a("ftm"), a("fta")] };
+        kh: [a("fgm"), a("fga")], kolme: [a("fgm3"), a("fga3")], vh: [a("ftm"), a("fta")],
+        hl: a("oreb"), pl: a("dreb"), vi: a("pf") };
     }
   }
   return tulos;
@@ -85,6 +93,7 @@ function wmtXml(xml, pelaajat) {
 
 // --- WMT: wmt.games JSON (pakattu) --------------------------------------------
 
+let wmtAvaimetNaytetty = false;
 function wmtGames(teksti, pelaajat) {
   let data = JSON.parse(teksti);
   if (data && data.__gz) data = JSON.parse(zlib.gunzipSync(Buffer.from(data.__gz, "base64")).toString("utf8"));
@@ -100,7 +109,9 @@ function wmtGames(teksti, pelaajat) {
           if (tulos[p.id] || !onPelaaja(nimi.value, p)) continue;
           tulos[p.id] = { min: minuutit(v("sMinutesPlayed")), p: luku(v("sPoints")), lp: luku(v("sTotalRebounds")),
             s: luku(v("sAssists")), r: luku(v("sSteals")), t: luku(v("sBlockedShots")), m: luku(v("sTurnovers")),
-            kh: pari(v("sFieldGoals")), kolme: pari(v("sThreePointFieldGoals")), vh: pari(v("sFreeThrows")) };
+            kh: pari(v("sFieldGoals")), kolme: pari(v("sThreePointFieldGoals")), vh: pari(v("sFreeThrows")),
+            hl: luku(v("sOffensiveRebounds")), pl: luku(v("sDefensiveRebounds")), vi: luku(v("sPersonalFouls") ?? v("sFouls")) };
+          if (process.env.PDF_NAYTE && !wmtAvaimetNaytetty) { wmtAvaimetNaytetty = true; console.log("WMT-avaimet: " + x.map((c) => c && c.key + "=" + c.value).join(", ")); }
         }
       }
       x.forEach(kay);
@@ -150,13 +161,18 @@ function pdfTekstista(teksti, pelaajat) {
     for (const p of pelaajat) {
       if (tulos[p.id] || !onPelaaja(nimiosa, p)) continue;
       tulos[p.id] = { min: Math.round(n[0] + n[1] / 60), kh: [n[2], n[3]], kolme: [n[4], n[5]], vh: [n[6], n[7]],
-        lp: n[10], p: n[13], s: n[14], m: n[15], r: n[16], t: n[17] };
+        lp: n[10], p: n[13], s: n[14], m: n[15], r: n[16], t: n[17], hl: n[8], pl: n[9], vi: n[11] };
     }
   }
   return rivejaLoytyi ? tulos : null;
 }
 
 // --- Pääfunktio ------------------------------------------------------------------
+
+// Tilastorivin versio. Kun pöytäkirjasta aletaan lukea uusia kenttiä, versio nostetaan,
+// ja vanhemmat rivit haetaan kerran uudelleen (ei koske "ei pelannut" -rivejä).
+const VERSIO = 2;
+const ajantasalla = (r) => r && (r.eiPelannut || r.ver === VERSIO);
 
 async function haeTilastot({ ottelut, pelaajat, hae, haePuskuri, tauko, tiedosto, nyt }) {
   let valimuisti = {};
@@ -172,8 +188,8 @@ async function haeTilastot({ ottelut, pelaajat, hae, haePuskuri, tauko, tiedosto
       const omat = jPelaajat[os_.joukkue] || [];
       const avain = (p) => `${o.id}|${p.id}`;
       // Derbyssä toisen joukkueen pöytäkirja käy myös: haetaan vain puuttuvat.
-      const puuttuvat = o.osapuolet.flatMap((x) => jPelaajat[x.joukkue] || []).filter((p) => !valimuisti[avain(p)]);
-      if (!puuttuvat.length || !omat.some((p) => !valimuisti[avain(p)])) continue;
+      const puuttuvat = o.osapuolet.flatMap((x) => jPelaajat[x.joukkue] || []).filter((p) => !ajantasalla(valimuisti[avain(p)]));
+      if (!puuttuvat.length || !omat.some((p) => !ajantasalla(valimuisti[avain(p)]))) continue;
       const l = os_.tilastolahde;
       try {
         let tulos = null;
@@ -187,7 +203,7 @@ async function haeTilastot({ ottelut, pelaajat, hae, haePuskuri, tauko, tiedosto
         if (!tulos) continue; // pöytäkirja ei vielä valmis
         for (const p of puuttuvat) {
           // Pelaaja, jota ei löydy valmiista pöytäkirjasta, ei pelannut.
-          valimuisti[avain(p)] = tulos[p.id] || { eiPelannut: true };
+          valimuisti[avain(p)] = tulos[p.id] ? Object.assign(tulos[p.id], { ver: VERSIO }) : { eiPelannut: true };
           uusia++;
         }
       } catch (e) {
