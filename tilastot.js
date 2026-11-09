@@ -111,6 +111,9 @@ function wmtGames(teksti, pelaajat) {
             s: luku(v("sAssists")), r: luku(v("sSteals")), t: luku(v("sBlockedShots")), m: luku(v("sTurnovers")),
             kh: pari(v("sFieldGoals")), kolme: pari(v("sThreePointFieldGoals")), vh: pari(v("sFreeThrows")),
             hl: luku(v("sOffensiveRebounds")), pl: luku(v("sDefensiveRebounds")), vi: luku(v("sPersonalFouls") ?? v("sFouls")) };
+          // wmt.games antaa levypallot muodossa "hyökkäys - puolustus" kentässä sRebounds.
+          const lev = pari(v("sRebounds"));
+          if (tulos[p.id].hl == null && lev) { tulos[p.id].hl = lev[0]; tulos[p.id].pl = lev[1]; }
           if (process.env.PDF_NAYTE && !wmtAvaimetNaytetty) { wmtAvaimetNaytetty = true; console.log("WMT-avaimet: " + x.map((c) => c && c.key + "=" + c.value).join(", ")); }
         }
       }
