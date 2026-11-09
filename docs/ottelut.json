@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-09T00:04:37.915Z",
+ "paivitetty": "2026-11-09T06:22:33.146Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -135,7 +135,7 @@
    "sarja": "N",
    "saldo": {
     "v": 1,
-    "t": 1
+    "t": 2
    }
   },
   {
@@ -3882,13 +3882,43 @@
      "joukkue": "utah-state-n",
      "vastustaja": "USC",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 40,
+      "vast": 118
+     },
      "striimi": null,
-     "linkki": "https://utahstateaggies.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://utahstateaggies.com/sports/womens-basketball/stats/2026-27/usc/boxscore/16887",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://utahstateaggies.com/sports/womens-basketball/stats/2026-27/usc/boxscore/16887"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ogun-nicole": {
+     "min": 18,
+     "p": 6,
+     "lp": 4,
+     "s": 1,
+     "r": 0,
+     "t": 0,
+     "m": 2,
+     "kh": [
+      3,
+      7
+     ],
+     "kolme": [
+      0,
+      0
+     ],
+     "vh": [
+      0,
+      0
+     ]
+    }
+   }
   },
   {
    "id": "6eaec2828e",
@@ -4367,7 +4397,7 @@
      "vastustaja": "Colorado State",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.youtube.com/watch?v=Z7bb_pD-5YQ",
      "linkki": "https://goviks.com/sports/mens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -4862,7 +4892,7 @@
      "vastustaja": "San Francisco",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.espn.com/watch/player/_/id/7aacecdc-a6b4-4d75-ac2e-8338736687cf",
      "linkki": "https://goviks.com/sports/mens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -5170,7 +5200,7 @@
      "vastustaja": "Saint Mary's (Calif.)",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.espn.com/watch/player/_/id/7423d647-4e12-45ad-9477-cbe045bbf419",
      "linkki": "https://goviks.com/sports/mens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
