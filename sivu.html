@@ -4,106 +4,162 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Suomalaiset NCAA:ssa 2026–27</title>
-<meta name="description" content="Suomalaisten koripalloilijoiden ottelut ja tulokset NCAA Division I:ssä, Suomen ajassa.">
+<meta name="theme-color" content="#1A1A1A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Suomi NCAA">
+<link rel="icon" href="ikoni.svg" type="image/svg+xml">
+<link rel="icon" href="ikoni-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="description" content="Suomalaisten koripalloilijoiden ottelut, tulokset ja tilastot NCAA Division I:ssä, Suomen ajassa.">
 <style>
   :root {
-    --tausta: #f6f5f1; --pinta: #ffffff; --teksti: #1b1d21; --heikko: #6a6f78; --viiva: #e3e1da;
-    --sini: #12357a; --sini-vaalea: #e8eef9; --voitto: #1d7a46; --tappio: #a3352b; --korostus: #f2b51c;
+    --punainen: #E3343A; --musta: #1A1A1A; --hopea: #C4C8CD; --hopea-vaalea: #E9EBEE; --tausta: #F1F2F4;
+    --pinta: #FFFFFF; --heikko: #6B7078; --viiva: #DCDFE3;
+    --kapea: "Arial Narrow", "Roboto Condensed", "Helvetica Neue Condensed", "Helvetica Neue", Arial, sans-serif;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--tausta); color: var(--teksti);
-    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-  .sisalto { max-width: 860px; margin: 0 auto; padding: 0 16px 48px; }
-  header { background: var(--sini); color: #fff; padding: 28px 0 22px; margin-bottom: 18px; }
-  header h1 { margin: 0 0 4px; font-size: 1.6rem; letter-spacing: -0.01em; }
-  header p { margin: 0; opacity: .85; font-size: .95rem; }
-  .suodattimet { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
-  .nappi { border: 1px solid var(--viiva); background: var(--pinta); color: var(--teksti); padding: 7px 14px;
-    border-radius: 999px; font: inherit; font-size: .9rem; cursor: pointer; }
-  .nappi[aria-pressed="true"] { background: var(--sini); border-color: var(--sini); color: #fff; }
-  select.nappi { padding-right: 10px; }
-  h2 { font-size: 1.15rem; margin: 30px 0 10px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  h2 small { font-weight: normal; color: var(--heikko); font-size: .85rem; }
-  .paiva { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--heikko);
-    margin: 18px 0 6px; }
-  .paiva.tanaan { color: var(--sini); }
-  .ottelu { background: var(--pinta); border: 1px solid var(--viiva); border-radius: 10px; padding: 10px 14px;
-    display: grid; grid-template-columns: 58px 1fr auto; gap: 4px 12px; align-items: center; margin-bottom: 6px; }
-  .ottelu .klo { font-variant-numeric: tabular-nums; font-weight: 600; }
-  .ottelu .kaynnissa { font-size: .66rem; font-weight: 600; color: var(--tappio); white-space: nowrap; }
-  .ottelu .klo.tba { color: var(--heikko); font-weight: normal; font-size: .85rem; }
-  .ottelu .kuka { font-weight: 600; }
-  .ottelu .paikka-rivi { color: var(--heikko); font-size: .85rem; }
-  .ottelu .kuka .koulu { font-weight: normal; color: var(--heikko); }
-  .ottelu .vastaan { color: var(--teksti); font-size: .93rem; }
-  .ottelu .vastaan .paikka { color: var(--heikko); }
-  .ottelu .linkit { display: flex; gap: 8px; justify-content: flex-end; align-items: center; flex-wrap: wrap; }
-  .ottelu a { color: var(--sini); text-decoration: none; font-size: .88rem; }
-  .ottelu a:hover { text-decoration: underline; }
-  .ottelu.suomiderby { border-color: var(--korostus); box-shadow: inset 4px 0 0 var(--korostus); }
-  .ottelu .merkki { font-size: .75rem; color: #7a5a00; font-weight: 600; }
-  .tilastot { grid-column: 1 / -1; border-top: 1px dashed var(--viiva); margin-top: 4px; padding-top: 6px; display: grid; gap: 3px; }
-  .tilasto { font-size: .88rem; color: var(--teksti); }
-  .tilasto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
-  .tilasto b { font-weight: 700; color: var(--sini); font-size: .95rem; display: inline-flex; align-items: center; gap: 6px; }
-  .lippu { width: 16px; height: 11px; flex: none; border-radius: 1px; box-shadow: 0 0 0 1px rgba(0,0,0,.12); position: relative; top: -1px; }
-  .tilasto .luvut { font-variant-numeric: tabular-nums; }
-  .tilasto .heikko { color: var(--heikko); }
-  @media (min-width: 561px) { .tilastot { margin-left: 70px; } }
-  .tulos { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .tulos.v { color: var(--voitto); } .tulos.t { color: var(--tappio); }
-  .lisaa { margin: 8px 0 0; }
-  .tyhja { color: var(--heikko); background: var(--pinta); border: 1px dashed var(--viiva); border-radius: 10px; padding: 14px; }
-  table { width: 100%; border-collapse: collapse; background: var(--pinta); border: 1px solid var(--viiva); border-radius: 10px; overflow: hidden; font-size: .92rem; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--viiva); vertical-align: top; }
-  th { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--heikko); font-weight: 600; background: #fbfaf7; }
+  body { margin: 0; background: var(--tausta); color: var(--musta);
+    font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .sisalto { max-width: 620px; margin: 0 auto; padding: 0 14px; }
+  button { font: inherit; color: inherit; }
+
+  header { background: var(--musta); color: #fff; }
+  header .sisalto { padding-top: 18px; padding-bottom: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .otsake { display: flex; align-items: center; gap: 10px; }
+  .logo { width: 40px; height: 40px; flex: none; }
+  .asennus { position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 20; max-width: 520px; margin: 0 auto;
+    background: var(--musta); color: #fff; border-radius: 14px; padding: 12px 40px 12px 12px; display: flex; gap: 10px; align-items: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,.25); font-size: .86rem; line-height: 1.35; }
+  .asennus img { width: 40px; height: 40px; border-radius: 9px; flex: none; }
+  .asennus b { display: block; font-size: .92rem; }
+  .asennus .jaa { display: inline-block; width: 14px; height: 16px; vertical-align: -2px; }
+  .asennus button { position: absolute; top: 6px; right: 6px; background: none; border: 0; color: var(--hopea); font-size: 1.3rem; line-height: 1; padding: 6px; cursor: pointer; }
+  header h1 { margin: 0; font: 800 1.45rem/1.1 var(--kapea); text-transform: uppercase; letter-spacing: .01em; }
+  header h1 span { color: var(--punainen); }
+  header p { margin: 4px 0 0; color: var(--hopea); font-size: .82rem; }
+  .suodattimet { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .nappi { border: 1px solid #44474d; background: transparent; color: #fff; padding: 5px 11px; border-radius: 999px; font-size: .82rem; cursor: pointer; }
+  .nappi[aria-pressed="true"] { background: #fff; color: var(--musta); border-color: #fff; }
+  select.nappi { background: var(--musta); max-width: 160px; }
+  select.nappi[aria-pressed="true"] { background: #fff; }
+
+  /* Viikkokalenteri */
+  .kalenteri { position: sticky; top: 0; z-index: 5; background: var(--hopea-vaalea); border-bottom: 1px solid var(--viiva); }
+  .kk { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 10px 0 4px; font-weight: 700; font-size: 1.02rem; }
+  .kk button { background: none; border: 0; font-size: 1.4rem; line-height: 1; padding: 2px 10px; cursor: pointer; color: var(--heikko); }
+  .kk button:hover { color: var(--musta); }
+  .viikko { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; padding-bottom: 8px; }
+  .vp { font-size: .78rem; color: var(--heikko); text-transform: uppercase; padding: 2px 0 4px; }
+  .pv { background: none; border: 0; cursor: pointer; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .pv .nro { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+  .pv.tanaan .nro { color: var(--punainen); font-weight: 700; }
+  .pv[aria-pressed="true"] .nro { background: var(--musta); color: #fff; font-weight: 700; }
+  .pv .pisteet { height: 6px; display: flex; gap: 3px; }
+  .pv .pisteet i { width: 5px; height: 5px; border-radius: 50%; background: var(--hopea); }
+  .pv .pisteet i.f { background: var(--punainen); }
+  .pv:disabled { cursor: default; opacity: .45; }
+
+  .paivaotsikko { margin: 16px 0 10px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .paivaotsikko h2 { margin: 0; font: 800 1.25rem/1.1 var(--kapea); text-transform: uppercase; }
+  .paivaotsikko small { color: var(--heikko); font-size: .8rem; }
+
+  /* Ottelukortti */
+  .kortti { background: var(--pinta); border-radius: 16px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+  .derby-merkki { background: var(--punainen); color: #fff; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; text-align: center; padding: 3px 0; }
+  .ylaosa { display: grid; grid-template-columns: 1fr minmax(84px, auto) 1fr; align-items: start; padding: 16px 10px 14px; gap: 6px; }
+  .puoli { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 8px; min-width: 0; }
+  .puoli.oikea { grid-template-columns: 1fr auto; }
+  .joukkue { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; gap: 4px; }
+  .merkki { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 800 .82rem/1 var(--kapea); letter-spacing: .02em;
+    background: var(--hopea-vaalea); color: var(--heikko); border: 2px solid var(--hopea); }
+  .merkki.oma { border: 0; color: #fff; }
+  .merkki.l4 { font-size: .7rem; letter-spacing: 0; } .merkki.l5 { font-size: .58rem; letter-spacing: 0; }
+  .jnimi { font-size: .92rem; line-height: 1.15; overflow-wrap: break-word; hyphens: auto; max-width: 100%; }
+  .jnimi.oma { font-weight: 700; }
+  .ennatys { font-size: .8rem; color: var(--heikko); font-variant-numeric: tabular-nums; min-height: 1em; }
+  .pisteet-iso { margin-top: 6px; font: 800 2.3rem/1 var(--kapea); font-variant-numeric: tabular-nums; color: var(--musta); }
+  .pisteet-iso.havio { color: var(--hopea); }
+  .puoli.vasen .pisteet-iso { text-align: right; }
+  .keski { margin-top: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .tila { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--heikko); }
+  .tila.live { color: var(--punainen); display: inline-flex; align-items: center; gap: 5px; }
+  .tila.live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--punainen); }
+  .kello { font: 800 2rem/1 var(--kapea); font-variant-numeric: tabular-nums; }
+  .pieni { font-size: .76rem; color: var(--heikko); }
+
+  .alaosa { border-top: 1px solid var(--hopea-vaalea); padding: 10px 14px 12px; display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: start; }
+  .suomalaiset { display: grid; gap: 8px; min-width: 0; }
+  .pelaaja .nimi { font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+  .pelaaja .nimi .jlyh { font: 700 .66rem/1 var(--kapea); color: #fff; padding: 3px 5px; border-radius: 4px; }
+  .lippu { width: 16px; height: 11px; flex: none; border-radius: 1px; box-shadow: 0 0 0 1px rgba(0,0,0,.15); }
+  .rivi1 { font-variant-numeric: tabular-nums; font-size: .95rem; margin-top: 1px; }
+  .rivi1 b { font-weight: 700; }
+  .rivi2 { font-variant-numeric: tabular-nums; font-size: .8rem; color: var(--heikko); }
+  .boxscore { font-size: .82rem; font-weight: 600; color: var(--musta); text-decoration: none; white-space: nowrap; border: 1px solid var(--viiva); border-radius: 999px; padding: 4px 10px; }
+  .boxscore:hover { border-color: var(--musta); }
+
+  .tyhja { color: var(--heikko); background: var(--pinta); border-radius: 16px; padding: 22px; text-align: center; }
+  .tyhja button { margin-top: 10px; background: var(--musta); color: #fff; border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer; font-size: .88rem; }
+
+  h2.osio { font: 800 1.25rem/1.1 var(--kapea); text-transform: uppercase; margin: 34px 0 10px; }
+  table { width: 100%; border-collapse: collapse; background: var(--pinta); border-radius: 16px; overflow: hidden; font-size: .9rem; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--hopea-vaalea); vertical-align: top; }
+  th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--heikko); font-weight: 700; background: #FAFAFB; }
   tr:last-child td { border-bottom: 0; }
-  td .pieni { color: var(--heikko); font-size: .82rem; }
-  td.saldo { font-variant-numeric: tabular-nums; white-space: nowrap; }
-  footer { margin-top: 36px; color: var(--heikko); font-size: .82rem; }
+  td .pieni { display: block; }
+  td.luku { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  footer { margin: 30px 0 40px; color: var(--heikko); font-size: .8rem; }
   footer p { margin: 4px 0; }
-  .huomio { background: #fff7e0; border: 1px solid #f0d78a; border-radius: 8px; padding: 8px 12px; font-size: .85rem; margin-bottom: 16px; }
+  .huomio { background: #fff; border-left: 4px solid var(--punainen); border-radius: 8px; padding: 8px 12px; font-size: .85rem; margin-top: 12px; }
   @media (max-width: 560px) {
-    .ottelu { grid-template-columns: 50px 1fr; }
-    .ottelu .linkit { grid-column: 2; justify-content: flex-start; }
+    header .sisalto { flex-direction: column; align-items: flex-start; }
+    .suodattimet { justify-content: flex-start; }
+    .pisteet-iso { font-size: 1.75rem; }
+    .jnimi { font-size: .84rem; }
+    .ylaosa { padding: 14px 6px 12px; gap: 4px; grid-template-columns: 1fr minmax(70px, auto) 1fr; }
+    .merkki { width: 40px; height: 40px; }
+    .pv .nro { width: 36px; height: 36px; font-size: 1.05rem; }
     .piilo-mobiili { display: none; }
+    .alaosa { grid-template-columns: 1fr; }
+    .alaosa .boxscore { justify-self: start; }
   }
 </style>
 </head>
 <body>
 <header>
-  <div class="sisalto" style="padding-bottom:0">
-    <h1>Suomalaiset NCAA:ssa 2026–27</h1>
-    <p>Suomalaisten koripalloilijoiden ottelut ja tulokset NCAA Division I:ssä. Ajat Suomen aikaa.</p>
+  <div class="sisalto">
+    <div class="otsake"><svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="170" fill="#E3343A"/><g fill="none" stroke="#1A1A1A" stroke-width="18"><path d="M86 256 H426 M256 86 V426"/><path d="M136 124 A200 200 0 0 1 136 388"/><path d="M376 124 A200 200 0 0 0 376 388"/></g><circle cx="256" cy="256" r="170" fill="none" stroke="#C4C8CD" stroke-width="10"/></svg><div>
+      <h1>Suomalaiset <span>NCAA</span>:ssa</h1>
+      <p>Division I 2026–27 · ajat Suomen aikaa</p>
+    </div></div>
+    <div class="suodattimet" role="group" aria-label="Suodata">
+      <button class="nappi" data-sarja="kaikki">Kaikki</button>
+      <button class="nappi" data-sarja="M">Miehet</button>
+      <button class="nappi" data-sarja="N">Naiset</button>
+      <select class="nappi" id="pelaaja" aria-label="Pelaaja"></select>
+    </div>
   </div>
 </header>
+<nav class="kalenteri" aria-label="Valitse päivä">
+  <div class="sisalto">
+    <div class="kk"><button id="ed" aria-label="Edellinen viikko">‹</button><span id="kk"></span><button id="seur" aria-label="Seuraava viikko">›</button></div>
+    <div class="viikko" id="viikko"></div>
+  </div>
+</nav>
 <main class="sisalto">
   <div id="huomio"></div>
-  <div class="suodattimet" role="group" aria-label="Suodata">
-    <button class="nappi" data-sarja="kaikki">Kaikki</button>
-    <button class="nappi" data-sarja="M">Miehet</button>
-    <button class="nappi" data-sarja="N">Naiset</button>
-    <select class="nappi" id="pelaaja" aria-label="Pelaaja"></select>
-  </div>
+  <div class="paivaotsikko"><h2 id="paiva-otsikko"></h2><small id="paiva-info"></small></div>
+  <div id="ottelut"></div>
 
-  <h2 id="viimeyo-otsikko">Viime yö <small id="viimeyo-info"></small></h2>
-  <div id="viimeyo"></div>
-
-  <h2>Tänään ja ensi yönä <small id="tanaan-info"></small></h2>
-  <div id="tanaan"></div>
-
-  <h2>Tulevat ottelut <small id="tulevat-info"></small></h2>
-  <div id="tulevat"></div>
-
-  <h2>Aiemmat tulokset <small id="tulokset-info"></small></h2>
-  <div id="tulokset"></div>
-
-  <h2>Pelaajat <small id="pelaajat-info"></small></h2>
+  <h2 class="osio">Pelaajat</h2>
   <div id="pelaajat"></div>
 
   <footer>
-    <p>Otteluohjelmat ja tulokset: koulujen omat otteluohjelmat. Pelaajalista: Koripalloliitto (basket.fi). Päivitetään kolmesti päivässä.</p>
-    <p>Ei NCAA:n eikä koulujen virallinen palvelu. Harjoitusottelut eivät ole mukana.</p>
+    <p>Otteluohjelmat, tulokset ja tilastot: koulujen omat otteluohjelmat ja pöytäkirjat. Pelaajalista: Koripalloliitto (basket.fi). Päivitetään kolmesti päivässä.</p>
+    <p>Pelipäivä = illan ja yön ottelut: klo 12 alkaen seuraavaan päivään klo 12 asti (Suomen aikaa). Harjoitusottelut eivät ole mukana. Ei NCAA:n eikä koulujen virallinen palvelu.</p>
     <p id="paivitetty"></p>
   </footer>
 </main>
@@ -112,227 +168,245 @@ const DATA = /*__DATA__*/null;
 (function () {
   const VY = "Europe/Helsinki";
   const nyt = Date.now();
+  const H12 = 12 * 3600e3;
   const pvmAvain = (d) => new Intl.DateTimeFormat("sv-SE", { timeZone: VY, year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+  // Pelipäivä: ottelu kuuluu sen päivän iltaan, jona klo 12 jälkeen alkava jakso sisältää sen.
+  const pelipaiva = (ms) => pvmAvain(new Date(ms - H12));
   const klo = (d) => new Intl.DateTimeFormat("fi-FI", { timeZone: VY, hour: "2-digit", minute: "2-digit" }).format(d);
-  const paivaOtsikko = (d) => {
-    const s = new Intl.DateTimeFormat("fi-FI", { timeZone: VY, weekday: "long", day: "numeric", month: "numeric" }).format(d);
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  };
   const lyhytPvm = (d) => new Intl.DateTimeFormat("fi-FI", { timeZone: VY, weekday: "short", day: "numeric", month: "numeric" }).format(d);
-  const tanaan = pvmAvain(new Date(nyt));
-  const huomenna = pvmAvain(new Date(nyt + 864e5));
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const LUOKKA = { "Freshman": "Fr", "Sophomore": "So", "Junior": "Jr", "Senior": "Sr", "Graduate Student": "Gr" };
   const luokka = (s) => String(s || "").replace(/^Redshirt\s+/, "R-").replace(/Freshman|Sophomore|Junior|Senior|Graduate Student/, (m) => LUOKKA[m]);
 
+  // Avainpäivä (YYYY-MM-DD) -> Date keskipäivällä UTC, laskentaa varten.
+  const avainDate = (k) => { const [v, m, p] = k.split("-").map(Number); return new Date(Date.UTC(v, m - 1, p, 12)); };
+  const lisaaPaivia = (k, n) => avainDate(k).getTime() + n * 864e5;
+  const avainPlus = (k, n) => new Date(lisaaPaivia(k, n)).toISOString().slice(0, 10);
+  const viikonpaiva = (k) => (avainDate(k).getUTCDay() + 6) % 7; // ma=0
+  const fmt = (k, o) => new Intl.DateTimeFormat("fi-FI", Object.assign({ timeZone: "UTC" }, o)).format(avainDate(k));
+
+  // Suomalaisjoukkueiden lyhenteet ja koulujen värit. Vastustajat näytetään neutraalilla hopeamerkillä.
+  const TYYLI = {
+    "utrgv-n": ["UTRGV", "#F05023", "UTRGV"], "tulsa-n": ["TU", "#002D72"], "wyoming-n": ["WYO", "#492F24"], "ucla-n": ["UCLA", "#2D68C4"],
+    "north-dakota-n": ["UND", "#009A44"], "xavier-n": ["XAV", "#0C2340"], "ohio-state-n": ["OSU", "#BB0000"], "sacramento-state-n": ["SAC", "#043927", "Sacramento St."],
+    "california-n": ["CAL", "#003262"], "north-alabama-n": ["UNA", "#46166B"], "western-kentucky-n": ["WKU", "#C60C30", "W. Kentucky"], "iona-n": ["IONA", "#6F2C3F"],
+    "kent-state-n": ["KENT", "#002664"], "san-jose-state-n": ["SJSU", "#0055A2"], "utah-state-n": ["USU", "#0F2439"], "davidson-n": ["DAV", "#AC1A2F"],
+    "ucsb-m": ["UCSB", "#003660", "UCSB"], "portland-state-m": ["PSU", "#154734"], "stony-brook-m": ["SBU", "#990000"], "nc-state-m": ["NCSU", "#CC0000"],
+    "northwestern-m": ["NU", "#4E2A84"], "utah-m": ["UTAH", "#BE0000"], "loyola-maryland-m": ["LOY", "#00694E", "Loyola (MD)"], "troy-m": ["TROY", "#8A2432"],
+    "uc-san-diego-m": ["UCSD", "#182B49"], "butler-m": ["BUT", "#13294B"], "citadel-m": ["CIT", "#3975B7"], "davidson-m": ["DAV", "#AC1A2F"],
+    "pepperdine-m": ["PEPP", "#00205B"], "arkansas-m": ["ARK", "#9D2235"],
+  };
+  function lyhenne(nimi) {
+    const s = String(nimi || "").replace(/\(.*?\)/g, "").replace(/\b(University|College)\b/gi, "").replace(/[-–&]/g, " ").trim();
+    const sanat = s.split(/\s+/).filter((w) => w && !/^(of|the|at)$/i.test(w));
+    if (!sanat.length) return "?";
+    if (sanat.length === 1) { const w = sanat[0]; return w.length <= 5 && /[A-Z].*[A-Z]/.test(w) ? w.toUpperCase() : w.slice(0, 3).toUpperCase(); }
+    let l = sanat.map((w) => /^[A-Z]{2,}$/.test(w) ? w : w[0].toUpperCase()).join("");
+    if (/State$/.test(s) && l.length <= 3) l += "U";
+    return l.slice(0, 5);
+  }
+
   const joukkue = Object.fromEntries(DATA.joukkueet.map((j) => [j.avain, j]));
   const pelaajatJoukkueessa = {};
   for (const p of DATA.pelaajat) (pelaajatJoukkueessa[p.joukkue] = pelaajatJoukkueessa[p.joukkue] || []).push(p);
+  const alkuMs = (o) => new Date(o.alku).getTime();
+  const pelattu = (o) => o.osapuolet.some((p) => p.tulos);
 
   let valinta = { sarja: "kaikki", pelaaja: "" };
   try { valinta = Object.assign(valinta, JSON.parse(localStorage.getItem("suomi-ncaa-valinta") || "{}")); } catch (e) {}
   const tallenna = () => { try { localStorage.setItem("suomi-ncaa-valinta", JSON.stringify(valinta)); } catch (e) {} };
-  const nayta = { tulevat: false, tulokset: false };
-
   function sopii(o) {
     if (valinta.pelaaja) return o.joukkueet.includes((DATA.pelaajat.find((p) => p.id === valinta.pelaaja) || {}).joukkue);
     return valinta.sarja === "kaikki" || o.sarja === valinta.sarja;
   }
-  const pelattu = (o) => o.osapuolet.some((p) => p.tulos);
 
+  const tanaanPelipaiva = pelipaiva(nyt);
+  let valittu = tanaanPelipaiva;
+  const hashPvm = (location.hash.match(/^#(\d{4}-\d{2}-\d{2})$/) || [])[1];
+  if (hashPvm) valittu = hashPvm;
 
-  const osuus = (x) => x && x[1] ? `${x[0]}/${x[1]}` : x ? "0/0" : "–";
   const LIPPU = `<svg class="lippu" viewBox="0 0 18 11" aria-label="Suomi" role="img"><rect width="18" height="11" fill="#fff"/><rect x="5" width="3" height="11" fill="#002f6c"/><rect y="4" width="18" height="3" fill="#002f6c"/></svg>`;
-  // Jokaisen ottelun alla suomalaisten rivit: pelatuissa tilastot, tulevissa pelkkä nimi.
-  function tilastoRivit(o) {
+  const osuus = (x) => x && x[1] ? `${x[0]}/${x[1]}` : x ? "0/0" : "–";
+
+  // Kortin vasen ja oikea puoli: vieras vasemmalla, koti oikealla (kuten NBA-sovelluksessa).
+  function puolet(o) {
+    if (o.osapuolet.length > 1) {
+      const [a, b] = o.osapuolet;
+      const koti = a.paikka === "koti" ? a : b, vieras = koti === a ? b : a;
+      const ta = (x) => x.tulos ? { pisteet: x.tulos.oma, voitto: x.tulos.voitto } : null;
+      const tulosA = vieras.tulos || (koti.tulos && { oma: koti.tulos.vast, voitto: !koti.tulos.voitto });
+      const tulosK = koti.tulos || (vieras.tulos && { oma: vieras.tulos.vast, voitto: !vieras.tulos.voitto });
+      return [
+        { oma: true, avain: vieras.joukkue, pisteet: tulosA && tulosA.oma, voitto: tulosA && tulosA.voitto },
+        { oma: true, avain: koti.joukkue, pisteet: tulosK && tulosK.oma, voitto: tulosK && tulosK.voitto },
+      ];
+    }
+    const p = o.osapuolet[0];
+    const oma = { oma: true, avain: p.joukkue, pisteet: p.tulos && p.tulos.oma, voitto: p.tulos && p.tulos.voitto };
+    const vast = { oma: false, nimi: p.vastustaja, pisteet: p.tulos && p.tulos.vast, voitto: p.tulos && !p.tulos.voitto };
+    return p.paikka === "koti" ? [vast, oma] : [oma, vast];
+  }
+
+  function merkki(x) {
+    if (x.oma) {
+      const [l, vari] = TYYLI[x.avain] || [lyhenne(joukkue[x.avain].koulu), "#1A1A1A"];
+      return `<div class="merkki oma${l.length > 4 ? " l5" : l.length > 3 ? " l4" : ""}" style="background:${vari}">${esc(l)}</div>`;
+    }
+    const l = lyhenne(x.nimi);
+    return `<div class="merkki${l.length > 4 ? " l5" : l.length > 3 ? " l4" : ""}">${esc(l)}</div>`;
+  }
+
+  function puoliHtml(x, sivu, naytaPisteet) {
+    const nimi = x.oma ? ((TYYLI[x.avain] || [])[2] || joukkue[x.avain].koulu) : x.nimi;
+    const s = x.oma ? joukkue[x.avain].saldo : null;
+    const jo = `<div class="joukkue">${merkki(x)}<div class="jnimi${x.oma ? " oma" : ""}">${esc(nimi)}</div><div class="ennatys">${s ? `${s.v}–${s.t}` : ""}</div></div>`;
+    const pist = naytaPisteet ? `<div class="pisteet-iso${x.voitto ? "" : " havio"}">${x.pisteet}</div>` : "";
+    return `<div class="puoli ${sivu}">${sivu === "vasen" ? jo + pist : pist + jo}</div>`;
+  }
+
+  function pelaajaRivit(o, derby) {
     const rivit = [];
     for (const a of o.osapuolet) for (const p of pelaajatJoukkueessa[a.joukkue] || []) {
-      const nimi = `<b>${LIPPU}${esc(p.nimi)}</b>`;
+      const [l, vari] = TYYLI[a.joukkue] || ["", "#1A1A1A"];
+      const nimi = `<div class="nimi">${LIPPU}${esc(p.nimi)}${derby ? ` <span class="jlyh" style="background:${vari}">${esc(l)}</span>` : ""}</div>`;
       const t = o.tilastot && o.tilastot[p.id];
-      if (!t) { rivit.push(`<div class="tilasto">${nimi}${o.osapuolet.length > 1 ? ` <span class="heikko">${esc(joukkue[a.joukkue].koulu)}</span>` : ""}</div>`); continue; }
-      if (t.eiPelannut) { rivit.push(`<div class="tilasto">${nimi} <span class="heikko">ei pelannut</span></div>`); continue; }
-      const osat = [`${t.p} PTS`, `${t.lp} REB`, `${t.s} AST`];
-      if (t.r) osat.push(`${t.r} STL`);
-      if (t.t) osat.push(`${t.t} BLK`);
-      const heitot = `FG ${osuus(t.kh)} · 3P ${osuus(t.kolme)} · FT ${osuus(t.vh)}`;
-      rivit.push(`<div class="tilasto">${nimi} <span class="luvut">${osat.join(", ")}</span> <span class="heikko luvut">· ${t.min != null ? t.min + " MIN · " : ""}${heitot}</span></div>`);
+      if (!t) { rivit.push(`<div class="pelaaja">${nimi}<div class="rivi2">${esc([p.pelipaikka, luokka(p.vuosiluokka)].filter(Boolean).join(" · "))}</div></div>`); continue; }
+      if (t.eiPelannut) { rivit.push(`<div class="pelaaja">${nimi}<div class="rivi2">ei pelannut</div></div>`); continue; }
+      const iso = [`<b>${t.p}</b> PTS`, `<b>${t.lp}</b> REB`, `<b>${t.s}</b> AST`];
+      if (t.r) iso.push(`<b>${t.r}</b> STL`);
+      if (t.t) iso.push(`<b>${t.t}</b> BLK`);
+      const pien = [t.min != null ? `${t.min} MIN` : "", `FG ${osuus(t.kh)}`, `3P ${osuus(t.kolme)}`, `FT ${osuus(t.vh)}`].filter(Boolean);
+      rivit.push(`<div class="pelaaja">${nimi}<div class="rivi1">${iso.join(" · ")}</div><div class="rivi2">${pien.join(" · ")}</div></div>`);
     }
-    return rivit.length ? `<div class="tilastot">${rivit.join("")}</div>` : "";
+    return rivit.join("");
   }
 
-  function otteluRivi(o, naytaPvm) {
-    const d = new Date(o.alku);
+  function kortti(o) {
     const derby = o.osapuolet.length > 1;
-    const aika = naytaPvm
-      ? `<div class="klo tba">${esc(lyhytPvm(d))}</div>`
-      : o.tba ? `<div class="klo tba">aika auki</div>` : `<div class="klo">${klo(d)}${d.getTime() < nyt && !pelattu(o) ? `<div class="kaynnissa">${nyt - d.getTime() < 3 * 3600e3 ? "käynnissä" : "ei tulosta"}</div>` : ""}</div>`;
-    let kuka, vastaan;
-    if (derby) {
-      const [a, b] = o.osapuolet;
-      const koti = b.paikka === "koti" ? b : a, vieras = koti === a ? b : a;
-      kuka = `${esc(joukkue[koti.joukkue].koulu)} vs. ${esc(joukkue[vieras.joukkue].koulu)}`;
-      vastaan = `<span class="merkki">Suomalaiset vastakkain</span>`;
-    } else {
-      const p = o.osapuolet[0];
-      const oma = esc(joukkue[p.joukkue].koulu);
-      kuka = p.paikka === "vieras" ? `${oma} @ ${esc(p.vastustaja)}` : `${oma} vs. ${esc(p.vastustaja)}`;
-      vastaan = `<span class="paikka-rivi">${p.paikka === "neutraali" ? "neutraali kenttä" + (o.sijainti ? ": " + esc(o.sijainti.replace(/[()]/g, "").replace(/\s+/g, " ").trim()) : "") : p.paikka === "vieras" ? "vierasottelu" : "kotiottelu"}</span>`;
-    }
-    const linkit = [];
-    const p0 = o.osapuolet[0];
-    const tulos = o.osapuolet.map((p) => p.tulos).find(Boolean);
-    if (tulos) {
-      const omat = o.osapuolet.find((p) => p.tulos) ;
-      const vt = tulos.voitto ? "v" : "t";
-      const teksti = derby ? `${tulos.oma}–${tulos.vast} ${esc(joukkue[omat.joukkue].koulu)}${tulos.voitto ? "" : "lle tappio"}` : `${tulos.voitto ? "V" : "T"} ${tulos.oma}–${tulos.vast}`;
-      linkit.push(derby ? `<span class="tulos">${tulos.voitto ? esc(joukkue[omat.joukkue].koulu) : esc(joukkue[o.osapuolet.find((p) => p !== omat).joukkue].koulu)} voitti ${Math.max(tulos.oma, tulos.vast)}–${Math.min(tulos.oma, tulos.vast)}</span>` : `<span class="tulos ${vt}">${teksti}</span>`);
-    }
-    // Derbyssä käytetään sen lähteen linkkiä, josta pöytäkirja löytyi.
-    const lp = o.osapuolet.find((p) => p.linkkiTyyppi === "poytakirja") || p0;
+    const [v, k] = puolet(o);
+    const d = new Date(o.alku), t = alkuMs(o);
+    const tulos = pelattu(o);
+    let keski;
+    if (tulos) keski = `<div class="tila">Loppu</div>`;
+    else if (t <= nyt) keski = nyt - t < 3 * 3600e3 ? `<div class="tila live">Käynnissä</div><div class="pieni">alkoi ${klo(d)}</div>` : `<div class="tila">Ei tulosta</div><div class="pieni">${klo(d)}</div>`;
+    else keski = `<div class="pieni">${esc(lyhytPvm(d))}</div><div class="kello">${o.tba ? "–" : klo(d)}</div>${o.tba ? `<div class="pieni">aika auki</div>` : ""}`;
+    const neutr = o.osapuolet.some((p) => p.paikka === "neutraali");
+    if (neutr) keski += `<div class="pieni">neutraali kenttä</div>`;
+    const lp = o.osapuolet.find((p) => p.linkkiTyyppi === "poytakirja") || o.osapuolet.find((p) => p.linkki);
     const NIMI = { poytakirja: "Boxscore", raportti: "Otteluraportti", live: "Live-tilastot", ohjelma: "Otteluohjelma" };
-    if (lp.linkki) linkit.push(`<a href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"}</a>`);
-    return `<div class="ottelu${derby ? " suomiderby" : ""}">${aika}<div><div class="kuka">${kuka}</div><div class="vastaan">${vastaan}</div></div><div class="linkit">${linkit.join("")}</div>${tilastoRivit(o)}</div>`;
+    const linkki = lp && lp.linkki && (tulos || t <= nyt) ? `<a class="boxscore" href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"} ›</a>` : "";
+    return `<article class="kortti">${derby ? `<div class="derby-merkki">Suomalaiset vastakkain</div>` : ""}
+      <div class="ylaosa">${puoliHtml(v, "vasen", tulos)}<div class="keski">${keski}</div>${puoliHtml(k, "oikea", tulos)}</div>
+      <div class="alaosa"><div class="suomalaiset">${pelaajaRivit(o, derby)}</div>${linkki}</div></article>`;
   }
 
-  // Seuraava klo 10.00 Suomen aikaa, joka on vähintään 12 tunnin päässä: "tänään ja ensi yönä" -ikkunan loppu.
-  function vyoSiirtyma(ts) {
-    const o = new Intl.DateTimeFormat("en-US", { timeZone: VY, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }).formatToParts(new Date(ts));
-    const g = (t) => Number(o.find((x) => x.type === t).value);
-    return Date.UTC(g("year"), g("month") - 1, g("day"), g("hour"), g("minute"), g("second")) - ts;
-  }
-  function seuraavaAamu() {
-    for (let i = 0; i < 3; i++) {
-      const [v, k, p] = pvmAvain(new Date(nyt + i * 864e5)).split("-").map(Number);
-      const arvaus = Date.UTC(v, k - 1, p, 10, 0);
-      const t = arvaus - vyoSiirtyma(arvaus);
-      if (t >= nyt + 12 * 3600e3) return t;
+  function piirraKalenteri() {
+    const ma = avainPlus(valittu, -viikonpaiva(valittu));
+    const paivat = Array.from({ length: 7 }, (_, i) => avainPlus(ma, i));
+    const laskuri = {};
+    for (const o of DATA.ottelut) if (sopii(o)) { const p = pelipaiva(alkuMs(o)); laskuri[p] = (laskuri[p] || 0) + 1; }
+    const kk = new Set(paivat.map((p) => fmt(p, { month: "long", year: "numeric" })));
+    document.getElementById("kk").textContent = [...kk].join(" / ").replace(/^./, (c) => c.toUpperCase());
+    const VP = ["ma", "ti", "ke", "to", "pe", "la", "su"];
+    let html = VP.map((x) => `<div class="vp">${x}</div>`).join("");
+    for (const p of paivat) {
+      const n = laskuri[p] || 0;
+      const pisteet = n ? Array.from({ length: Math.min(n, 3) }, () => `<i class="f"></i>`).join("") : "";
+      html += `<button class="pv${p === pvmAvain(new Date(nyt)) ? " tanaan" : ""}" data-p="${p}" aria-pressed="${p === valittu}" aria-label="${fmt(p, { weekday: "long", day: "numeric", month: "numeric" })}, ${n} ottelua"><span class="nro">${Number(p.slice(8))}</span><span class="pisteet">${pisteet}</span></button>`;
     }
-    return nyt + 36 * 3600e3;
-  }
-  const AAMU = seuraavaAamu();
-  const alkuMs = (o) => new Date(o.alku).getTime();
-  // Ottelu on "viime yön" ottelu, jos se on alkanut viimeisen vuorokauden aikana (pelattu tai käynnissä).
-  const viimeYo = (o) => alkuMs(o) <= nyt && alkuMs(o) > nyt - 24 * 3600e3;
-
-  function paivittain(lista) {
-    let html = "", edellinen = "";
-    for (const o of lista) {
-      const d = new Date(o.alku), k = pvmAvain(d);
-      if (k !== edellinen) {
-        const nimi = k === tanaan ? "Tänään" : k === huomenna ? "Huomenna" : paivaOtsikko(d);
-        html += `<div class="paiva${k === tanaan ? " tanaan" : ""}">${esc(nimi)}${k === tanaan || k === huomenna ? " · " + esc(lyhytPvm(d)) : ""}</div>`;
-        edellinen = k;
-      }
-      html += otteluRivi(o, false);
-    }
-    return html;
-  }
-
-  function piirraViimeYo() {
-    const el = document.getElementById("viimeyo");
-    let lista = DATA.ottelut.filter((o) => sopii(o) && viimeYo(o));
-    let otsikko = "Viime yö", info = "viimeiset 24 tuntia";
-    if (!lista.length) {
-      // Ei otteluita viime vuorokautena: näytetään viimeisin pelipäivä.
-      const pelatut = DATA.ottelut.filter((o) => sopii(o) && pelattu(o));
-      if (pelatut.length) {
-        const viim = pvmAvain(new Date(pelatut[pelatut.length - 1].alku));
-        lista = pelatut.filter((o) => pvmAvain(new Date(o.alku)) === viim);
-        otsikko = "Viimeisimmät ottelut"; info = paivaOtsikko(new Date(lista[0].alku));
-      }
-    }
-    document.getElementById("viimeyo-otsikko").firstChild.textContent = otsikko + " ";
-    document.getElementById("viimeyo-info").textContent = info;
-    el.innerHTML = lista.length ? lista.map((o) => otteluRivi(o, false)).join("") : `<div class="tyhja">Ei vielä pelattuja otteluita.</div>`;
-  }
-
-  function piirraTanaan() {
-    const lista = DATA.ottelut.filter((o) => sopii(o) && !pelattu(o) && alkuMs(o) > nyt && alkuMs(o) < AAMU);
-    document.getElementById("tanaan-info").textContent = `klo ${klo(new Date(AAMU))} asti`;
-    document.getElementById("tanaan").innerHTML = lista.length ? paivittain(lista) : `<div class="tyhja">Ei otteluita ennen huomisaamua.</div>`;
-  }
-
-  function piirraTulevat() {
-    const lista = DATA.ottelut.filter((o) => sopii(o) && !pelattu(o) && alkuMs(o) >= AAMU);
-    const raja = nyt + 7 * 864e5;
-    const naytettavat = nayta.tulevat ? lista : lista.filter((o) => alkuMs(o) < raja);
-    const el = document.getElementById("tulevat");
-    if (!lista.length) { el.innerHTML = `<div class="tyhja">Ei tulevia otteluita.</div>`; document.getElementById("tulevat-info").textContent = ""; return; }
-    let html = naytettavat.length ? paivittain(naytettavat) : `<div class="tyhja">Ei otteluita seuraavan viikon aikana.</div>`;
-    if (lista.length > naytettavat.length) html += `<button class="nappi lisaa" id="lisaa-tulevat">Näytä kaikki tulevat (${lista.length})</button>`;
-    else if (nayta.tulevat) html += `<button class="nappi lisaa" id="lisaa-tulevat">Näytä vain seuraava viikko</button>`;
+    const el = document.getElementById("viikko");
     el.innerHTML = html;
-    document.getElementById("tulevat-info").textContent = nayta.tulevat ? "koko kausi" : "seuraavat 7 päivää";
-    const b = document.getElementById("lisaa-tulevat");
-    if (b) b.onclick = () => { nayta.tulevat = !nayta.tulevat; piirraTulevat(); };
+    for (const b of el.querySelectorAll(".pv")) b.onclick = () => valitse(b.dataset.p);
   }
 
-  function piirraTulokset() {
-    const viimeYossa = new Set(DATA.ottelut.filter((o) => sopii(o) && viimeYo(o)).map((o) => o.id));
-    const lista = DATA.ottelut.filter((o) => sopii(o) && pelattu(o) && !viimeYossa.has(o.id)).reverse();
-    const raja = nyt - 7 * 864e5;
-    const naytettavat = nayta.tulokset ? lista : lista.filter((o) => alkuMs(o) > raja);
-    const el = document.getElementById("tulokset");
-    if (!lista.length) { el.innerHTML = `<div class="tyhja">Ei aiempia tuloksia.</div>`; return; }
-    let html = naytettavat.length ? naytettavat.map((o) => otteluRivi(o, true)).join("") : `<div class="tyhja">Ei otteluita viimeisen viikon aikana.</div>`;
-    if (lista.length > naytettavat.length) html += `<button class="nappi lisaa" id="lisaa-tulokset">Näytä koko kausi (${lista.length})</button>`;
-    else if (nayta.tulokset) html += `<button class="nappi lisaa" id="lisaa-tulokset">Näytä vain viime viikko</button>`;
-    el.innerHTML = html;
-    document.getElementById("tulokset-info").textContent = nayta.tulokset ? "koko kausi" : "viimeiset 7 päivää";
-    const b = document.getElementById("lisaa-tulokset");
-    if (b) b.onclick = () => { nayta.tulokset = !nayta.tulokset; piirraTulokset(); };
+  function piirraOttelut() {
+    const lista = DATA.ottelut.filter((o) => sopii(o) && pelipaiva(alkuMs(o)) === valittu).sort((a, b) => alkuMs(a) - alkuMs(b));
+    const vp = fmt(valittu, { weekday: "long" });
+    const aamu = Number(new Intl.DateTimeFormat("en-GB", { timeZone: VY, hour: "2-digit", hourCycle: "h23" }).format(new Date(nyt))) < 12;
+    const kalTanaan = pvmAvain(new Date(nyt));
+    const nimet = aamu ? { [avainPlus(kalTanaan, -1)]: "Viime yö", [kalTanaan]: "Tänään" } : { [avainPlus(kalTanaan, -1)]: "Viime yö", [kalTanaan]: "Tänään", [avainPlus(kalTanaan, 1)]: "Huomenna" };
+    const nimi = nimet[valittu] || vp;
+    document.getElementById("paiva-otsikko").textContent = `${nimi.replace(/^./, (c) => c.toUpperCase())} ${fmt(valittu, { day: "numeric", month: "numeric" }).replace(/\.?$/, ".")}`;
+    document.getElementById("paiva-info").textContent = lista.length ? `${lista.length} ottelu${lista.length > 1 ? "a" : ""} · ${fmt(valittu, { weekday: "short" })} klo 12 – ${fmt(avainPlus(valittu, 1), { weekday: "short" })} klo 12` : "";
+    const el = document.getElementById("ottelut");
+    if (lista.length) { el.innerHTML = lista.map(kortti).join(""); return; }
+    const kaikki = DATA.ottelut.filter(sopii).map((o) => pelipaiva(alkuMs(o)));
+    const seur = kaikki.filter((p) => p > valittu).sort()[0], ed = kaikki.filter((p) => p < valittu).sort().pop();
+    el.innerHTML = `<div class="tyhja">Ei otteluita tänä päivänä.<br>${seur ? `<button data-p="${seur}">Seuraava pelipäivä: ${fmt(seur, { weekday: "short", day: "numeric", month: "numeric" })} ›</button>` : ed ? `<button data-p="${ed}">‹ Edellinen pelipäivä: ${fmt(ed, { weekday: "short", day: "numeric", month: "numeric" })}</button>` : ""}</div>`;
+    for (const b of el.querySelectorAll("button[data-p]")) b.onclick = () => valitse(b.dataset.p);
   }
 
   function piirraPelaajat() {
     const lista = DATA.pelaajat.filter((p) => valinta.pelaaja ? p.id === valinta.pelaaja : valinta.sarja === "kaikki" || p.sarja === valinta.sarja);
-    const seuraava = (p) => DATA.ottelut.find((o) => o.joukkueet.includes(p.joukkue) && !pelattu(o) && new Date(o.alku).getTime() > nyt - 3 * 3600e3);
-    const keskiarvo = (p) => {
+    const seuraava = (p) => DATA.ottelut.find((o) => o.joukkueet.includes(p.joukkue) && !pelattu(o) && alkuMs(o) > nyt - 3 * 3600e3);
+    const ka = (p) => {
       const t = DATA.ottelut.map((o) => o.tilastot && o.tilastot[p.id]).filter((x) => x && !x.eiPelannut);
       if (!t.length) return "–";
-      const ka = (k) => (t.reduce((s, x) => s + (x[k] || 0), 0) / t.length).toFixed(1).replace(".", ",");
-      return `${ka("p")} PTS, ${ka("lp")} REB, ${ka("s")} AST<br><span class="pieni">${t.length} ott., ${ka("min")} MIN</span>`;
+      const k = (x) => (t.reduce((s, y) => s + (y[x] || 0), 0) / t.length).toFixed(1).replace(".", ",");
+      return `${k("p")} PTS · ${k("lp")} REB · ${k("s")} AST<span class="pieni">${t.length} ott. · ${k("min")} MIN</span>`;
     };
-    let html = `<table><thead><tr><th>Pelaaja</th><th>Joukkue</th><th class="piilo-mobiili">Luokka</th><th>Kausi (ka.)</th><th>V–T</th><th class="piilo-mobiili">Seuraava ottelu</th></tr></thead><tbody>`;
+    let html = `<table><thead><tr><th>Pelaaja</th><th>Joukkue</th><th>Kausi (ka.)</th><th class="piilo-mobiili">Seuraava</th></tr></thead><tbody>`;
     for (const p of lista) {
       const j = joukkue[p.joukkue], s = seuraava(p);
       let seur = "–";
       if (s) {
         const os = s.osapuolet.find((x) => x.joukkue === p.joukkue);
-        seur = `${esc(lyhytPvm(new Date(s.alku)))}${s.tba ? "" : " " + klo(new Date(s.alku))} <span class="pieni">${os.paikka === "vieras" ? "@" : "vs."} ${esc(os.vastustaja)}</span>`;
+        seur = `<a href="#${pelipaiva(alkuMs(s))}" data-p="${pelipaiva(alkuMs(s))}">${esc(lyhytPvm(new Date(s.alku)))}${s.tba ? "" : " " + klo(new Date(s.alku))}</a><span class="pieni">${os.paikka === "vieras" ? "@" : "vs."} ${esc(os.vastustaja)}</span>`;
       }
-      html += `<tr><td><strong>${esc(p.nimi)}</strong><br><span class="pieni">${esc([p.pelipaikka, p.kotipaikka].filter(Boolean).join(" · "))}</span></td>
-        <td>${esc(j.koulu)}<br><span class="pieni">${p.sarja === "M" ? "miehet" : "naiset"}</span></td>
-        <td class="piilo-mobiili">${esc(luokka(p.vuosiluokka))}</td>
-        <td class="saldo">${keskiarvo(p)}</td>
-        <td class="saldo">${j.saldo.v}–${j.saldo.t}</td>
-        <td class="piilo-mobiili">${seur}</td></tr>`;
+      html += `<tr><td><strong>${esc(p.nimi)}</strong><span class="pieni">${esc([p.pelipaikka, luokka(p.vuosiluokka), p.kotipaikka].filter(Boolean).join(" · "))}</span></td>
+        <td>${esc(j.koulu)}<span class="pieni">${p.sarja === "M" ? "miehet" : "naiset"} · ${j.saldo.v}–${j.saldo.t}</span></td>
+        <td class="luku">${ka(p)}</td><td class="piilo-mobiili">${seur}</td></tr>`;
     }
-    html += `</tbody></table>`;
-    document.getElementById("pelaajat").innerHTML = html;
-    document.getElementById("pelaajat-info").textContent = `${lista.length} pelaajaa`;
+    const el = document.getElementById("pelaajat");
+    el.innerHTML = html + `</tbody></table>`;
+    for (const a of el.querySelectorAll("a[data-p]")) a.onclick = (e) => { e.preventDefault(); valitse(a.dataset.p); window.scrollTo({ top: 0, behavior: "smooth" }); };
   }
 
   function piirraSuodattimet() {
     for (const b of document.querySelectorAll("[data-sarja]")) b.setAttribute("aria-pressed", String(!valinta.pelaaja && b.dataset.sarja === valinta.sarja));
     const sel = document.getElementById("pelaaja");
-    const vaihtoehdot = DATA.pelaajat.filter((p) => valinta.sarja === "kaikki" || p.sarja === valinta.sarja || p.id === valinta.pelaaja)
-      .slice().sort((a, b) => a.nimi.localeCompare(b.nimi, "fi"));
-    sel.innerHTML = `<option value="">Kaikki pelaajat</option>` + vaihtoehdot.map((p) => `<option value="${esc(p.id)}"${p.id === valinta.pelaaja ? " selected" : ""}>${esc(p.nimi)}</option>`).join("");
+    const v = DATA.pelaajat.filter((p) => valinta.sarja === "kaikki" || p.sarja === valinta.sarja || p.id === valinta.pelaaja).slice().sort((a, b) => a.nimi.localeCompare(b.nimi, "fi"));
+    sel.innerHTML = `<option value="">Pelaaja…</option>` + v.map((p) => `<option value="${esc(p.id)}"${p.id === valinta.pelaaja ? " selected" : ""}>${esc(p.nimi)}</option>`).join("");
     sel.setAttribute("aria-pressed", String(Boolean(valinta.pelaaja)));
   }
 
-  function piirra() { piirraSuodattimet(); piirraViimeYo(); piirraTanaan(); piirraTulevat(); piirraTulokset(); piirraPelaajat(); }
+  function valitse(p) { valittu = p; try { history.replaceState(null, "", "#" + p); } catch (e) {} piirraKalenteri(); piirraOttelut(); }
+  function piirra() { piirraSuodattimet(); piirraKalenteri(); piirraOttelut(); piirraPelaajat(); }
 
+  document.getElementById("ed").onclick = () => valitse(avainPlus(valittu, -7));
+  document.getElementById("seur").onclick = () => valitse(avainPlus(valittu, 7));
   for (const b of document.querySelectorAll("[data-sarja]")) b.onclick = () => { valinta.sarja = b.dataset.sarja; valinta.pelaaja = ""; tallenna(); piirra(); };
   document.getElementById("pelaaja").onchange = (e) => { valinta.pelaaja = e.target.value; tallenna(); piirra(); };
 
-  const paiv = new Date(DATA.paivitetty);
-  document.getElementById("paivitetty").textContent = "Päivitetty " + new Intl.DateTimeFormat("fi-FI", { timeZone: VY, day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(paiv) + ".";
+  document.getElementById("paivitetty").textContent = "Päivitetty " + new Intl.DateTimeFormat("fi-FI", { timeZone: VY, day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(DATA.paivitetty)) + ".";
   if (DATA.virheet && DATA.virheet.length) {
     const koulut = DATA.virheet.map((v) => (joukkue[v.joukkue] || {}).koulu || v.joukkue);
     document.getElementById("huomio").innerHTML = `<div class="huomio">Viimeisin päivitys ei onnistunut kaikille joukkueille (${esc(koulut.join(", "))}). Niiden tiedot ovat edellisestä päivityksestä.</div>`;
   }
   piirra();
+
+  // Kotinäytöltä avattu sivu voi jäädä taustalle tunneiksi: ladataan uudelleen, jos se on yli 20 min vanha.
+  const ladattu = Date.now();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && Date.now() - ladattu > 20 * 60e3) location.reload();
+  });
+
+  // Vinkki kotinäytölle lisäämisestä: vain iPhonella/iPadilla selaimessa, aikaisintaan toisella käynnillä, ja suljettu vinkki ei palaa.
+  try {
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const kotinaytolla = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
+    const kaynnit = Number(localStorage.getItem("suomi-ncaa-kaynnit") || 0) + 1;
+    localStorage.setItem("suomi-ncaa-kaynnit", String(kaynnit));
+    if (ios && !kotinaytolla && kaynnit >= 2 && !localStorage.getItem("suomi-ncaa-vinkki-suljettu")) {
+      const el = document.createElement("div");
+      el.className = "asennus";
+      el.setAttribute("role", "dialog");
+      el.setAttribute("aria-label", "Lisää aloitusnäytölle");
+      el.innerHTML = `<img src="apple-touch-icon.png" alt=""><div><b>Lisää aloitusnäytölle</b>Napauta Jaa-painiketta <svg class="jaa" viewBox="0 0 14 16" aria-label="Jaa"><path d="M7 1v10M3.5 4.5 7 1l3.5 3.5M2 7.5V15h10V7.5" fill="none" stroke="#fff" stroke-width="1.5"/></svg> ja valitse <i>Lisää Koti-valikkoon</i>. Sivu aukeaa silloin kuin sovellus.</div><button aria-label="Sulje">×</button>`;
+      el.querySelector("button").onclick = () => { localStorage.setItem("suomi-ncaa-vinkki-suljettu", "1"); el.remove(); };
+      document.body.appendChild(el);
+    }
+  } catch (e) {}
 })();
 </script>
 </body>
