@@ -190,6 +190,7 @@
   <footer>
     <p>Otteluohjelmat, tulokset ja tilastot: koulujen omat otteluohjelmat ja pöytäkirjat. Pelaajalista: Koripalloliitto (basket.fi). Päivitetään kolmesti päivässä.</p>
     <p>Pelipäivä = illan ja yön ottelut: klo 12 alkaen seuraavaan päivään klo 12 asti (Suomen aikaa). Harjoitusottelut eivät ole mukana. Ei NCAA:n eikä koulujen virallinen palvelu.</p>
+    <p>Kävijämäärät lasketaan GoatCounterilla ilman evästeitä ja henkilötietoja.</p>
     <p id="paivitetty"></p>
   </footer>
 </main>
@@ -503,6 +504,17 @@ const DATA = /*__DATA__*/null;
     }
   } catch (e) {}
 })();
+</script>
+<script>
+  // Kävijäseuranta (GoatCounter: ei evästeitä, ei henkilötietoja). Vain oikeassa osoitteessa,
+  // jotta esikatselut ja testit eivät näy tilastoissa.
+  if (location.hostname === "ncaa.stude.fi") {
+    const gc = document.createElement("script");
+    gc.async = true;
+    gc.src = "https://gc.zgo.at/count.js";
+    gc.dataset.goatcounter = "https://ncaa.goatcounter.com/count";
+    document.head.appendChild(gc);
+  }
 </script>
 </body>
 </html>
