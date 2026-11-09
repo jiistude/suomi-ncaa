@@ -117,6 +117,10 @@
   th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--heikko); font-weight: 700; background: #FAFAFB; }
   tr:last-child td { border-bottom: 0; }
   td .pieni { display: block; }
+  .vain-mobiili { display: none; }
+  .seur-m { margin-top: 4px; font-size: .82rem; color: var(--heikko); }
+  #pelaajat a { color: var(--musta); font-weight: 600; text-decoration: underline; text-decoration-color: var(--punainen); text-underline-offset: 3px; white-space: nowrap; }
+  .nw { white-space: nowrap; }
   td.luku { font-variant-numeric: tabular-nums; white-space: nowrap; }
   footer { margin: 30px 0 40px; color: var(--heikko); font-size: .8rem; }
   footer p { margin: 4px 0; }
@@ -130,6 +134,10 @@
     .merkki { width: 40px; height: 40px; }
     .pv .nro { width: 36px; height: 36px; font-size: 1.05rem; }
     .piilo-mobiili { display: none; }
+    .vain-mobiili { display: block; }
+    table { font-size: .84rem; }
+    th, td { padding: 8px 7px; }
+    td.luku { white-space: normal; min-width: 92px; }
     .alaosa { grid-template-columns: 1fr; }
     .alaosa .boxscore { justify-self: start; }
   }
@@ -350,17 +358,18 @@ const DATA = /*__DATA__*/null;
       const t = DATA.ottelut.map((o) => o.tilastot && o.tilastot[p.id]).filter((x) => x && !x.eiPelannut);
       if (!t.length) return "–";
       const k = (x) => (t.reduce((s, y) => s + (y[x] || 0), 0) / t.length).toFixed(1).replace(".", ",");
-      return `${k("p")} PTS · ${k("lp")} REB · ${k("s")} AST<span class="pieni">${t.length} ott. · ${k("min")} MIN</span>`;
+      return `<span class="nw">${k("p")} PTS</span> · <span class="nw">${k("lp")} REB</span> · <span class="nw">${k("s")} AST</span><span class="pieni">${t.length} ott. · ${k("min")} MIN</span>`;
     };
     let html = `<table><thead><tr><th>Pelaaja</th><th>Joukkue</th><th>Kausi (ka.)</th><th class="piilo-mobiili">Seuraava</th></tr></thead><tbody>`;
     for (const p of lista) {
       const j = joukkue[p.joukkue], s = seuraava(p);
-      let seur = "–";
+      let seur = "–", seurM = "";
       if (s) {
         const os = s.osapuolet.find((x) => x.joukkue === p.joukkue);
         seur = `<a href="#${pelipaiva(alkuMs(s))}" data-p="${pelipaiva(alkuMs(s))}">${esc(lyhytPvm(new Date(s.alku)))}${s.tba ? "" : " " + klo(new Date(s.alku))}</a><span class="pieni">${os.paikka === "vieras" ? "@" : "vs."} ${esc(os.vastustaja)}</span>`;
+        seurM = `<span class="vain-mobiili seur-m">Seuraava: <a href="#${pelipaiva(alkuMs(s))}" data-p="${pelipaiva(alkuMs(s))}">${esc(lyhytPvm(new Date(s.alku)))}${s.tba ? "" : " " + klo(new Date(s.alku))}</a> ${os.paikka === "vieras" ? "@" : "vs."} ${esc(os.vastustaja)}</span>`;
       }
-      html += `<tr><td><strong>${esc(p.nimi)}</strong><span class="pieni">${esc([p.pelipaikka, luokka(p.vuosiluokka), p.kotipaikka].filter(Boolean).join(" · "))}</span></td>
+      html += `<tr><td><strong>${esc(p.nimi)}</strong><span class="pieni">${esc([p.pelipaikka, luokka(p.vuosiluokka), p.kotipaikka].filter(Boolean).join(" · "))}</span>${seurM}</td>
         <td>${esc(j.koulu)}<span class="pieni">${p.sarja === "M" ? "miehet" : "naiset"} · ${j.saldo.v}–${j.saldo.t}</span></td>
         <td class="luku">${ka(p)}</td><td class="piilo-mobiili">${seur}</td></tr>`;
     }
