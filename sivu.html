@@ -28,7 +28,8 @@
 
   header { background: var(--musta); color: #fff; }
   header .sisalto { padding-top: 18px; padding-bottom: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
-  .otsake { display: flex; align-items: center; gap: 10px; }
+  .otsake { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .otsake:active { opacity: .7; }
   .logo { width: 40px; height: 40px; flex: none; }
   .asennus { position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 20; max-width: 520px; margin: 0 auto;
     background: var(--musta); color: #fff; border-radius: 14px; padding: 12px 40px 12px 12px; display: flex; gap: 10px; align-items: center;
@@ -137,10 +138,10 @@
 <body>
 <header>
   <div class="sisalto">
-    <div class="otsake"><svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="170" fill="#E3343A"/><g fill="none" stroke="#1A1A1A" stroke-width="18"><path d="M86 256 H426 M256 86 V426"/><path d="M136 124 A200 200 0 0 1 136 388"/><path d="M376 124 A200 200 0 0 0 376 388"/></g><circle cx="256" cy="256" r="170" fill="none" stroke="#C4C8CD" stroke-width="10"/></svg><div>
+    <a class="otsake" id="koti" href="./" title="Oletusnäkymään"><svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="170" fill="#E3343A"/><g fill="none" stroke="#1A1A1A" stroke-width="18"><path d="M86 256 H426 M256 86 V426"/><path d="M136 124 A200 200 0 0 1 136 388"/><path d="M376 124 A200 200 0 0 0 376 388"/></g><circle cx="256" cy="256" r="170" fill="none" stroke="#C4C8CD" stroke-width="10"/></svg><div>
       <h1>Suomalaiset <span>NCAA</span>:ssa</h1>
       <p>Division I 2026–27 · ajat Suomen aikaa</p>
-    </div></div>
+    </div></a>
     <div class="suodattimet" role="group" aria-label="Suodata">
       <button class="nappi" data-sarja="kaikki">Kaikki</button>
       <button class="nappi" data-sarja="M">Miehet</button>
@@ -375,6 +376,17 @@ const DATA = /*__DATA__*/null;
     sel.innerHTML = `<option value="">Pelaaja…</option>` + v.map((p) => `<option value="${esc(p.id)}"${p.id === valinta.pelaaja ? " selected" : ""}>${esc(p.nimi)}</option>`).join("");
     sel.setAttribute("aria-pressed", String(Boolean(valinta.pelaaja)));
   }
+
+  // Logo tai otsikko: suodattimet ja päivävalinta oletuksiin (kaikki, tämän hetken pelipäivä).
+  document.getElementById("koti").onclick = (e) => {
+    e.preventDefault();
+    valinta = { sarja: "kaikki", pelaaja: "" };
+    tallenna();
+    valittu = pelipaiva(Date.now());
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (err) {}
+    piirra();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   function valitse(p) { valittu = p; try { history.replaceState(null, "", "#" + p); } catch (e) {} piirraKalenteri(); piirraOttelut(); }
   function piirra() { piirraSuodattimet(); piirraKalenteri(); piirraOttelut(); piirraPelaajat(); }
