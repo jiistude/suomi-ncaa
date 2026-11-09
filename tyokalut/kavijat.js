@@ -11,7 +11,7 @@ async function api(polku, param) {
   const url = `${SITE}${polku}?${new URLSearchParams(param)}`;
   for (let yritys = 0; yritys < 3; yritys++) {
     const r = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" } });
-    if (r.status === 429) { await new Promise((x) => setTimeout(x, 3000)); continue; }
+    if (r.status === 429 || (r.status === 404 && yritys < 2)) { await new Promise((x) => setTimeout(x, 3000)); continue; }
     if (!r.ok) throw new Error(`${polku}: HTTP ${r.status} ${(await r.text()).slice(0, 200)}`);
     return r.json();
   }
@@ -19,6 +19,17 @@ async function api(polku, param) {
 }
 
 (async () => {
+  // Diagnostiikka: mihin sivustoon avain kuuluu ja millä oikeuksilla (ei tulosta avainta).
+  if (process.env.KAVIJAT_DIAG) {
+    for (const [polku, param] of [["/me", {}], ["/sites", {}], ["/paths", { limit: 3 }]]) {
+      const r = await fetch(`${SITE}${polku}?${new URLSearchParams(param)}`, { headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" } });
+      console.log(polku, r.status, (await r.text()).replace(/"token"\s*:\s*"[^"]*"/g, '"token":"***"').slice(0, 600));
+    }
+    for (const fmt of ["2026-11-02", "2026-11-02T00:00:00Z"]) {
+      const r = await fetch(`${SITE}/stats/total?start=${encodeURIComponent(fmt)}&end=${encodeURIComponent(fmt.replace("02", "08"))}`, { headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" } });
+      console.log("total", fmt, r.status, (await r.text()).slice(0, 300));
+    }
+  }
   // Viikot UTC:nä: kuluvaa viikkoa edeltävä maanantai–sunnuntai ja sitä edellinen.
   const nyt = new Date();
   const ma = new Date(Date.UTC(nyt.getUTCFullYear(), nyt.getUTCMonth(), nyt.getUTCDate() - ((nyt.getUTCDay() + 6) % 7)));
@@ -35,7 +46,7 @@ async function api(polku, param) {
     tulos.viikot.push(vk);
   }
   const t = tulos.viikot[0].yhteensa;
-  console.log(`Viikko ${viikot[0].alku}–${viikot[0].loppu}: ${t.total ?? "?"} sivulatausta, ${t.total_utc ?? ""}`);
+  console.log(`Viikko ${viikot[0].alku}–${viikot[0].loppu}: ${t.total ?? "?"} sivulatausta`);
   console.log("=== KAVIJAT-ALKU ===");
   console.log(zlib.gzipSync(JSON.stringify(tulos)).toString("base64").match(/.{1,100}/g).join("\n"));
   console.log("=== KAVIJAT-LOPPU ===");
