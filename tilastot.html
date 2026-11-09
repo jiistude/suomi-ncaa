@@ -78,6 +78,22 @@
   th .nuoli { color: var(--punainen); }
   td.aktiivinen { background: #FBF3F3; font-weight: 700; }
   tr.ei-peleja td { color: var(--heikko); }
+  tr.pelaajarivi { cursor: pointer; }
+  tr.pelaajarivi:hover td { background: #FAFAFB; }
+  tr.pelaajarivi:hover td.aktiivinen { background: #F7EDED; }
+  tr.pelaajarivi.auki td { border-bottom-color: transparent; }
+  .avaa { display: inline-block; width: 12px; color: var(--punainen); font-size: .8rem; transition: transform .15s; }
+  tr.auki .avaa { transform: rotate(90deg); }
+  tr.ottelulista > td { position: static; padding: 0 0 12px; background: var(--pinta); box-shadow: none; text-align: left; white-space: normal; }
+  .pelilista { position: sticky; left: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 9px; }
+  .pelilista table { font-size: .8rem; background: var(--tausta); border-radius: 10px; width: auto; min-width: 100%; }
+  .pelilista th, .pelilista td { padding: 6px 8px; position: static; background: none; box-shadow: none; border-bottom: 1px solid var(--pinta); }
+  .pelilista th { font-size: .66rem; }
+  .pelilista td:first-child, .pelilista th:first-child { text-align: left; min-width: 0; }
+  .pelilista .vas { text-align: left; }
+  .pelilista .v { font-weight: 700; }
+  .pelilista .heikko { color: var(--heikko); }
+  .pelilista a { color: var(--musta); font-weight: 600; text-decoration: underline; text-decoration-color: var(--punainen); text-underline-offset: 3px; }
   .tyhja { padding: 22px; text-align: center; color: var(--heikko); }
 
   .selitteet { margin-top: 22px; color: var(--heikko); font-size: .8rem; columns: 2 220px; }
@@ -196,6 +212,7 @@ const DATA = /*__DATA__*/null;
   // Tila: sarja, valitut pelaajat, keskiarvot/yhteensä, järjestys. Pelaajavalinta tallentuu osoitteeseen (#p=id,id), jotta näkymän voi jakaa.
   let sarja = "kaikki", tila = "ka", jarj = { a: "p", suunta: -1 };
   let valitut = new Set();
+  const auki = new Set(); // pelaajat, joiden ottelulista on näkyvissä
   const hash = new URLSearchParams(location.hash.slice(1));
   if (hash.get("p")) for (const id of hash.get("p").split(",")) if (DATA.pelaajat.some((p) => p.id === id)) valitut.add(id);
   if (hash.get("s") === "M" || hash.get("s") === "N") sarja = hash.get("s");
@@ -205,6 +222,33 @@ const DATA = /*__DATA__*/null;
     if (valitut.size) h.set("p", [...valitut].join(","));
     try { history.replaceState(null, "", h.toString() ? "#" + h.toString() : location.pathname); } catch (e) {}
   };
+
+  // Pelaajan ottelukohtaiset tilastorivit, uusin ensin.
+  const pvm = (s) => new Intl.DateTimeFormat("fi-FI", { timeZone: VY, day: "numeric", month: "numeric" }).format(new Date(s));
+  const ma = (x) => x ? `${x[0]}/${x[1]}` : "–";
+  const nro = (v) => v == null ? "–" : v;
+  function ottelulista(p) {
+    const rivit = DATA.pelirivit.filter((r) => r.pelaaja === p.id).sort((a, b) => b.alku.localeCompare(a.alku));
+    const ots = ["Pvm", "Vastustaja", "Tulos", "MIN", "PTS", "REB", "OREB", "DREB", "AST", "STL", "BLK", "TO", "PF", "FG", "3P", "FT", ""];
+    let h = `<div class="pelilista"><table><thead><tr>${ots.map((o, i) => `<th${i < 3 ? ' class="vas"' : ""}>${o}</th>`).join("")}</tr></thead><tbody>`;
+    for (const r of rivit) {
+      const vs = `${r.paikka === "vieras" ? "@" : r.paikka === "neutraali" ? "vs." : "vs."} ${esc(r.vastustaja)}${r.paikka === "neutraali" ? ' <span class="heikko">(N)</span>' : ""}`;
+      const tulos = r.tulos ? `<span class="v">${r.tulos.voitto ? "V" : "T"}</span> ${r.tulos.oma}–${r.tulos.vast}` : "–";
+      const linkki = r.linkki ? `<a href="${esc(r.linkki)}" target="_blank" rel="noopener">Boxscore</a>` : "";
+      const t = r.t;
+      h += `<tr><td class="vas">${pvm(r.alku)}</td><td class="vas">${vs}</td><td class="vas">${tulos}</td>`;
+      if (t.eiPelannut) h += `<td colspan="13" class="vas heikko">ei pelannut</td>`;
+      else h += [t.min, `<b>${nro(t.p)}</b>`, t.lp, t.hl, t.pl, t.s, t.r, t.t, t.m, t.vi].map((v) => `<td>${nro(v)}</td>`).join("") + [t.kh, t.kolme, t.vh].map((v) => `<td>${ma(v)}</td>`).join("");
+      h += `<td>${linkki}</td></tr>`;
+    }
+    return h + `</tbody></table></div>`;
+  }
+  // Ottelulista pysyy näkyvän alueen levyisenä, vaikka päätaulukkoa vieritetään sivusuunnassa.
+  function sovitaListat() {
+    const w = document.querySelector(".kehys").clientWidth;
+    for (const el of document.querySelectorAll(".pelilista")) el.style.width = w + "px";
+  }
+  window.addEventListener("resize", sovitaListat);
 
   function piirraTaulukko() {
     const lista = DATA.pelaajat.filter((p) => (sarja === "kaikki" || p.sarja === sarja) && (!valitut.size || valitut.has(p.id)));
@@ -224,9 +268,11 @@ const DATA = /*__DATA__*/null;
     let html = `<thead><tr>${otsake("nimi", "Pelaaja")}${SARAKKEET.map((s) => otsake(s.a, s.o)).join("")}</tr></thead><tbody>`;
     for (const p of lista) {
       const x = summat[p.id], j = joukkue[p.joukkue];
-      html += `<tr class="${x.gp ? "" : "ei-peleja"}"><td><strong>${esc(p.nimi)}</strong><span class="pieni">${esc(j.koulu)} · ${p.sarja === "M" ? "M" : "N"}${x.dnp ? ` · ${x.dnp} ei pel.` : ""}</span></td>`;
+      const onRivit = DATA.pelirivit.some((r) => r.pelaaja === p.id);
+      html += `<tr class="${x.gp ? "" : "ei-peleja"}${onRivit ? " pelaajarivi" : ""}${auki.has(p.id) ? " auki" : ""}" data-id="${esc(p.id)}"${onRivit ? ` aria-expanded="${auki.has(p.id)}" title="Näytä ottelut"` : ""}><td><strong>${onRivit ? `<span class="avaa">▸</span> ` : ""}${esc(p.nimi)}</strong><span class="pieni">${esc(j.koulu)} · ${p.sarja === "M" ? "M" : "N"}${x.dnp ? ` · ${x.dnp} ei pel.` : ""}</span></td>`;
       for (const s of SARAKKEET) html += `<td class="${jarj.a === s.a ? "aktiivinen" : ""}${s.alku ? " ryhma-alku" : ""}">${x.gp ? muotoile(s.f(x, tila), s, tila) : "–"}</td>`;
       html += `</tr>`;
+      if (auki.has(p.id)) html += `<tr class="ottelulista"><td colspan="${SARAKKEET.length + 1}">${ottelulista(p)}</td></tr>`;
     }
     html += `</tbody>`;
     const t = document.getElementById("taulukko");
@@ -236,8 +282,14 @@ const DATA = /*__DATA__*/null;
       jarj = jarj.a === a ? { a, suunta: -jarj.suunta } : { a, suunta: a === "nimi" ? 1 : -1 };
       piirraTaulukko();
     };
+    for (const r of t.querySelectorAll("tr.pelaajarivi")) r.onclick = (e) => {
+      if (e.target.closest("a")) return;
+      auki.has(r.dataset.id) ? auki.delete(r.dataset.id) : auki.add(r.dataset.id);
+      piirraTaulukko();
+    };
+    sovitaListat();
     const pelanneet = lista.filter((p) => summat[p.id].gp).length;
-    document.getElementById("info").textContent = `${lista.length} pelaajaa, joista ${pelanneet} on pelannut · ${tila === "ka" ? "keskiarvot ottelua kohden; prosentit koko kauden heitoista" : "kauden yhteismäärät"} · napauta sarakeotsikkoa järjestääksesi`;
+    document.getElementById("info").textContent = `${lista.length} pelaajaa, joista ${pelanneet} on pelannut · ${tila === "ka" ? "keskiarvot ottelua kohden; prosentit koko kauden heitoista" : "kauden yhteismäärät"} · napauta sarakeotsikkoa järjestääksesi tai pelaajaa nähdäksesi ottelut`;
   }
 
   function piirraValinnat() {
