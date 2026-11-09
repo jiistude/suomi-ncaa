@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-09T15:35:26.699Z",
+ "paivitetty": "2026-11-09T20:40:52.777Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -4757,7 +4757,7 @@
      "vastustaja": "Towson",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://go.flocollege.com/partner/caa?utm_medium=partner&utm_source=multiple&utm_content=landingpage&utm_term=towson&contract_id=0063m00000qeqqqaao",
      "linkki": "https://loyolagreyhounds.com/sports/mens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -4988,7 +4988,7 @@
      "vastustaja": "Morgan State or UMBC",
      "paikka": "koti",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://go.flocollege.com/partner/caa?utm_medium=partner&utm_source=multiple&utm_content=landingpage&utm_term=towson&contract_id=0063m00000qeqqqaao",
      "linkki": "https://loyolagreyhounds.com/sports/mens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -6019,28 +6019,6 @@
    ]
   },
   {
-   "id": "2f97a92e07",
-   "alku": "2026-11-20T22:00:00.000Z",
-   "tba": false,
-   "sarja": "N",
-   "sijainti": ", George Cannon Activities Center",
-   "joukkueet": [
-    "california-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "california-n",
-     "vastustaja": "Hawaii",
-     "paikka": "koti",
-     "tulos": null,
-     "striimi": null,
-     "linkki": "https://calbears.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "932c19d9bb",
    "alku": "2026-11-20T22:30:00.000Z",
    "tba": false,
@@ -6057,6 +6035,28 @@
      "tulos": null,
      "striimi": "https://www.espn.com/watch/player/_/id/8dd5fb25-5e38-4555-b57e-6852470830dd",
      "linkki": "https://utahutes.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "7154a56ee2",
+   "alku": "2026-11-21T00:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": ", George Cannon Activities Center",
+   "joukkueet": [
+    "california-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "california-n",
+     "vastustaja": "Hawaii",
+     "paikka": "koti",
+     "tulos": null,
+     "striimi": null,
+     "linkki": "https://calbears.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -6570,7 +6570,7 @@
   },
   {
    "id": "f8f47cd560",
-   "alku": "2026-11-23T23:00:00.000Z",
+   "alku": "2026-11-23T22:00:00.000Z",
    "tba": false,
    "sarja": "N",
    "sijainti": ", George Cannon Activities Center",
@@ -7223,6 +7223,28 @@
      "tulos": null,
      "striimi": "https://www.espn.com/search/_/q/butler/o/watch/appearance/dark",
      "linkki": "https://butlersports.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "e3244e4f2e",
+   "alku": "2026-11-27T22:30:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": ", Haas Pavilion",
+   "joukkueet": [
+    "california-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "california-n",
+     "vastustaja": "East Carolina vs Gardner-Webb",
+     "paikka": "koti",
+     "tulos": null,
+     "striimi": null,
+     "linkki": "https://calbears.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
