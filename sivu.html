@@ -117,7 +117,11 @@
   th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--heikko); font-weight: 700; background: #FAFAFB; }
   tr:last-child td { border-bottom: 0; }
   td .pieni { display: block; }
-  .vain-mobiili { display: none; }
+  .vain-mobiili, .vain-mobiili-r { display: none; }
+  th .jarj { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; cursor: pointer; white-space: nowrap; }
+  th .jarj:hover { color: var(--musta); }
+  th .jarj.aktiivinen { color: var(--musta); }
+  th .jarj .nuoli { color: var(--punainen); font-size: .9em; }
   .seur-m { margin-top: 4px; font-size: .82rem; color: var(--heikko); }
   #pelaajat a { color: var(--musta); font-weight: 600; text-decoration: underline; text-decoration-color: var(--punainen); text-underline-offset: 3px; white-space: nowrap; }
   .nw { white-space: nowrap; }
@@ -145,6 +149,7 @@
     .pv .nro { width: 36px; height: 36px; font-size: 1.05rem; }
     .piilo-mobiili { display: none; }
     .vain-mobiili { display: block; }
+    .vain-mobiili-r { display: inline; }
     table { font-size: .84rem; }
     th, td { padding: 8px 7px; }
     td.luku { white-space: normal; min-width: 92px; }
@@ -365,16 +370,40 @@ const DATA = /*__DATA__*/null;
   const sukunimi = (p) => p.nimi.trim().split(/\s+/).pop();
   const sukunimittain = (a, b) => sukunimi(a).localeCompare(sukunimi(b), "fi") || a.nimi.localeCompare(b.nimi, "fi");
 
+  // Pelaajataulukon järjestys: napauta sarakeotsikkoa; uusi napautus kääntää suunnan.
+  const OLETUSSUUNTA = { nimi: 1, joukkue: 1, kausi: -1, seuraava: 1 };
+  let jarjestys = { avain: "nimi", suunta: 1 };
   function piirraPelaajat() {
-    const lista = DATA.pelaajat.filter((p) => valinta.pelaaja ? p.id === valinta.pelaaja : valinta.sarja === "kaikki" || p.sarja === valinta.sarja).sort(sukunimittain);
     const seuraava = (p) => DATA.ottelut.find((o) => o.joukkueet.includes(p.joukkue) && !pelattu(o) && alkuMs(o) > nyt - 3 * 3600e3);
+    const pelatut = (p) => DATA.ottelut.map((o) => o.tilastot && o.tilastot[p.id]).filter((x) => x && !x.eiPelannut);
+    const pisteKa = (p) => { const t = pelatut(p); return t.length ? t.reduce((s, y) => s + (y.p || 0), 0) / t.length : null; };
+    // Järjestysavaimet. Puuttuva arvo (ei pelattuja, ei tulevaa ottelua) menee aina listan loppuun.
+    const AVAIMET = {
+      nimi: (p) => sukunimi(p),
+      joukkue: (p) => joukkue[p.joukkue].koulu,
+      kausi: pisteKa,
+      seuraava: (p) => { const s = seuraava(p); return s ? alkuMs(s) : null; },
+    };
+    const arvo = AVAIMET[jarjestys.avain];
+    const lista = DATA.pelaajat.filter((p) => valinta.pelaaja ? p.id === valinta.pelaaja : valinta.sarja === "kaikki" || p.sarja === valinta.sarja)
+      .sort((a, b) => {
+        const x = arvo(a), y = arvo(b);
+        if (x == null || y == null) return x == null && y == null ? sukunimittain(a, b) : x == null ? 1 : -1;
+        const e = typeof x === "string" ? x.localeCompare(y, "fi") : x - y;
+        return (e * jarjestys.suunta) || sukunimittain(a, b);
+      });
+    const otsake = (avain, teksti) => {
+      const aktiivinen = jarjestys.avain === avain;
+      const nuoli = aktiivinen ? (jarjestys.suunta > 0 ? " ▲" : " ▼") : "";
+      return `<button class="jarj${aktiivinen ? " aktiivinen" : ""}" data-j="${avain}" aria-sort="${aktiivinen ? (jarjestys.suunta > 0 ? "ascending" : "descending") : "none"}">${teksti}<span class="nuoli">${nuoli}</span></button>`;
+    };
     const ka = (p) => {
-      const t = DATA.ottelut.map((o) => o.tilastot && o.tilastot[p.id]).filter((x) => x && !x.eiPelannut);
+      const t = pelatut(p);
       if (!t.length) return "–";
       const k = (x) => (t.reduce((s, y) => s + (y[x] || 0), 0) / t.length).toFixed(1).replace(".", ",");
       return `<span class="nw">${k("p")} PTS</span> · <span class="nw">${k("lp")} REB</span> · <span class="nw">${k("s")} AST</span><span class="pieni">${t.length} ott. · ${k("min")} MIN</span>`;
     };
-    let html = `<table><thead><tr><th>Pelaaja</th><th>Joukkue</th><th>Kausi (ka.)</th><th class="piilo-mobiili">Seuraava</th></tr></thead><tbody>`;
+    let html = `<table><thead><tr><th>${otsake("nimi", "Pelaaja")}<span class="vain-mobiili-r"> · ${otsake("seuraava", "Seuraava")}</span></th><th>${otsake("joukkue", "Joukkue")}</th><th>${otsake("kausi", "Kausi (ka.)")}</th><th class="piilo-mobiili">${otsake("seuraava", "Seuraava")}</th></tr></thead><tbody>`;
     for (const p of lista) {
       const j = joukkue[p.joukkue], s = seuraava(p);
       let seur = "–", seurM = "";
@@ -390,6 +419,11 @@ const DATA = /*__DATA__*/null;
     const el = document.getElementById("pelaajat");
     el.innerHTML = html + `</tbody></table>`;
     for (const a of el.querySelectorAll("a[data-p]")) a.onclick = (e) => { e.preventDefault(); valitse(a.dataset.p); window.scrollTo({ top: 0, behavior: "smooth" }); };
+    for (const b of el.querySelectorAll("button[data-j]")) b.onclick = () => {
+      const a = b.dataset.j;
+      jarjestys = jarjestys.avain === a ? { avain: a, suunta: -jarjestys.suunta } : { avain: a, suunta: OLETUSSUUNTA[a] };
+      piirraPelaajat();
+    };
   }
 
   function piirraSuodattimet() {
@@ -404,6 +438,7 @@ const DATA = /*__DATA__*/null;
   document.getElementById("koti").onclick = (e) => {
     e.preventDefault();
     valinta = { sarja: "kaikki", pelaaja: "" };
+    jarjestys = { avain: "nimi", suunta: 1 };
     tallenna();
     valittu = pelipaiva(Date.now());
     try { history.replaceState(null, "", location.pathname + location.search); } catch (err) {}
