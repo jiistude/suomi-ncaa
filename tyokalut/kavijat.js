@@ -19,6 +19,17 @@ async function api(polku, param) {
 }
 
 (async () => {
+  // Diagnostiikka: mihin sivustoon avain kuuluu ja millä oikeuksilla (ei tulosta avainta).
+  if (process.env.KAVIJAT_DIAG) {
+    for (const [polku, param] of [["/me", {}], ["/sites", {}], ["/paths", { limit: 3 }]]) {
+      const r = await fetch(`${SITE}${polku}?${new URLSearchParams(param)}`, { headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" } });
+      console.log(polku, r.status, (await r.text()).replace(/"token"\s*:\s*"[^"]*"/g, '"token":"***"').slice(0, 600));
+    }
+    for (const fmt of ["2026-11-02", "2026-11-02T00:00:00Z"]) {
+      const r = await fetch(`${SITE}/stats/total?start=${encodeURIComponent(fmt)}&end=${encodeURIComponent(fmt.replace("02", "08"))}`, { headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" } });
+      console.log("total", fmt, r.status, (await r.text()).slice(0, 300));
+    }
+  }
   // Viikot UTC:nä: kuluvaa viikkoa edeltävä maanantai–sunnuntai ja sitä edellinen.
   const nyt = new Date();
   const ma = new Date(Date.UTC(nyt.getUTCFullYear(), nyt.getUTCMonth(), nyt.getUTCDate() - ((nyt.getUTCDay() + 6) % 7)));
