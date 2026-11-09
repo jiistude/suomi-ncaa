@@ -125,6 +125,16 @@
   footer { margin: 30px 0 40px; color: var(--heikko); font-size: .8rem; }
   footer p { margin: 4px 0; }
   .huomio { background: #fff; border-left: 4px solid var(--punainen); border-radius: 8px; padding: 8px 12px; font-size: .85rem; margin-top: 12px; }
+  /* Tietokoneella: leveämpi sivu ja ottelukortit ruudukkona (2–3 rinnakkain). Kalenteri pysyy kapeana. */
+  @media (min-width: 900px) {
+    .sisalto { max-width: 1240px; padding: 0 24px; }
+    .kalenteri .sisalto { max-width: 760px; }
+    #ottelut { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 14px; }
+    #ottelut .kortti { margin-bottom: 0; display: flex; flex-direction: column; }
+    #ottelut .alaosa { flex: 1; }
+    #ottelut .ylaosa { min-height: 128px; }
+    #ottelut .tyhja { grid-column: 1 / -1; }
+  }
   @media (max-width: 560px) {
     header .sisalto { flex-direction: column; align-items: flex-start; }
     .suodattimet { justify-content: flex-start; }
@@ -351,8 +361,12 @@ const DATA = /*__DATA__*/null;
     for (const b of el.querySelectorAll("button[data-p]")) b.onclick = () => valitse(b.dataset.p);
   }
 
+  // Aakkosjärjestys sukunimen (nimen viimeinen osa) mukaan, tasatilanteessa etunimen mukaan.
+  const sukunimi = (p) => p.nimi.trim().split(/\s+/).pop();
+  const sukunimittain = (a, b) => sukunimi(a).localeCompare(sukunimi(b), "fi") || a.nimi.localeCompare(b.nimi, "fi");
+
   function piirraPelaajat() {
-    const lista = DATA.pelaajat.filter((p) => valinta.pelaaja ? p.id === valinta.pelaaja : valinta.sarja === "kaikki" || p.sarja === valinta.sarja);
+    const lista = DATA.pelaajat.filter((p) => valinta.pelaaja ? p.id === valinta.pelaaja : valinta.sarja === "kaikki" || p.sarja === valinta.sarja).sort(sukunimittain);
     const seuraava = (p) => DATA.ottelut.find((o) => o.joukkueet.includes(p.joukkue) && !pelattu(o) && alkuMs(o) > nyt - 3 * 3600e3);
     const ka = (p) => {
       const t = DATA.ottelut.map((o) => o.tilastot && o.tilastot[p.id]).filter((x) => x && !x.eiPelannut);
@@ -381,7 +395,7 @@ const DATA = /*__DATA__*/null;
   function piirraSuodattimet() {
     for (const b of document.querySelectorAll("[data-sarja]")) b.setAttribute("aria-pressed", String(!valinta.pelaaja && b.dataset.sarja === valinta.sarja));
     const sel = document.getElementById("pelaaja");
-    const v = DATA.pelaajat.filter((p) => valinta.sarja === "kaikki" || p.sarja === valinta.sarja || p.id === valinta.pelaaja).slice().sort((a, b) => a.nimi.localeCompare(b.nimi, "fi"));
+    const v = DATA.pelaajat.filter((p) => valinta.sarja === "kaikki" || p.sarja === valinta.sarja || p.id === valinta.pelaaja).slice().sort(sukunimittain);
     sel.innerHTML = `<option value="">Pelaaja…</option>` + v.map((p) => `<option value="${esc(p.id)}"${p.id === valinta.pelaaja ? " selected" : ""}>${esc(p.nimi)}</option>`).join("");
     sel.setAttribute("aria-pressed", String(Boolean(valinta.pelaaja)));
   }
