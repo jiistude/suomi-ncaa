@@ -1,0 +1,24 @@
+name: Kävijätilastot
+
+# Hakee kerran viikossa GoatCounterista edellisen viikon kävijätiedot lokiin raporttia varten.
+# Ei muuta sivua eikä tallenna mitään repoon.
+on:
+  schedule:
+    - cron: "15 3 * * 1" # maanantaisin klo 05.15 Suomen talviaikaa
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hae:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tyokalut/kavijat.js
+        env:
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
