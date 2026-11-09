@@ -11,7 +11,7 @@ async function api(polku, param) {
   const url = `${SITE}${polku}?${new URLSearchParams(param)}`;
   for (let yritys = 0; yritys < 3; yritys++) {
     const r = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" } });
-    if (r.status === 429) { await new Promise((x) => setTimeout(x, 3000)); continue; }
+    if (r.status === 429 || (r.status === 404 && yritys < 2)) { await new Promise((x) => setTimeout(x, 3000)); continue; }
     if (!r.ok) throw new Error(`${polku}: HTTP ${r.status} ${(await r.text()).slice(0, 200)}`);
     return r.json();
   }
@@ -46,7 +46,7 @@ async function api(polku, param) {
     tulos.viikot.push(vk);
   }
   const t = tulos.viikot[0].yhteensa;
-  console.log(`Viikko ${viikot[0].alku}–${viikot[0].loppu}: ${t.total ?? "?"} sivulatausta, ${t.total_utc ?? ""}`);
+  console.log(`Viikko ${viikot[0].alku}–${viikot[0].loppu}: ${t.total ?? "?"} sivulatausta`);
   console.log("=== KAVIJAT-ALKU ===");
   console.log(zlib.gzipSync(JSON.stringify(tulos)).toString("base64").match(/.{1,100}/g).join("\n"));
   console.log("=== KAVIJAT-LOPPU ===");

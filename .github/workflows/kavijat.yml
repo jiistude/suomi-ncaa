@@ -22,4 +22,3 @@ jobs:
       - run: node tyokalut/kavijat.js
         env:
           GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
-          KAVIJAT_DIAG: "1"
