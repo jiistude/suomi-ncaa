@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-10T16:45:39.602Z",
+ "paivitetty": "2026-11-10T20:01:06.715Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -5841,9 +5841,9 @@
      "paikka": "neutraali",
      "tulos": null,
      "striimi": null,
-     "live": null,
-     "linkki": "https://arkansasrazorbacks.com/sport/m-baskbl/schedule/",
-     "linkkiTyyppi": "ohjelma",
+     "live": "https://www.statbroadcast.com/events/statmonitr.php?gid=ark",
+     "linkki": "https://www.statbroadcast.com/events/statmonitr.php?gid=ark",
+     "linkkiTyyppi": "live",
      "tilastolahde": null
     }
    ]
@@ -6024,7 +6024,7 @@
      "vastustaja": "LSU New Orleans",
      "paikka": "koti",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.espn.com/watch/player/_/eventCalendarId/401920211?gameId=401920211&sourceLang=en&om-navmethod=espn:globalsearch:results",
      "live": null,
      "linkki": "https://tulsahurricane.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
