@@ -161,6 +161,7 @@ async function sidearmIcs(j) {
     const m = loppu.match(/^(vs\.?|at)\s+(.+)$/i);
     const tm = kuvaus.match(/(?:^|\n)\s*([WLT])\s+(\d{1,3})\s*-\s*(\d{1,3})/);
     const striimi = (kuvaus.match(/Streaming Video:\s*(\S+)/i) || [])[1] || null;
+    const live = (kuvaus.match(/Live\s*Stats?:\s*(\S+)/i) || [])[1] || null;
     return {
       alku: aika && aika.alku, tba: aika ? aika.tba : true,
       // Osa kouluista lisää nimen perään kampanjatekstin: "Incarnate Word - Season Opener | …"
@@ -168,7 +169,7 @@ async function sidearmIcs(j) {
       paikka: m && /^at$/i.test(m[1]) ? "vieras" : "koti",
       sijainti: siisti(icsTeksti(t.LOCATION && t.LOCATION.arvo)),
       tulos: tm ? tulos(tm[1], tm[2], tm[3]) : null,
-      striimi, linkki: ohjelma, linkkiTyyppi: "ohjelma",
+      striimi, live, linkki: ohjelma, linkkiTyyppi: "ohjelma",
       harjoitus: onHarjoitus(otsikko),
     };
   });
@@ -179,7 +180,7 @@ async function sidearmIcs(j) {
   // Tunnus ei aina ole sama kuin kalenterin, joten ottelut yhdistetään vastustajan
   // nimen perusteella aikajärjestyksessä (sama vastustaja kahdesti = järjestys ratkaisee).
   const pelatut = ottelut.filter((o) => o.tulos && o.alku).sort((a, b) => a.alku - b.alku);
-  if (pelatut.length) {
+  if (ottelut.length) {
     try {
       await tauko(300);
       const html = await hae(ohjelma, "text/html");
@@ -193,6 +194,20 @@ async function sidearmIcs(j) {
           linkit.find((l) => vapaat.has(l) && l.slug && (l.slug.startsWith(v) || v.startsWith(l.slug)));
         if (osuma) { o.linkki = osuma.url; o.linkkiTyyppi = "poytakirja"; o.tilastolahde = { tyyppi: "sidearm", url: osuma.url }; vapaat.delete(osuma); }
       }
+      // Live-tilastot: perinteisellä SIDEARM-sivulla linkin aria-label kertoo vastustajan ja päivän:
+      // "Live stats for Women's Basketball vs Jacksonville State on November 20, 2026 at 12 p.m."
+      const liveLinkit = [...html.matchAll(/aria-label="Live stats for [^"]*?\s(?:vs\.?|at)\s+([^"]+?) on ([A-Z][a-z]+ \d{1,2}, \d{4})[^"]*"\s+href="([^"]+)"/g)]
+        .map((m) => ({ slug: slugiksi(m[1].replace(/&amp;/g, "&")), pvm: new Date(m[2] + " 12:00 UTC").toISOString().slice(0, 10), url: m[3].replace(/&amp;/g, "&") }));
+      let liveYhdistetty = 0;
+      for (const o of ottelut) {
+        if (!o.alku) continue;
+        const pvm = new Intl.DateTimeFormat("sv-SE", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(o.alku);
+        const v = slugiksi(o.vastustaja);
+        const samana = liveLinkit.filter((l) => l.pvm === pvm);
+        const l = samana.length === 1 ? samana[0] : samana.find((x) => v && x.slug && (x.slug.startsWith(v) || v.startsWith(x.slug)));
+        if (l) { o.live = l.url.startsWith("/") ? juuri + l.url : l.url; liveYhdistetty++; }
+      }
+      if (liveLinkit.length) console.log(`       ${j.avain}: live-tilastolinkkejä ${liveYhdistetty}/${liveLinkit.length}`);
     } catch (e) {
       console.error(`       ${j.avain}: box score -linkkejä ei saatu (${e.message}), käytetään otteluohjelmaa`);
     }
@@ -217,6 +232,8 @@ async function wmtApi(j) {
       sijainti: siisti(e.location),
       tulos: r && r.result ? tulos(r.result, r.winning_score, r.losing_score) : null,
       striimi: null,
+      // Live-tilastot: StatBroadcast-tunnus (esim. UCLA) tai wmt.games-ottelusivu (esim. Northwestern).
+      live: e.statbroadcast_id ? `https://stats.statbroadcast.com/broadcast/?id=${e.statbroadcast_id}` : e.wmt_stats2_iframe_url || null,
       linkki: r && r.result && e.box_score_url ? e.box_score_url : `${j.sivusto}/sports/${j.laji}/schedule`,
       linkkiTyyppi: r && r.result && e.box_score_url ? "poytakirja" : "ohjelma",
       // Tilastot: wmt.games (esim. Northwestern) tai koulun oma stats-palvelu (esim. UCLA).
@@ -266,7 +283,7 @@ async function wmtSivu(j) {
       paikka: tyyppi.includes("neutral") ? "neutraali" : tyyppi.includes("away") ? "vieras" : "koti",
       sijainti: paikka,
       tulos: mt ? tulos(mt[1], mt[2], mt[3]) : null,
-      striimi,
+      striimi, live,
       linkki: mt ? poytakirja || raportti || j.sivu : live || j.sivu,
       linkkiTyyppi: mt ? (poytakirja ? "poytakirja" : raportti ? "raportti" : "ohjelma") : live ? "live" : "ohjelma",
       tilastolahde: mt && poytakirja && /\.pdf($|\?)/i.test(poytakirja) ? { tyyppi: "pdf", url: poytakirja } : null,
@@ -325,6 +342,8 @@ function vastustajaOnJoukkue(vastustaja, joukkue) {
   // Kauden alkua edeltävät ja harjoitusottelut pois.
   const kauden = raaka.filter((o) => !o.harjoitus && o.alku >= KAUDEN_ALKU);
 
+  // Live-tilastot: ottelukohtainen linkki lähteestä, muuten kotiotteluissa koulun StatBroadcast-sivu
+  // (joukkue.live pelaajat.json:ssa). Vierasotteluissa tilastot tekee vastustaja, joten koulun sivu ei auta.
   // Yhdistä suomalaisten keskinäiset ottelut yhdeksi (sama päivä, vastustaja on seurattu joukkue).
   const jMap = Object.fromEntries(joukkueet.map((j) => [j.avain, j]));
   const kaytetty = new Set();
@@ -354,7 +373,7 @@ function vastustajaOnJoukkue(vastustaja, joukkue) {
       joukkueet: ryhma.map((o) => o.joukkue),
       osapuolet: ryhma.map((o) => ({
         joukkue: o.joukkue, vastustaja: o.vastustaja, paikka: o.paikka, tulos: o.tulos,
-        striimi: o.striimi, linkki: o.linkki, linkkiTyyppi: o.linkkiTyyppi || "ohjelma", tilastolahde: o.tilastolahde || null,
+        striimi: o.striimi, live: o.live || (o.paikka === "koti" && jMap[o.joukkue].live) || null, linkki: o.linkki, linkkiTyyppi: o.linkkiTyyppi || "ohjelma", tilastolahde: o.tilastolahde || null,
       })),
     });
   }

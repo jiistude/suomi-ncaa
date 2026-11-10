@@ -39,7 +39,7 @@
   .asennus .jaa { display: inline-block; width: 14px; height: 16px; vertical-align: -2px; }
   .asennus button { position: absolute; top: 6px; right: 6px; background: none; border: 0; color: var(--hopea); font-size: 1.3rem; line-height: 1; padding: 6px; cursor: pointer; }
   .valilehdet { display: flex; gap: 22px; }
-  header .sisalto.valilehdet { padding-top: 0; padding-bottom: 0; display: flex; align-items: stretch; justify-content: flex-start; }
+  header .sisalto.valilehdet { padding-top: 0; padding-bottom: 0; display: flex; flex-direction: row; align-items: stretch; justify-content: flex-start; }
   .valilehdet a { color: var(--hopea); text-decoration: none; font-weight: 700; font-size: .9rem; text-transform: uppercase; letter-spacing: .04em; padding: 8px 0 9px; border-bottom: 3px solid transparent; }
   .valilehdet a[aria-current="page"] { color: #fff; border-bottom-color: var(--punainen); }
   header h1 { margin: 0; font: 800 1.45rem/1.1 var(--kapea); text-transform: uppercase; letter-spacing: .01em; }
@@ -111,6 +111,9 @@
   .rivi2 { font-variant-numeric: tabular-nums; font-size: .8rem; color: var(--heikko); }
   .boxscore { font-size: .82rem; font-weight: 600; color: var(--musta); text-decoration: none; white-space: nowrap; border: 1px solid var(--viiva); border-radius: 999px; padding: 4px 10px; }
   .boxscore:hover { border-color: var(--musta); }
+  .boxscore.live { display: inline-flex; align-items: center; gap: 6px; }
+  .boxscore.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--punainen); }
+  .viivehuomio { color: var(--heikko); font-size: .78rem; margin: -4px 0 12px; }
 
   .tyhja { color: var(--heikko); background: var(--pinta); border-radius: 16px; padding: 22px; text-align: center; }
   .tyhja button { margin-top: 10px; background: var(--musta); color: #fff; border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer; font-size: .88rem; }
@@ -187,6 +190,7 @@
 <main class="sisalto">
   <div id="huomio"></div>
   <div class="paivaotsikko"><h2 id="paiva-otsikko"></h2><small id="paiva-info"></small></div>
+  <p class="viivehuomio">Tuloksia ei seurata reaaliajassa: ne päivittyvät noin tunnin välein, joten kierroksen tuloksissa voi olla viivettä. Kesken olevaa ottelua voi seurata Live-tilastot-linkistä, kun koulu tarjoaa sellaisen.</p>
   <div id="ottelut"></div>
 
   <h2 class="osio">Pelaajat</h2>
@@ -330,7 +334,8 @@ const DATA = /*__DATA__*/null;
     if (neutr) keski += `<div class="pieni">neutraali kenttä</div>`;
     const lp = o.osapuolet.find((p) => p.linkkiTyyppi === "poytakirja") || o.osapuolet.find((p) => p.linkki);
     const NIMI = { poytakirja: "Boxscore", raportti: "Otteluraportti", live: "Live-tilastot", ohjelma: "Otteluohjelma" };
-    const linkki = lp && lp.linkki && (tulos || t <= nyt) ? `<a class="boxscore" href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"} ›</a>` : "";
+    const liveOs = !tulos && t > nyt - 4 * 3600e3 && o.osapuolet.find((p) => p.live);
+    const linkki = liveOs ? `<a class="boxscore live" href="${esc(liveOs.live)}" target="_blank" rel="noopener">Live-tilastot ›</a>` : lp && lp.linkki && (tulos || t <= nyt) ? `<a class="boxscore" href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"} ›</a>` : "";
     return `<article class="kortti">${derby ? `<div class="derby-merkki">Suomalaiset vastakkain</div>` : ""}
       <div class="ylaosa">${puoliHtml(v, "vasen", tulos)}<div class="keski">${keski}</div>${puoliHtml(k, "oikea", tulos)}</div>
       <div class="alaosa"><div class="suomalaiset">${pelaajaRivit(o, derby)}</div>${linkki}</div></article>`;

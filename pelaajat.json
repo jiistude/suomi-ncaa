@@ -22,7 +22,8 @@
     "Texas Rio Grande Valley",
     "UT Rio Grande Valley"
    ],
-   "laji": "womens-basketball"
+   "laji": "womens-basketball",
+   "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=utrgv"
   },
   {
    "avain": "tulsa-n",
@@ -89,7 +90,8 @@
    "nimet": [
     "Xavier"
    ],
-   "laji": "womens-basketball"
+   "laji": "womens-basketball",
+   "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=xavi"
   },
   {
    "avain": "ohio-state-n",
@@ -144,7 +146,8 @@
     "North Alabama",
     "UNA"
    ],
-   "laji": "womens-basketball"
+   "laji": "womens-basketball",
+   "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal"
   },
   {
    "avain": "western-kentucky-n",
@@ -254,7 +257,8 @@
    "nimet": [
     "Portland State"
    ],
-   "laji": "mens-basketball"
+   "laji": "mens-basketball",
+   "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=ptsu"
   },
   {
    "avain": "stony-brook-m",
@@ -267,7 +271,8 @@
    "nimet": [
     "Stony Brook"
    ],
-   "laji": "mens-basketball"
+   "laji": "mens-basketball",
+   "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=ston"
   },
   {
    "avain": "nc-state-m",
@@ -337,7 +342,8 @@
    "nimet": [
     "Troy"
    ],
-   "laji": "mens-basketball"
+   "laji": "mens-basketball",
+   "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=troy"
   },
   {
    "avain": "uc-san-diego-m",
@@ -364,7 +370,8 @@
    "nimet": [
     "Butler"
    ],
-   "laji": "mens-basketball"
+   "laji": "mens-basketball",
+   "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=butl"
   },
   {
    "avain": "citadel-m",
@@ -921,5 +928,6 @@
   }
  ],
  "syote_huom": "sidearm-ics: koulun ICS-syöte, pelatun ottelun tulos DESCRIPTION-kentässä (esim. \"W 76-61\"). wmt-api: koulun sivuston JSON-rajapinta website-api/schedule-events; schedule_id haetaan joka kerta lajin nimellä, koska se vaihtuu kausittain. wmt-sivu (Arkansas): koulun julkinen otteluohjelmasivu, josta luetaan sekä ottelut että tulokset. syote_varalla = WMT-kalenterisyöte (vain tulevat ottelut).",
- "kauden_alku": "2026-11-01"
+ "kauden_alku": "2026-11-01",
+ "live_selitys": "joukkue.live = koulun StatBroadcast-tapahtumasivu (näyttää käynnissä olevan ottelun). Käytetään, jos ottelukohtaista live-linkkiä ei ole."
 }
