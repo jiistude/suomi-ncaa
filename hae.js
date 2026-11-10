@@ -147,7 +147,6 @@ function icsAika(kentta, oletusVyohyke) {
 const slugiksi = (s) => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .replace(/&/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-const diagIcs = new Set();
 async function sidearmIcs(j) {
   const teksti = await hae(j.syote, "text/calendar, */*");
   if (!teksti.includes("BEGIN:VCALENDAR")) throw new Error("vastaus ei ole kalenteri");
@@ -163,7 +162,6 @@ async function sidearmIcs(j) {
     const tm = kuvaus.match(/(?:^|\n)\s*([WLT])\s+(\d{1,3})\s*-\s*(\d{1,3})/);
     const striimi = (kuvaus.match(/Streaming Video:\s*(\S+)/i) || [])[1] || null;
     const live = (kuvaus.match(/Live\s*Stats?:\s*(\S+)/i) || [])[1] || null;
-    if (process.env.DIAG_LIVE && !diagIcs.has(j.avain) && kuvaus) { diagIcs.add(j.avain); console.log(`DIAG-ICS ${j.avain}: ${JSON.stringify(kuvaus.slice(0, 400))}`); }
     return {
       alku: aika && aika.alku, tba: aika ? aika.tba : true,
       // Osa kouluista lisää nimen perään kampanjatekstin: "Incarnate Word - Season Opener | …"
@@ -186,12 +184,6 @@ async function sidearmIcs(j) {
     try {
       await tauko(300);
       const html = await hae(ohjelma, "text/html");
-      if (process.env.DIAG_LIVE) {
-        const lv = [...html.matchAll(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]{0,120}?)<\/a>/g)].filter((a) => /live\s*stats|statbroadcast|sidearmstats|livestats/i.test(a[1] + a[2])).map((a) => a[1]);
-        console.log(`DIAG-OHJELMA ${j.avain}: ${lv.length} live-linkkiä, esim. ${[...new Set(lv)].slice(0, 3).join(" ")}`);
-        const i = html.search(/stats\.statbroadcast\.com\/broadcast\/\?id=|statb\.us\/b\//);
-        if (i > 0) console.log(`DIAG-KONTEKSTI ${j.avain}: ${JSON.stringify(html.slice(Math.max(0, i - 2500), i + 200).replace(/\s+/g, " ").replace(/<svg[\s\S]*?<\/svg>/g, "<svg/>"))}`);
-      }
       const linkit = [...new Set(html.match(/\/sports\/[a-z-]+\/stats\/[0-9-]+\/[a-z0-9-]*\/boxscore\/\d+/g) || [])]
         .map((polku) => ({ url: juuri + polku, slug: polku.split("/")[5] }));
       const vapaat = new Set(linkit);
@@ -231,10 +223,6 @@ async function wmtApi(j) {
   await tauko(300);
   const url = `${j.sivusto}/website-api/schedule-events?filter%5Bschedule_id%5D=${sid}&per_page=100&sort=datetime&page=1&include=opponent,scheduleEventResult`;
   const data = JSON.parse(await hae(url, "application/json"));
-  if (process.env.DIAG_LIVE && data.data && data.data[0]) {
-    const e0 = data.data[0];
-    console.log(`DIAG-WMT ${j.avain}: ${Object.keys(e0).filter((k) => /live|stat|url|link|watch|stream/i.test(k)).map((k) => k + "=" + JSON.stringify(e0[k]).slice(0, 120)).join(" | ")}`);
-  }
   return (data.data || []).map((e) => {
     const r = e.schedule_event_result;
     return {
