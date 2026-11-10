@@ -59,7 +59,8 @@ for (const o of d.ottelut.filter((x) => x.osapuolet.length > 1)) console.log(`${
 // Pakattu data lokiin, jotta sivun voi esikatsella muualla.
 const zlib = require("zlib");
 console.log("\n=== DATA-BASE64-ALKU ===");
-console.log(zlib.gzipSync(fs.readFileSync(path.join(__dirname, "..", "docs", "ottelut.json"))).toString("base64"));
+// Rivitetään: GitHubin loki katkaisee hyvin pitkät rivit.
+console.log(zlib.gzipSync(fs.readFileSync(path.join(__dirname, "..", "docs", "ottelut.json"))).toString("base64").match(/.{1,200}/g).join("\n"));
 console.log("=== DATA-BASE64-LOPPU ===");
 
 // Live-tilastolinkit tulevissa (7 pv) otteluissa joukkueittain.
