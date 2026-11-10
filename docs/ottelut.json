@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-10T16:01:05.258Z",
+ "paivitetty": "2026-11-10T16:17:33.010Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -4978,7 +4978,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": "https://www.espn.com/search/_/appearance/dark/type/upcoming/o/watch/q/milwaukee",
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=689172",
      "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -5266,7 +5266,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": "https://www.espn.com/watch/catalog/cdc31536-c49b-4774-b237-4ee3b98de17c/horizon-league#bucketId=29784&sourceCollection=Browse_By_Top_Conferences",
-     "live": null,
+     "live": "https://detroittitans.com/sidearmstats/wbball/summary",
      "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -7379,6 +7379,29 @@
    ]
   },
   {
+   "id": "fd32acc132",
+   "alku": "2026-11-27T16:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "Miami, FL",
+   "joukkueet": [
+    "north-dakota-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "north-dakota-n",
+     "vastustaja": "FIU",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://www.espn.com/watch/catalog/b086526e-9eae-4244-9ff1-2e98faccd7a2/conference-usa#bucketId=29784&sourceCollection=Browse_By_Top_Conferences",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=685748",
+     "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
    "id": "e0ed667f8b",
    "alku": "2026-11-27T17:00:00.000Z",
    "tba": true,
@@ -7396,29 +7419,6 @@
      "striimi": null,
      "live": null,
      "linkki": "https://tulsahurricane.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
-   "id": "fd32acc132",
-   "alku": "2026-11-27T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "Miami, FL",
-   "joukkueet": [
-    "north-dakota-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "north-dakota-n",
-     "vastustaja": "FIU",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://www.espn.com/watch/catalog/b086526e-9eae-4244-9ff1-2e98faccd7a2/conference-usa#bucketId=29784&sourceCollection=Browse_By_Top_Conferences",
-     "live": null,
-     "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
