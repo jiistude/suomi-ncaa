@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-10T16:17:33.010Z",
+ "paivitetty": "2026-11-10T16:30:53.727Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -9625,7 +9625,7 @@
      "vastustaja": "Nebraska",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.bigtenplus.com/en-int/page/schedule?date=2026-12-08",
      "live": null,
      "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
@@ -15353,7 +15353,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": "https://www.midcosportsplus.com/?sport=3-summit-league",
-     "live": null,
+     "live": "https://oruathletics.com/sidearmstats/wbball/summary",
      "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -15744,7 +15744,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": "https://www.midcosportsplus.com/?sport=3-summit-league",
-     "live": null,
+     "live": "https://kcroos.com/sidearmstats/wbball/summary",
      "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
