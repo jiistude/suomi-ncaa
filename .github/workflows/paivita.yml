@@ -6,11 +6,10 @@ name: Päivitä ottelut
 # ajon liitteeksi (Artifacts: esikatselu) tarkistamista varten.
 on:
   schedule:
-    # Ajat UTC. GitHubin ajastus myöhästyy usein tunteja, joten yön ja aamun aikana ajetaan
-    # tunnin välein (Suomen talviaikaa klo 3.17–10.17), jotta tulokset ehtivät aamuksi
-    # vaikka yksittäinen ajo viivästyisi. Päivällä ja illalla kolme ajoa riittää.
-    - cron: "17 1-8 * * *"
-    - cron: "17 12,16,20 * * *"
+    # Päivitykset käynnistää ensisijaisesti ulkoinen ajastin (cron-job.org, Jannen tili) GitHubin
+    # rajapinnan kautta: Suomen aikaa klo 3.17–10.17 tunnin välein sekä 14.17, 18.17 ja 22.17.
+    # GitHubin oma ajastus myöhästyy usein tunteja, joten se on tässä vain varmistuksena (UTC).
+    - cron: "40 5,15 * * *"
   push:
     branches: [main]
     paths-ignore: ["docs/**"]
