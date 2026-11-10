@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-10T05:48:20.636Z",
+ "paivitetty": "2026-11-10T09:03:55.151Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -71,7 +71,7 @@
    "koulu": "Sacramento State",
    "sarja": "N",
    "saldo": {
-    "v": 2,
+    "v": 3,
     "t": 0
    }
   },
@@ -4458,14 +4458,26 @@
      "joukkue": "sacramento-state-n",
      "vastustaja": "Cal State East Bay",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 82,
+      "vast": 52
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/4571ba56-95c8-4136-8bb4-618b44958d2b",
-     "live": "https://stats.statbroadcast.com/broadcast/?id=692352",
-     "linkki": "https://hornetsports.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "live": null,
+     "linkki": "https://hornetsports.com/sports/womens-basketball/stats/2026-27/cal-state-east-bay/boxscore/16877",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://hornetsports.com/sports/womens-basketball/stats/2026-27/cal-state-east-bay/boxscore/16877"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "paananen-pinja": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "1d21777dc5",
