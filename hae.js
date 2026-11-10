@@ -182,7 +182,7 @@ async function sidearmIcs(j) {
   // Tunnus ei aina ole sama kuin kalenterin, joten ottelut yhdistetään vastustajan
   // nimen perusteella aikajärjestyksessä (sama vastustaja kahdesti = järjestys ratkaisee).
   const pelatut = ottelut.filter((o) => o.tulos && o.alku).sort((a, b) => a.alku - b.alku);
-  if (pelatut.length) {
+  if (ottelut.length) {
     try {
       await tauko(300);
       const html = await hae(ohjelma, "text/html");
@@ -202,6 +202,20 @@ async function sidearmIcs(j) {
           linkit.find((l) => vapaat.has(l) && l.slug && (l.slug.startsWith(v) || v.startsWith(l.slug)));
         if (osuma) { o.linkki = osuma.url; o.linkkiTyyppi = "poytakirja"; o.tilastolahde = { tyyppi: "sidearm", url: osuma.url }; vapaat.delete(osuma); }
       }
+      // Live-tilastot: perinteisellä SIDEARM-sivulla linkin aria-label kertoo vastustajan ja päivän:
+      // "Live stats for Women's Basketball vs Jacksonville State on November 20, 2026 at 12 p.m."
+      const liveLinkit = [...html.matchAll(/aria-label="Live stats for [^"]*?\s(?:vs\.?|at)\s+([^"]+?) on ([A-Z][a-z]+ \d{1,2}, \d{4})[^"]*"\s+href="([^"]+)"/g)]
+        .map((m) => ({ slug: slugiksi(m[1].replace(/&amp;/g, "&")), pvm: new Date(m[2] + " 12:00 UTC").toISOString().slice(0, 10), url: m[3].replace(/&amp;/g, "&") }));
+      let liveYhdistetty = 0;
+      for (const o of ottelut) {
+        if (!o.alku) continue;
+        const pvm = new Intl.DateTimeFormat("sv-SE", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(o.alku);
+        const v = slugiksi(o.vastustaja);
+        const samana = liveLinkit.filter((l) => l.pvm === pvm);
+        const l = samana.length === 1 ? samana[0] : samana.find((x) => v && x.slug && (x.slug.startsWith(v) || v.startsWith(x.slug)));
+        if (l) { o.live = l.url.startsWith("/") ? juuri + l.url : l.url; liveYhdistetty++; }
+      }
+      if (liveLinkit.length) console.log(`       ${j.avain}: live-tilastolinkkejä ${liveYhdistetty}/${liveLinkit.length}`);
     } catch (e) {
       console.error(`       ${j.avain}: box score -linkkejä ei saatu (${e.message}), käytetään otteluohjelmaa`);
     }

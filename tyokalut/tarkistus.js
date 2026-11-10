@@ -61,3 +61,13 @@ const zlib = require("zlib");
 console.log("\n=== DATA-BASE64-ALKU ===");
 console.log(zlib.gzipSync(fs.readFileSync(path.join(__dirname, "..", "docs", "ottelut.json"))).toString("base64"));
 console.log("=== DATA-BASE64-LOPPU ===");
+
+// Live-tilastolinkit tulevissa (7 pv) otteluissa joukkueittain.
+{
+  const nyt = Date.now();
+  const tulevat = d.ottelut.filter((o) => { const t = Date.parse(o.alku); return t > nyt - 4 * 3600e3 && t < nyt + 7 * 864e5; });
+  const per = {};
+  for (const o of tulevat) for (const p of o.osapuolet) { const x = (per[p.joukkue] = per[p.joukkue] || [0, 0]); x[1]++; if (p.live) x[0]++; }
+  console.log(`Live-linkit seuraavan 7 pv otteluissa: ${tulevat.filter((o) => o.osapuolet.some((p) => p.live)).length}/${tulevat.length}`);
+  console.log("  " + Object.entries(per).map(([k, [a, b]]) => `${k} ${a}/${b}`).join(", "));
+}
