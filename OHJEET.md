@@ -69,3 +69,12 @@ Kun ottelu on pelattu ja pöytäkirja löytyy, robotti lukee pöytäkirjasta suo
 ## Kausi vaihtuu
 
 Ennen uutta kautta päivitetään `pelaajat.json`: `kausi`, `kauden_alku`, pelaajat (liiton uusi lista) ja joukkueet. SIDEARM-koulujen `sport_id` pysyy yleensä samana, mutta se kannattaa tarkistaa koeajolla.
+
+
+## Päivitysten ajastus
+
+Päivityksen käynnistää **cron-job.org** (Jannen tili, työ "suomi-ncaa päivitys"). Se lähettää GitHubin rajapintaan pyynnön, joka käynnistää *Päivitä ottelut* -ajon. Ajot ovat Suomen aikaa klo 3.17–10.17 tunnin välein sekä klo 14.17, 18.17 ja 22.17. GitHubin oma ajastus on käytössä vain varmistuksena kahdesti päivässä, koska se myöhästyy usein tunteja.
+
+- Avain: GitHubin fine-grained token "cron-job.org suomi-ncaa". Se koskee vain tätä repoa, ja sen ainoa oikeus on *Actions: Read and write*. Avain on voimassa 30.4.2027 asti. Kun avain vanhenee, cron-job.org lähettää virheilmoituksen. Silloin luodaan uusi avain ja vaihdetaan se cron-job.org:n *Authorization*-headeriin (`Bearer <avain>`).
+- Pyyntö: `POST https://api.github.com/repos/jiistude/suomi-ncaa/actions/workflows/paivita.yml/dispatches`, body `{"ref":"main"}`. Onnistuneen pyynnön vastaus on 204.
+- Käsin päivitys: GitHub → Actions → *Päivitä ottelut* → *Run workflow*, tai cron-job.org:ssa *Test run*.
