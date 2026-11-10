@@ -189,6 +189,8 @@ async function sidearmIcs(j) {
       if (process.env.DIAG_LIVE) {
         const lv = [...html.matchAll(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]{0,120}?)<\/a>/g)].filter((a) => /live\s*stats|statbroadcast|sidearmstats|livestats/i.test(a[1] + a[2])).map((a) => a[1]);
         console.log(`DIAG-OHJELMA ${j.avain}: ${lv.length} live-linkkiä, esim. ${[...new Set(lv)].slice(0, 3).join(" ")}`);
+        const i = html.search(/stats\.statbroadcast\.com\/broadcast\/\?id=|statb\.us\/b\//);
+        if (i > 0) console.log(`DIAG-KONTEKSTI ${j.avain}: ${JSON.stringify(html.slice(Math.max(0, i - 2500), i + 200).replace(/\s+/g, " ").replace(/<svg[\s\S]*?<\/svg>/g, "<svg/>"))}`);
       }
       const linkit = [...new Set(html.match(/\/sports\/[a-z-]+\/stats\/[0-9-]+\/[a-z0-9-]*\/boxscore\/\d+/g) || [])]
         .map((polku) => ({ url: juuri + polku, slug: polku.split("/")[5] }));
@@ -228,6 +230,8 @@ async function wmtApi(j) {
       sijainti: siisti(e.location),
       tulos: r && r.result ? tulos(r.result, r.winning_score, r.losing_score) : null,
       striimi: null,
+      // Live-tilastot: StatBroadcast-tunnus (esim. UCLA) tai wmt.games-ottelusivu (esim. Northwestern).
+      live: e.statbroadcast_id ? `https://stats.statbroadcast.com/broadcast/?id=${e.statbroadcast_id}` : e.wmt_stats2_iframe_url || null,
       linkki: r && r.result && e.box_score_url ? e.box_score_url : `${j.sivusto}/sports/${j.laji}/schedule`,
       linkkiTyyppi: r && r.result && e.box_score_url ? "poytakirja" : "ohjelma",
       // Tilastot: wmt.games (esim. Northwestern) tai koulun oma stats-palvelu (esim. UCLA).
@@ -336,6 +340,8 @@ function vastustajaOnJoukkue(vastustaja, joukkue) {
   // Kauden alkua edeltävät ja harjoitusottelut pois.
   const kauden = raaka.filter((o) => !o.harjoitus && o.alku >= KAUDEN_ALKU);
 
+  // Live-tilastot: ottelukohtainen linkki lähteestä, muuten kotiotteluissa koulun StatBroadcast-sivu
+  // (joukkue.live pelaajat.json:ssa). Vierasotteluissa tilastot tekee vastustaja, joten koulun sivu ei auta.
   // Yhdistä suomalaisten keskinäiset ottelut yhdeksi (sama päivä, vastustaja on seurattu joukkue).
   const jMap = Object.fromEntries(joukkueet.map((j) => [j.avain, j]));
   const kaytetty = new Set();
@@ -365,7 +371,7 @@ function vastustajaOnJoukkue(vastustaja, joukkue) {
       joukkueet: ryhma.map((o) => o.joukkue),
       osapuolet: ryhma.map((o) => ({
         joukkue: o.joukkue, vastustaja: o.vastustaja, paikka: o.paikka, tulos: o.tulos,
-        striimi: o.striimi, live: o.live || null, linkki: o.linkki, linkkiTyyppi: o.linkkiTyyppi || "ohjelma", tilastolahde: o.tilastolahde || null,
+        striimi: o.striimi, live: o.live || (o.paikka === "koti" && jMap[o.joukkue].live) || null, linkki: o.linkki, linkkiTyyppi: o.linkkiTyyppi || "ohjelma", tilastolahde: o.tilastolahde || null,
       })),
     });
   }
