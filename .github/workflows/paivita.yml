@@ -1,13 +1,16 @@
 name: Päivitä ottelut
 
-# main-haarassa: hakee ottelut ja julkaisee sivun (docs/) kolmesti päivässä
+# main-haarassa: hakee ottelut ja julkaisee sivun (docs/) ajastetusti (yöllä tunnin välein)
 # sekä jokaisen muutoksen jälkeen.
 # Pull requestissa: ajaa saman haun mutta ei julkaise, vaan tallentaa tuloksen
 # ajon liitteeksi (Artifacts: esikatselu) tarkistamista varten.
 on:
   schedule:
-    # UTC. Talviaikana Suomessa 06.40, 12.40 ja 19.40. Aamun ajo hakee yön tulokset.
-    - cron: "40 4,10,17 * * *"
+    # Ajat UTC. GitHubin ajastus myöhästyy usein tunteja, joten yön ja aamun aikana ajetaan
+    # tunnin välein (Suomen talviaikaa klo 3.17–10.17), jotta tulokset ehtivät aamuksi
+    # vaikka yksittäinen ajo viivästyisi. Päivällä ja illalla kolme ajoa riittää.
+    - cron: "17 1-8 * * *"
+    - cron: "17 12,16,20 * * *"
   push:
     branches: [main]
     paths-ignore: ["docs/**"]
