@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-09T20:40:52.777Z",
+ "paivitetty": "2026-11-10T00:51:08.384Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -4383,7 +4383,7 @@
      "vastustaja": "Bradley",
      "paikka": "koti",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.espn.com/watch/player/_/id/328b1645-8532-44ad-9f79-d6c42d277893",
      "linkki": "https://davidsonwildcats.com/sports/mens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -4647,7 +4647,7 @@
      "vastustaja": "Charleston",
      "paikka": "koti",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.espn.com/watch/player/_/id/42d05159-d65d-464a-851c-b36cb1f5804a",
      "linkki": "https://calbears.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -5098,7 +5098,7 @@
      "vastustaja": "UCSB",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://www.espn.com/watch/player/_/id/3e196a46-a619-41f1-8c62-6b2647bd436c",
      "linkki": "https://calbears.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
