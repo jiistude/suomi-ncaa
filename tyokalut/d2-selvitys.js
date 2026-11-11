@@ -18,7 +18,8 @@ async function koulut() {
   const r = await hae("https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=II", 30000);
   if (!r.ok) throw new Error("Jäsenhakemisto ei vastannut: " + r.status);
   const lista = JSON.parse(r.teksti);
-  console.log(`Jäsenhakemisto: ${lista.length} riviä. Esimerkkikentät: ${Object.keys(lista[0] || {}).join(", ")}`);
+  console.log(`Jäsenhakemisto: ${lista.length} riviä.`);
+  for (const x of lista.slice(0, 3)) console.log(JSON.stringify({ n: x.nameOfficial, d: x.division, dr: x.divisionRoman, a: x.athleticWebUrl, w: x.webSiteUrl, deact: x.deactive, t: x.memberTypeDescription }));
   const url = (x) => x.athleticWebUrl || x.athleticsWebUrl || x.athleticUrl || x.webSiteUrl || "";
   return lista
     .filter((x) => (x.divisionRoman === "II" || Number(x.division) === 2) && !x.deactive)
