@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T02:17:42.630Z",
+ "paivitetty": "2026-11-11T02:30:52.697Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -242,7 +242,7 @@
    "koulu": "The Citadel",
    "sarja": "M",
    "saldo": {
-    "v": 1,
+    "v": 2,
     "t": 1
    }
   },
@@ -4688,14 +4688,48 @@
      "joukkue": "citadel-m",
      "vastustaja": "Virginia Lynchburg",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 131,
+      "vast": 50
+     },
      "striimi": "https://bit.ly/4iDH3AI",
      "live": null,
-     "linkki": "https://citadelsports.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://citadelsports.com/sports/mens-basketball/stats/2026-27/virginia-lynchburg/boxscore/12216",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://citadelsports.com/sports/mens-basketball/stats/2026-27/virginia-lynchburg/boxscore/12216"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ekwere-aaron": {
+     "min": 28,
+     "p": 23,
+     "lp": 9,
+     "s": 8,
+     "r": 6,
+     "t": 4,
+     "m": 2,
+     "kh": [
+      9,
+      10
+     ],
+     "kolme": [
+      1,
+      1
+     ],
+     "vh": [
+      4,
+      5
+     ],
+     "hl": 4,
+     "pl": 5,
+     "vi": 1,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "f4573d4712",
