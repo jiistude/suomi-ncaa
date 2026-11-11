@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T17:09:16.573Z",
+ "paivitetty": "2026-11-11T20:01:02.454Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -5321,8 +5321,8 @@
      "vastustaja": "Fisk",
      "paikka": "koti",
      "tulos": null,
-     "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "striimi": "https://www.espn.com/watch/player/_/id/c4a79bd5-d43b-4c57-9fc2-dcaec6ba1082",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690326",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -6277,7 +6277,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690327",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -7186,7 +7186,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=687193",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -7691,7 +7691,7 @@
      "vastustaja": "UIC",
      "paikka": "koti",
      "tulos": null,
-     "striimi": "https://www.southland.org/espn",
+     "striimi": null,
      "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=utrgv",
      "linkki": "https://goutrgv.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
@@ -7784,7 +7784,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690328",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -8509,7 +8509,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=685674",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -9268,7 +9268,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690329",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -10177,7 +10177,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690330",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -11442,7 +11442,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690331",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -11948,7 +11948,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690332",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -12776,7 +12776,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690333",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -13190,7 +13190,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690323",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -13926,7 +13926,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=687190",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -14570,7 +14570,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690334",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -15191,7 +15191,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690335",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -16134,7 +16134,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=687194",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -16479,7 +16479,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690336",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -17307,7 +17307,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "http://statb.us/b/684696",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -17848,7 +17848,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=688289",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -18481,7 +18481,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690337",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -19930,7 +19930,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=687188",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -20505,7 +20505,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=687191",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -21287,7 +21287,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690338",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -21678,7 +21678,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690339",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -22955,7 +22955,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690340",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -23530,7 +23530,7 @@
      "paikka": "koti",
      "tulos": null,
      "striimi": null,
-     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690341",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
@@ -24842,7 +24842,7 @@
      "paikka": "vieras",
      "tulos": null,
      "striimi": null,
-     "live": null,
+     "live": "https://stats.statbroadcast.com/broadcast/?id=690322",
      "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
