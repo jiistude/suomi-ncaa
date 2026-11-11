@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - "tyokalut/d2-selvitys.js"
+      - "tyokalut/d2-lahteet.js"
       - ".github/workflows/d2-selvitys.yml"
   workflow_dispatch:
 
@@ -20,7 +21,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node tyokalut/d2-selvitys.js
+      - run: node tyokalut/d2-lahteet.js
+      - if: false
+        run: node tyokalut/d2-selvitys.js
         env:
           SELAIN_UA: "1"
           KOULUT: "University of Bridgeport; Bentley University; Carson-Newman University; Coker University; Concordia University, St. Paul; University of the District of Columbia; Dominican University New York; Emory & Henry University; Ferris State University; Fort Valley State University; University of Indianapolis; Mars Hill University; Northwood University; University of Puerto Rico, Mayaguez; University of Puerto Rico, Bayamon; Seattle Pacific University; Seton Hill University; University of Puerto Rico, Rio Piedras; St. Cloud State University; St. Thomas Aquinas College; University of Tampa; Tusculum University; Texas Woman's University; Wilmington University (Delaware)"
