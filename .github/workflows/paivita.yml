@@ -38,10 +38,11 @@ jobs:
         # ja jos asennus ei silti onnistu, päivitys jatkuu ilman sitä: vain Arkansasin uudet
         # pöytäkirjat jäävät odottamaan seuraavaa ajoa (ne eivät tallennu välimuistiin virheellisinä).
         continue-on-error: true
+        timeout-minutes: 4
         run: |
           for i in 1 2 3; do
-            sudo apt-get install -y -qq poppler-utils >/dev/null && exit 0
-            sleep 15; sudo apt-get update -qq >/dev/null || true
+            sudo timeout 60 apt-get install -y -qq -o Acquire::Retries=0 -o Acquire::http::Timeout=10 poppler-utils >/dev/null && exit 0
+            sleep 10; sudo timeout 60 apt-get update -qq >/dev/null || true
           done
           echo "::warning::pdftotext-asennus epäonnistui, Arkansasin PDF-tilastot ohitetaan tässä ajossa"
           exit 1
