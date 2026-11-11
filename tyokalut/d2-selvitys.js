@@ -1,7 +1,8 @@
 // Kertaluonteinen selvitys: suomalaiset NCAA Division II -koripallojoukkueissa (M ja N), kausi 2026-27.
 // 1) Koululista NCAA:n jäsenhakemistosta (division II), 2) jokaisen koulun miesten ja naisten rosterisivu,
 // 3) rosterista haetaan viittaukset Suomeen (kotipaikka/kansalaisuus). Tulos lokiin; ei muuta sivua.
-const UA = "Mozilla/5.0 (compatible; suomi-ncaa-selvitys/1.0; +https://ncaa.stude.basketball)";
+const UA = process.env.SELAIN_UA ? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15" : "Mozilla/5.0 (compatible; suomi-ncaa-selvitys/1.0; +https://ncaa.stude.basketball)";
+const VAIN = process.env.KOULUT ? process.env.KOULUT.split(";").map((x) => x.trim()) : null;
 const KAUSI = "2026-27";
 const tauko = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -39,6 +40,7 @@ async function rosteri(koulu, sarja) {
   for (const polku of POLUT[sarja]) {
     const r = await hae(base + polku);
     await tauko(200);
+    if (VAIN) console.log(`  ${koulu.nimi} ${sarja} ${base + polku} → ${r.status} ${r.url && r.url !== base + polku ? "→ " + r.url : ""} ${r.teksti.length}`);
     if (!r.ok || r.teksti.length < 3000 || !/roster/i.test(r.teksti)) continue;
     const t = tekstiksi(r.teksti);
     const osumat = [];
@@ -49,7 +51,8 @@ async function rosteri(koulu, sarja) {
 }
 
 (async () => {
-  const lista = await koulut();
+  let lista = await koulut();
+  if (VAIN) { lista = lista.filter((k) => VAIN.includes(k.nimi)); console.log("Vain: " + lista.map((k) => `${k.nimi} (${k.url})`).join("; ")); }
   console.log(`D2-kouluja urheilusivuineen: ${lista.length}`);
   const tulokset = [], epaonnistuneet = { M: [], N: [] };
   let i = 0;
