@@ -73,6 +73,10 @@
   .pv .pisteet i.f { background: var(--punainen); }
   .pv:disabled { cursor: default; opacity: .45; }
 
+  .yokytkin { display: flex; background: var(--hopea-vaalea); border-radius: 999px; padding: 3px; margin: 14px auto 0; max-width: 420px; }
+  .yokytkin button { flex: 1; border: 0; background: none; border-radius: 999px; padding: 7px 10px; font-size: .88rem; color: var(--heikko); cursor: pointer; }
+  .yokytkin button small { font-size: .74rem; margin-left: 4px; }
+  .yokytkin button[aria-pressed="true"] { background: var(--musta); color: #fff; font-weight: 700; }
   .paivaotsikko { margin: 16px 0 10px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
   .paivaotsikko h2 { margin: 0; font: 800 1.25rem/1.1 var(--kapea); text-transform: uppercase; }
   .paivaotsikko small { color: var(--heikko); font-size: .8rem; }
@@ -191,8 +195,9 @@
 </nav>
 <main class="sisalto">
   <div id="huomio"></div>
+  <div class="yokytkin" role="group" aria-label="Pikavalinta"><button id="kytkin-viime"></button><button id="kytkin-ensi"></button></div>
   <div class="paivaotsikko"><h2 id="paiva-otsikko"></h2><small id="paiva-info"></small></div>
-  <p class="viivehuomio">Tuloksia ei seurata reaaliajassa: ne päivittyvät noin tunnin välein, joten kierroksen tuloksissa voi olla viivettä. Kesken olevaa ottelua voi seurata "Live"-linkistä, jos koulun verkkosivut tarjoaa sellaisen.</p>
+  <p class="viivehuomio">Tuloksia ei seurata reaaliajassa: ne päivittyvät noin tunnin välein, joten kierroksen tuloksissa voi olla viivettä. Kesken olevaa ottelua voi seurata "Live"-linkistä, jos koulun verkkosivut tarjoavat sellaisen.</p>
   <div id="ottelut"></div>
 
   <h2 class="osio">Pelaajat</h2>
@@ -262,7 +267,14 @@ const DATA = /*__DATA__*/null;
     return valinta.sarja === "kaikki" || o.sarja === valinta.sarja;
   }
 
-  const tanaanPelipaiva = pelipaiva(nyt);
+  // Viime yö = eilen klo 12 alkaneen pelipäivän ottelut, ensi yö = tänään klo 12 alkavan.
+  // Oletusnäkymä vaihtuu viime yön tuloksista ensi yön otteluihin klo 16 Suomen aikaa
+  // (suomalaisten pelit alkavat aikaisintaan noin klo 18).
+  const tunti = (ms) => Number(new Intl.DateTimeFormat("en-GB", { timeZone: VY, hour: "2-digit", hourCycle: "h23" }).format(new Date(ms)));
+  const kalTanaan = pvmAvain(new Date(nyt));
+  const viimeYo = avainPlus(kalTanaan, -1), ensiYo = kalTanaan;
+  const oletus = () => tunti(Date.now()) < 16 ? avainPlus(pvmAvain(new Date(Date.now())), -1) : pvmAvain(new Date(Date.now()));
+  const tanaanPelipaiva = oletus();
   let valittu = tanaanPelipaiva;
   const hashPvm = (location.hash.match(/^#(\d{4}-\d{2}-\d{2})$/) || [])[1];
   if (hashPvm) valittu = hashPvm;
@@ -365,12 +377,21 @@ const DATA = /*__DATA__*/null;
     for (const b of el.querySelectorAll(".pv")) b.onclick = () => valitse(b.dataset.p);
   }
 
+  function piirraKytkin() {
+    const lyh = (k) => fmt(k, { weekday: "short", day: "numeric", month: "numeric" });
+    for (const [id, k, teksti] of [["kytkin-viime", viimeYo, "Viime yö"], ["kytkin-ensi", ensiYo, "Ensi yö"]]) {
+      const b = document.getElementById(id);
+      b.innerHTML = `${teksti}<small>${lyh(k)}</small>`;
+      b.setAttribute("aria-pressed", String(valittu === k));
+      b.onclick = () => valitse(k);
+    }
+  }
+
   function piirraOttelut() {
+    piirraKytkin();
     const lista = DATA.ottelut.filter((o) => sopii(o) && pelipaiva(alkuMs(o)) === valittu).sort((a, b) => alkuMs(a) - alkuMs(b));
     const vp = fmt(valittu, { weekday: "long" });
-    const aamu = Number(new Intl.DateTimeFormat("en-GB", { timeZone: VY, hour: "2-digit", hourCycle: "h23" }).format(new Date(nyt))) < 12;
-    const kalTanaan = pvmAvain(new Date(nyt));
-    const nimet = aamu ? { [avainPlus(kalTanaan, -1)]: "Viime yö", [kalTanaan]: "Tänään" } : { [avainPlus(kalTanaan, -1)]: "Viime yö", [kalTanaan]: "Tänään", [avainPlus(kalTanaan, 1)]: "Huomenna" };
+    const nimet = { [viimeYo]: "Viime yö", [ensiYo]: "Ensi yö", [avainPlus(kalTanaan, 1)]: "Huomenna" };
     const nimi = nimet[valittu] || vp;
     document.getElementById("paiva-otsikko").textContent = `${nimi.replace(/^./, (c) => c.toUpperCase())} ${fmt(valittu, { day: "numeric", month: "numeric" }).replace(/\.?$/, ".")}`;
     document.getElementById("paiva-info").textContent = lista.length ? `${lista.length} ottelu${lista.length > 1 ? "a" : ""} · ${fmt(valittu, { weekday: "short" })} klo 12 – ${fmt(avainPlus(valittu, 1), { weekday: "short" })} klo 12` : "";
@@ -456,7 +477,7 @@ const DATA = /*__DATA__*/null;
     valinta = { sarja: "kaikki", pelaaja: "" };
     jarjestys = { avain: "nimi", suunta: 1 };
     tallenna();
-    valittu = pelipaiva(Date.now());
+    valittu = oletus();
     try { history.replaceState(null, "", location.pathname + location.search); } catch (err) {}
     piirra();
     window.scrollTo({ top: 0, behavior: "smooth" });
