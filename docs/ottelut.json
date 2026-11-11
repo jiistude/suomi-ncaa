@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T02:30:52.697Z",
+ "paivitetty": "2026-11-11T02:46:04.208Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -215,7 +215,7 @@
    "koulu": "Troy",
    "sarja": "M",
    "saldo": {
-    "v": 0,
+    "v": 1,
     "t": 2
    }
   },
@@ -251,7 +251,7 @@
    "koulu": "Davidson",
    "sarja": "M",
    "saldo": {
-    "v": 2,
+    "v": 3,
     "t": 0
    }
   },
@@ -4665,14 +4665,26 @@
      "joukkue": "troy-m",
      "vastustaja": "LMU",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 74,
+      "vast": 69
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/7351100a-7643-4245-8dd4-867f58927309",
      "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=troy",
-     "linkki": "https://troytrojans.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://troytrojans.com/sports/mens-basketball/stats/2026-27/lmu/boxscore/11182",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://troytrojans.com/sports/mens-basketball/stats/2026-27/lmu/boxscore/11182"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "kontuniemi-jayme": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "308bc2aad6",
@@ -4745,14 +4757,48 @@
      "joukkue": "davidson-m",
      "vastustaja": "Bradley",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 62,
+      "vast": 45
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/328b1645-8532-44ad-9f79-d6c42d277893",
      "live": null,
-     "linkki": "https://davidsonwildcats.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://davidsonwildcats.com/sports/mens-basketball/stats/2026-27/bradley/boxscore/11459",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://davidsonwildcats.com/sports/mens-basketball/stats/2026-27/bradley/boxscore/11459"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "heinonen-eetu": {
+     "min": 7,
+     "p": 2,
+     "lp": 1,
+     "s": 0,
+     "r": 0,
+     "t": 0,
+     "m": 0,
+     "kh": [
+      0,
+      2
+     ],
+     "kolme": [
+      0,
+      2
+     ],
+     "vh": [
+      2,
+      2
+     ],
+     "hl": 0,
+     "pl": 1,
+     "vi": 0,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "d8ed11db11",
