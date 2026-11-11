@@ -19,10 +19,9 @@ async function koulut() {
   if (!r.ok) throw new Error("Jäsenhakemisto ei vastannut: " + r.status);
   const lista = JSON.parse(r.teksti);
   console.log(`Jäsenhakemisto: ${lista.length} riviä.`);
-  for (const x of lista.slice(0, 3)) console.log(JSON.stringify({ n: x.nameOfficial, d: x.division, dr: x.divisionRoman, a: x.athleticWebUrl, w: x.webSiteUrl, deact: x.deactive, t: x.memberTypeDescription }));
   const url = (x) => x.athleticWebUrl || x.athleticsWebUrl || x.athleticUrl || x.webSiteUrl || "";
   return lista
-    .filter((x) => (x.divisionRoman === "II" || Number(x.division) === 2) && !x.deactive)
+    .filter((x) => (x.divisionRoman === "II" || Number(x.division) === 2) && x.deactive !== "Y")
     .map((x) => ({ nimi: x.nameOfficial || x.name || x.orgName, url: url(x).trim() }))
     .filter((x) => x.url);
 }
