@@ -1690,5 +1690,33 @@
   "pl": 1,
   "vi": 0,
   "ver": 2
+ },
+ "d8ed11db11|ollilainen-kati": {
+  "min": 34,
+  "p": 10,
+  "lp": 5,
+  "s": 5,
+  "r": 1,
+  "t": 0,
+  "m": 3,
+  "kh": [
+   2,
+   6
+  ],
+  "kolme": [
+   1,
+   1
+  ],
+  "vh": [
+   5,
+   6
+  ],
+  "hl": 0,
+  "pl": 5,
+  "vi": 3,
+  "ver": 2
+ },
+ "0d8b8bf5a8|abbey-obomate": {
+  "eiPelannut": true
  }
 }

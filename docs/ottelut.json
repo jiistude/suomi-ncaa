@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T04:17:25.458Z",
+ "paivitetty": "2026-11-11T04:30:50.169Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -26,7 +26,7 @@
    "koulu": "Wyoming",
    "sarja": "N",
    "saldo": {
-    "v": 0,
+    "v": 1,
     "t": 2
    }
   },
@@ -197,7 +197,7 @@
    "koulu": "Utah",
    "sarja": "M",
    "saldo": {
-    "v": 2,
+    "v": 3,
     "t": 0
    }
   },
@@ -4814,14 +4814,48 @@
      "joukkue": "wyoming-n",
      "vastustaja": "UT Arlington",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 75,
+      "vast": 64
+     },
      "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
      "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://gowyo.com/sports/womens-basketball/stats/2026-27/ut-arlington/boxscore/7085",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://gowyo.com/sports/womens-basketball/stats/2026-27/ut-arlington/boxscore/7085"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ollilainen-kati": {
+     "min": 34,
+     "p": 10,
+     "lp": 5,
+     "s": 5,
+     "r": 1,
+     "t": 0,
+     "m": 3,
+     "kh": [
+      2,
+      6
+     ],
+     "kolme": [
+      1,
+      1
+     ],
+     "vh": [
+      5,
+      6
+     ],
+     "hl": 0,
+     "pl": 5,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "0d8b8bf5a8",
@@ -4837,14 +4871,26 @@
      "joukkue": "utah-m",
      "vastustaja": "Weber State",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 85,
+      "vast": 64
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/3d8da2d7-ae8c-495f-b912-b6f4aa299ba5",
      "live": null,
-     "linkki": "https://utahutes.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://utahutes.com/sports/mens-basketball/stats/2026-27/weber-state/boxscore/24862",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://utahutes.com/sports/mens-basketball/stats/2026-27/weber-state/boxscore/24862"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "abbey-obomate": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "6f287c2745",
