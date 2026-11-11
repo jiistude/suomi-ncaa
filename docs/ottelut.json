@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T20:17:25.780Z",
+ "paivitetty": "2026-11-11T21:07:21.671Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -5180,7 +5180,7 @@
    "osapuolet": [
     {
      "joukkue": "ohio-state-n",
-     "vastustaja": "UCONN",
+     "vastustaja": "No. 4 UCONN",
      "paikka": "koti",
      "tulos": null,
      "striimi": "https://www.foxsports.com/live/fs1",
@@ -8498,7 +8498,7 @@
    "alku": "2026-12-02T00:00:00.000Z",
    "tba": false,
    "sarja": "N",
-   "sijainti": "Evansville, Ind.",
+   "sijainti": "Evansville, Ind., Meeks Family Fieldhouse",
    "joukkueet": [
     "north-alabama-n"
    ],
