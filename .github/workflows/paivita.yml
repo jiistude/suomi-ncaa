@@ -77,6 +77,12 @@ jobs:
             echo "Ei muutoksia."
           else
             git commit -m "Päivitetyt ottelutiedot"
-            git pull --rebase origin main
-            git push
+            # Jos toinen ajo ehti julkaista välissä, docs/-tiedostot ovat ristiriidassa. Ne ovat ajon
+            # tuotoksia, joten tämän (uudemman) ajon versio voittaa (-X theirs = toistettava commit).
+            for i in 1 2 3; do
+              git pull --rebase -X theirs origin main && git push && exit 0
+              git rebase --abort 2>/dev/null || true
+              sleep 5
+            done
+            exit 1
           fi
