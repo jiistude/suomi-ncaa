@@ -34,7 +34,17 @@ jobs:
           node-version: 20
 
       - name: Asenna pdftotext (Arkansasin PDF-pöytäkirjat)
-        run: sudo apt-get install -y -qq poppler-utils >/dev/null
+        # Ubuntun pakettipalvelin on joskus hetkellisesti tavoittamattomissa. Yritetään uudelleen,
+        # ja jos asennus ei silti onnistu, päivitys jatkuu ilman sitä: vain Arkansasin uudet
+        # pöytäkirjat jäävät odottamaan seuraavaa ajoa (ne eivät tallennu välimuistiin virheellisinä).
+        continue-on-error: true
+        run: |
+          for i in 1 2 3; do
+            sudo apt-get install -y -qq poppler-utils >/dev/null && exit 0
+            sleep 15; sudo apt-get update -qq >/dev/null || true
+          done
+          echo "::warning::pdftotext-asennus epäonnistui, Arkansasin PDF-tilastot ohitetaan tässä ajossa"
+          exit 1
 
       - name: Hae ottelut ja rakenna sivu
         run: node hae.js
