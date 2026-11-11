@@ -101,8 +101,12 @@
   .kello { font: 800 2rem/1 var(--kapea); font-variant-numeric: tabular-nums; }
   .pieni { font-size: .76rem; color: var(--heikko); }
 
-  .alaosa { border-top: 1px solid var(--hopea-vaalea); padding: 10px 14px 12px; display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: start; }
+  .alaosa { border-top: 1px solid var(--hopea-vaalea); padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 8px; }
   .suomalaiset { display: grid; gap: 8px; min-width: 0; }
+  /* Suomalaisen tiedot samalla puolella kuin hänen joukkueensa: vieras vasemmalla, koti oikealla. */
+  .pelaaja.oikea { text-align: right; }
+  /* Boxscore / Live -painike kortin keskellä tuloksen alla. */
+  .keski .boxscore { margin-top: 8px; font-size: .74rem; padding: 3px 9px; }
   .pelaaja .nimi { font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
   .pelaaja .nimi .jlyh { font: 700 .66rem/1 var(--kapea); color: #fff; padding: 3px 5px; border-radius: 4px; }
   .lippu { width: 16px; height: 11px; flex: none; border-radius: 1px; box-shadow: 0 0 0 1px rgba(0,0,0,.15); }
@@ -160,8 +164,6 @@
     table { font-size: .84rem; }
     th, td { padding: 8px 7px; }
     td.luku { white-space: normal; min-width: 92px; }
-    .alaosa { grid-template-columns: 1fr; }
-    .alaosa .boxscore { justify-self: start; }
   }
 </style>
 </head>
@@ -304,19 +306,20 @@ const DATA = /*__DATA__*/null;
     return `<div class="puoli ${sivu}">${sivu === "vasen" ? jo + pist : pist + jo}</div>`;
   }
 
-  function pelaajaRivit(o, derby) {
+  function pelaajaRivit(o, derby, kotiJoukkue) {
     const rivit = [];
     for (const a of o.osapuolet) for (const p of pelaajatJoukkueessa[a.joukkue] || []) {
+      const puoli = a.joukkue === kotiJoukkue ? "oikea" : "vasen";
       const [l, vari] = TYYLI[a.joukkue] || ["", "#1A1A1A"];
       const nimi = `<div class="nimi">${LIPPU}${esc(p.nimi)}${derby ? ` <span class="jlyh" style="background:${vari}">${esc(l)}</span>` : ""}</div>`;
       const t = o.tilastot && o.tilastot[p.id];
-      if (!t) { rivit.push(`<div class="pelaaja">${nimi}<div class="rivi2">${esc([p.pelipaikka, luokka(p.vuosiluokka)].filter(Boolean).join(" · "))}</div></div>`); continue; }
-      if (t.eiPelannut) { rivit.push(`<div class="pelaaja">${nimi}<div class="rivi2">ei pelannut</div></div>`); continue; }
+      if (!t) { rivit.push(`<div class="pelaaja ${puoli}">${nimi}<div class="rivi2">${esc([p.pelipaikka, luokka(p.vuosiluokka)].filter(Boolean).join(" · "))}</div></div>`); continue; }
+      if (t.eiPelannut) { rivit.push(`<div class="pelaaja ${puoli}">${nimi}<div class="rivi2">ei pelannut</div></div>`); continue; }
       const iso = [`<b>${t.p}</b> PTS`, `<b>${t.lp}</b> REB`, `<b>${t.s}</b> AST`];
       if (t.r) iso.push(`<b>${t.r}</b> STL`);
       if (t.t) iso.push(`<b>${t.t}</b> BLK`);
       const pien = [t.min != null ? `${t.min} MIN` : "", `FG ${osuus(t.kh)}`, `3P ${osuus(t.kolme)}`, `FT ${osuus(t.vh)}`].filter(Boolean);
-      rivit.push(`<div class="pelaaja">${nimi}<div class="rivi1">${iso.join(" · ")}</div><div class="rivi2">${pien.join(" · ")}</div></div>`);
+      rivit.push(`<div class="pelaaja ${puoli}">${nimi}<div class="rivi1">${iso.join(" · ")}</div><div class="rivi2">${pien.join(" · ")}</div></div>`);
     }
     return rivit.join("");
   }
@@ -324,6 +327,8 @@ const DATA = /*__DATA__*/null;
   function kortti(o) {
     const derby = o.osapuolet.length > 1;
     const [v, k] = puolet(o);
+    // Kotijoukkue on kortin oikealla puolella (ks. puolet()); suomalaisen tiedot tasataan joukkueen puolelle.
+    const kotiJoukkue = derby ? (o.osapuolet.find((x) => x.paikka === "koti") || o.osapuolet[1]).joukkue : o.osapuolet[0].paikka === "koti" ? o.osapuolet[0].joukkue : null;
     const d = new Date(o.alku), t = alkuMs(o);
     const tulos = pelattu(o);
     let keski;
@@ -335,10 +340,10 @@ const DATA = /*__DATA__*/null;
     const lp = o.osapuolet.find((p) => p.linkkiTyyppi === "poytakirja") || o.osapuolet.find((p) => p.linkki);
     const NIMI = { poytakirja: "Boxscore", raportti: "Otteluraportti", live: "Live-tilastot", ohjelma: "Otteluohjelma" };
     const liveOs = !tulos && t > nyt - 4 * 3600e3 && o.osapuolet.find((p) => p.live);
-    const linkki = liveOs ? `<a class="boxscore live" href="${esc(liveOs.live)}" target="_blank" rel="noopener">Live-tilastot ›</a>` : lp && lp.linkki && (tulos || t <= nyt) ? `<a class="boxscore" href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"} ›</a>` : "";
+    const linkki = liveOs ? `<a class="boxscore live" href="${esc(liveOs.live)}" target="_blank" rel="noopener" title="Live-tilastot">Live ›</a>` : lp && lp.linkki && (tulos || t <= nyt) ? `<a class="boxscore" href="${esc(lp.linkki)}" target="_blank" rel="noopener">${NIMI[lp.linkkiTyyppi] || "Otteluohjelma"} ›</a>` : "";
     return `<article class="kortti">${derby ? `<div class="derby-merkki">Suomalaiset vastakkain</div>` : ""}
-      <div class="ylaosa">${puoliHtml(v, "vasen", tulos)}<div class="keski">${keski}</div>${puoliHtml(k, "oikea", tulos)}</div>
-      <div class="alaosa"><div class="suomalaiset">${pelaajaRivit(o, derby)}</div>${linkki}</div></article>`;
+      <div class="ylaosa">${puoliHtml(v, "vasen", tulos)}<div class="keski">${keski}${linkki}</div>${puoliHtml(k, "oikea", tulos)}</div>
+      <div class="alaosa"><div class="suomalaiset">${pelaajaRivit(o, derby, kotiJoukkue)}</div></div></article>`;
   }
 
   function piirraKalenteri() {
