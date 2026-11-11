@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-10T21:24:32.936Z",
+ "paivitetty": "2026-11-11T01:01:02.957Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -108,7 +108,7 @@
    "sarja": "N",
    "saldo": {
     "v": 1,
-    "t": 2
+    "t": 3
    }
   },
   {
@@ -4493,14 +4493,48 @@
      "joukkue": "iona-n",
      "vastustaja": "TCU",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 53,
+      "vast": 78
+     },
      "striimi": "https://www.espn.com/search/_/q/Iona/o/watch",
      "live": null,
-     "linkki": "https://ionagaels.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://ionagaels.com/sports/womens-basketball/stats/2026-27/tcu/boxscore/17724",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://ionagaels.com/sports/womens-basketball/stats/2026-27/tcu/boxscore/17724"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "tuomi-wilma": {
+     "min": 22,
+     "p": 7,
+     "lp": 0,
+     "s": 1,
+     "r": 2,
+     "t": 0,
+     "m": 2,
+     "kh": [
+      3,
+      11
+     ],
+     "kolme": [
+      0,
+      3
+     ],
+     "vh": [
+      1,
+      1
+     ],
+     "hl": 0,
+     "pl": 0,
+     "vi": 2,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "7137f6cedd",
