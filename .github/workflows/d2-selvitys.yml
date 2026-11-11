@@ -1,0 +1,23 @@
+name: D2-selvitys
+
+# Kertaluonteinen selvitys suomalaisista NCAA Division II -joukkueissa. Ajetaan vain tästä PR:stä tai käsin.
+on:
+  pull_request:
+    paths:
+      - "tyokalut/d2-selvitys.js"
+      - ".github/workflows/d2-selvitys.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  selvitys:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tyokalut/d2-selvitys.js
