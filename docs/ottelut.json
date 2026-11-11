@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T02:01:04.570Z",
+ "paivitetty": "2026-11-11T02:17:42.630Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -179,7 +179,7 @@
    "koulu": "NC State",
    "sarja": "M",
    "saldo": {
-    "v": 2,
+    "v": 3,
     "t": 0
    }
   },
@@ -4565,7 +4565,34 @@
       "xml": "https://stats.sjsuspartans.com/api/v1/game/xml/9074"
      }
     }
-   ]
+   ],
+   "tilastot": {
+    "mace-erika": {
+     "min": 30,
+     "p": 4,
+     "lp": 1,
+     "s": 2,
+     "r": 0,
+     "t": 1,
+     "m": 2,
+     "kh": [
+      2,
+      8
+     ],
+     "kolme": [
+      0,
+      3
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 0,
+     "pl": 1,
+     "vi": 1,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "97c2b4f15a",
@@ -4581,14 +4608,48 @@
      "joukkue": "nc-state-m",
      "vastustaja": "Presbyterian",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 94,
+      "vast": 60
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/94f27f86-4135-4711-b90c-f11d054bec0c",
      "live": null,
-     "linkki": "https://gopack.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://gopack.com/sports/mens-basketball/stats/2026-27/presbyterian/boxscore/24848",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://gopack.com/sports/mens-basketball/stats/2026-27/presbyterian/boxscore/24848"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "yalaho-eemeli": {
+     "min": 22,
+     "p": 8,
+     "lp": 3,
+     "s": 2,
+     "r": 0,
+     "t": 0,
+     "m": 0,
+     "kh": [
+      3,
+      5
+     ],
+     "kolme": [
+      2,
+      4
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 3,
+     "pl": 0,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "227aa6fde8",
