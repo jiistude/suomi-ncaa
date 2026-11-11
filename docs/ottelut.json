@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T01:45:43.102Z",
+ "paivitetty": "2026-11-11T02:01:04.570Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -126,7 +126,7 @@
    "sarja": "N",
    "saldo": {
     "v": 0,
-    "t": 1
+    "t": 2
    }
   },
   {
@@ -4550,12 +4550,20 @@
      "joukkue": "san-jose-state-n",
      "vastustaja": "Oklahoma",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 44,
+      "vast": 98
+     },
      "striimi": null,
      "live": "https://wmt.games/sanjosestate/stats/match/full/6635829",
-     "linkki": "https://sjsuspartans.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://sjsuspartans.com/boxscore/9074",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "wmt",
+      "games": 6635829,
+      "xml": "https://stats.sjsuspartans.com/api/v1/game/xml/9074"
+     }
     }
    ]
   },
