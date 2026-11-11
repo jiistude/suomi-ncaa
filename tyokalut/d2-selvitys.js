@@ -21,7 +21,7 @@ async function koulut() {
   console.log(`Jäsenhakemisto: ${lista.length} riviä. Esimerkkikentät: ${Object.keys(lista[0] || {}).join(", ")}`);
   const url = (x) => x.athleticWebUrl || x.athleticsWebUrl || x.athleticUrl || x.webSiteUrl || "";
   return lista
-    .filter((x) => String(x.division || x.divisionRoman || "II").includes("II") && !String(x.division).includes("III"))
+    .filter((x) => (x.divisionRoman === "II" || Number(x.division) === 2) && !x.deactive)
     .map((x) => ({ nimi: x.nameOfficial || x.name || x.orgName, url: url(x).trim() }))
     .filter((x) => x.url);
 }
