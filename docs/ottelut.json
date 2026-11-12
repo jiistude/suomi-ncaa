@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-12T03:17:25.850Z",
+ "paivitetty": "2026-11-12T04:17:32.254Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -269,7 +269,7 @@
    "koulu": "Arkansas",
    "sarja": "M",
    "saldo": {
-    "v": 1,
+    "v": 2,
     "t": 1
    }
   }
@@ -5204,14 +5204,48 @@
      "joukkue": "arkansas-m",
      "vastustaja": "Robert Morris",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 76,
+      "vast": 53
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/cd64fd74-bca8-44bb-93ba-9640daa515e0",
      "live": "http://stats.statbroadcast.com/broadcast/?id=678493",
-     "linkki": "http://stats.statbroadcast.com/broadcast/?id=678493",
-     "linkkiTyyppi": "live",
-     "tilastolahde": null
+     "linkki": "https://arkansasrazorbacks.com/wp-content/uploads/2026/11/Gm-3-Stats-vs-Robert-Morris.pdf",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "pdf",
+      "url": "https://arkansasrazorbacks.com/wp-content/uploads/2026/11/Gm-3-Stats-vs-Robert-Morris.pdf"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "muurinen-miikka": {
+     "min": 19,
+     "kh": [
+      0,
+      5
+     ],
+     "kolme": [
+      0,
+      2
+     ],
+     "vh": [
+      2,
+      4
+     ],
+     "lp": 5,
+     "p": 2,
+     "s": 3,
+     "m": 2,
+     "r": 0,
+     "t": 1,
+     "hl": 1,
+     "pl": 4,
+     "vi": 2,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "2b33c0c7f6",
