@@ -1718,5 +1718,30 @@
  },
  "0d8b8bf5a8|abbey-obomate": {
   "eiPelannut": true
+ },
+ "6f287c2745|ogun-nicole": {
+  "min": 23,
+  "p": 7,
+  "lp": 7,
+  "s": 1,
+  "r": 2,
+  "t": 0,
+  "m": 2,
+  "kh": [
+   2,
+   8
+  ],
+  "kolme": [
+   0,
+   0
+  ],
+  "vh": [
+   3,
+   7
+  ],
+  "hl": 5,
+  "pl": 2,
+  "vi": 3,
+  "ver": 2
  }
 }

@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-11T22:14:17.031Z",
+ "paivitetty": "2026-11-12T01:17:30.336Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -135,7 +135,7 @@
    "sarja": "N",
    "saldo": {
     "v": 1,
-    "t": 2
+    "t": 3
    }
   },
   {
@@ -4906,14 +4906,48 @@
      "joukkue": "utah-state-n",
      "vastustaja": "Idaho State",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 41,
+      "vast": 54
+     },
      "striimi": "https://www.youtube.com/@pac12/streams",
      "live": null,
-     "linkki": "https://utahstateaggies.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://utahstateaggies.com/sports/womens-basketball/stats/2026-27/idaho-state/boxscore/16888",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://utahstateaggies.com/sports/womens-basketball/stats/2026-27/idaho-state/boxscore/16888"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ogun-nicole": {
+     "min": 23,
+     "p": 7,
+     "lp": 7,
+     "s": 1,
+     "r": 2,
+     "t": 0,
+     "m": 2,
+     "kh": [
+      2,
+      8
+     ],
+     "kolme": [
+      0,
+      0
+     ],
+     "vh": [
+      3,
+      7
+     ],
+     "hl": 5,
+     "pl": 2,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "a37ba94c2b",
