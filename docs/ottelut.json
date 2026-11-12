@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-12T01:17:30.336Z",
+ "paivitetty": "2026-11-12T02:17:26.177Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -144,7 +144,7 @@
    "sarja": "N",
    "saldo": {
     "v": 1,
-    "t": 2
+    "t": 3
    }
   },
   {
@@ -171,7 +171,7 @@
    "sarja": "M",
    "saldo": {
     "v": 1,
-    "t": 1
+    "t": 2
    }
   },
   {
@@ -4963,14 +4963,26 @@
      "joukkue": "davidson-n",
      "vastustaja": "Appalachian State",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 67,
+      "vast": 71
+     },
      "striimi": "https://www.espn.com/watch/player/_/eventCalendarId/401918714?gameId=401918714&sourceLang=en&om-navmethod=espn:globalsearch:results",
      "live": null,
-     "linkki": "https://davidsonwildcats.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://davidsonwildcats.com/sports/womens-basketball/stats/2026-27/appalachian-state/boxscore/11437",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://davidsonwildcats.com/sports/womens-basketball/stats/2026-27/appalachian-state/boxscore/11437"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "onnela-lilli": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "5f0d7dd115",
@@ -4986,14 +4998,48 @@
      "joukkue": "stony-brook-m",
      "vastustaja": "Princeton",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 59,
+      "vast": 69
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/70aae9b0-1c78-46ec-b69c-43c1af0d8dbe",
-     "live": "https://goprincetontigers.com/sidearmstats/mbball/media",
-     "linkki": "https://stonybrookathletics.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "live": null,
+     "linkki": "https://stonybrookathletics.com/sports/mens-basketball/stats/2026-27/princeton/boxscore/12728",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://stonybrookathletics.com/sports/mens-basketball/stats/2026-27/princeton/boxscore/12728"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ugusuk-morris": {
+     "min": 30,
+     "p": 12,
+     "lp": 3,
+     "s": 0,
+     "r": 0,
+     "t": 0,
+     "m": 2,
+     "kh": [
+      4,
+      8
+     ],
+     "kolme": [
+      2,
+      3
+     ],
+     "vh": [
+      2,
+      3
+     ],
+     "hl": 0,
+     "pl": 3,
+     "vi": 2,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "62a83b5e6c",

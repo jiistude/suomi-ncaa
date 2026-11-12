@@ -1743,5 +1743,33 @@
   "pl": 2,
   "vi": 3,
   "ver": 2
+ },
+ "a37ba94c2b|onnela-lilli": {
+  "eiPelannut": true
+ },
+ "5f0d7dd115|ugusuk-morris": {
+  "min": 30,
+  "p": 12,
+  "lp": 3,
+  "s": 0,
+  "r": 0,
+  "t": 0,
+  "m": 2,
+  "kh": [
+   4,
+   8
+  ],
+  "kolme": [
+   2,
+   3
+  ],
+  "vh": [
+   2,
+   3
+  ],
+  "hl": 0,
+  "pl": 3,
+  "vi": 2,
+  "ver": 2
  }
 }
