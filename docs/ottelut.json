@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-12T02:17:26.177Z",
+ "paivitetty": "2026-11-12T03:17:25.850Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -9,7 +9,7 @@
    "sarja": "N",
    "saldo": {
     "v": 1,
-    "t": 2
+    "t": 3
    }
   },
   {
@@ -99,7 +99,7 @@
    "sarja": "N",
    "saldo": {
     "v": 2,
-    "t": 0
+    "t": 1
    }
   },
   {
@@ -261,7 +261,7 @@
    "sarja": "M",
    "saldo": {
     "v": 2,
-    "t": 1
+    "t": 2
    }
   },
   {
@@ -5055,14 +5055,48 @@
      "joukkue": "utrgv-n",
      "vastustaja": "Abilene Christian",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 59,
+      "vast": 76
+     },
      "striimi": "https://www.southland.org/espn",
      "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=utrgv",
-     "linkki": "https://goutrgv.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://goutrgv.com/sports/womens-basketball/stats/2026-27/abilene-christian/boxscore/29674",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://goutrgv.com/sports/womens-basketball/stats/2026-27/abilene-christian/boxscore/29674"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "aarnio-janette": {
+     "min": 38,
+     "p": 18,
+     "lp": 1,
+     "s": 4,
+     "r": 0,
+     "t": 2,
+     "m": 8,
+     "kh": [
+      8,
+      15
+     ],
+     "kolme": [
+      0,
+      2
+     ],
+     "vh": [
+      2,
+      2
+     ],
+     "hl": 1,
+     "pl": 0,
+     "vi": 4,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "b03efed2b6",
@@ -5078,14 +5112,26 @@
      "joukkue": "western-kentucky-n",
      "vastustaja": "Vanderbilt",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 59,
+      "vast": 101
+     },
      "striimi": null,
      "live": null,
-     "linkki": "https://wkusports.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://wkusports.com/sports/womens-basketball/stats/2026-27/vanderbilt/boxscore/13577",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://wkusports.com/sports/womens-basketball/stats/2026-27/vanderbilt/boxscore/13577"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ahervuo-enni": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "ecdb97bbc3",
@@ -5101,14 +5147,48 @@
      "joukkue": "pepperdine-m",
      "vastustaja": "Sam Houston",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 77,
+      "vast": 85
+     },
      "striimi": "https://www.espn.com/watch/player?id=3068b6aa-b9b2-499d-8c2f-34d3269e123a",
      "live": null,
-     "linkki": "https://pepperdinewaves.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://pepperdinewaves.com/sports/mens-basketball/stats/2026-27/sam-houston/boxscore/16850",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://pepperdinewaves.com/sports/mens-basketball/stats/2026-27/sam-houston/boxscore/16850"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "kanden-oliver": {
+     "min": 28,
+     "p": 3,
+     "lp": 1,
+     "s": 1,
+     "r": 0,
+     "t": 0,
+     "m": 0,
+     "kh": [
+      1,
+      3
+     ],
+     "kolme": [
+      1,
+      3
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 0,
+     "pl": 1,
+     "vi": 0,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "17a2fb4c9d",
