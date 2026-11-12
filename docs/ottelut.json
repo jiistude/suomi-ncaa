@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-12T14:17:38.749Z",
+ "paivitetty": "2026-11-12T16:17:35.972Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -12119,7 +12119,7 @@
      "vastustaja": "Middle Tennessee",
      "paikka": "koti",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://watch.plex.tv/live-tv/channel/womens-sports-network",
      "live": null,
      "linkki": "https://tulsahurricane.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
@@ -12188,7 +12188,7 @@
      "vastustaja": "Auburn",
      "paikka": "koti",
      "tulos": null,
-     "striimi": null,
+     "striimi": "https://watch.plex.tv/live-tv/channel/womens-sports-network",
      "live": null,
      "linkki": "https://tulsahurricane.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
