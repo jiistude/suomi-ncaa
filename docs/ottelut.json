@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-12T20:17:24.765Z",
+ "paivitetty": "2026-11-12T21:54:38.199Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -12818,29 +12818,6 @@
    ]
   },
   {
-   "id": "3a3cd5bcb2",
-   "alku": "2026-12-30T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "USAF Academy, CO",
-   "joukkueet": [
-    "wyoming-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "Air Force",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "98a1407cb1",
    "alku": "2026-12-30T19:00:00.000Z",
    "tba": false,
@@ -12950,6 +12927,29 @@
      "striimi": null,
      "live": null,
      "linkki": "https://davidsonwildcats.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "5fbc95c878",
+   "alku": "2026-12-31T01:30:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "USAF Academy, CO",
+   "joukkueet": [
+    "wyoming-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "Air Force",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -15440,29 +15440,6 @@
    ]
   },
   {
-   "id": "17a8f96309",
-   "alku": "2027-01-13T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "Davis, CA",
-   "joukkueet": [
-    "wyoming-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "UC Davis",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "cece74a2f7",
    "alku": "2027-01-13T23:00:00.000Z",
    "tba": false,
@@ -15664,6 +15641,29 @@
      "striimi": null,
      "live": null,
      "linkki": "https://troytrojans.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "dd37af02ab",
+   "alku": "2027-01-14T02:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "Davis, CA",
+   "joukkueet": [
+    "wyoming-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "UC Davis",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -16038,29 +16038,6 @@
    ]
   },
   {
-   "id": "d3883b0cef",
-   "alku": "2027-01-16T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "Phoenix, AZ",
-   "joukkueet": [
-    "wyoming-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "Grand Canyon",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "bd1ae73d57",
    "alku": "2027-01-16T17:00:00.000Z",
    "tba": false,
@@ -16239,6 +16216,29 @@
      "striimi": null,
      "live": null,
      "linkki": "https://davidsonwildcats.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "d3883b0cef",
+   "alku": "2027-01-16T20:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "Phoenix, AZ",
+   "joukkueet": [
+    "wyoming-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "Grand Canyon",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -18062,41 +18062,6 @@
    ]
   },
   {
-   "id": "4780881889",
-   "alku": "2027-01-28T03:00:00.000Z",
-   "tba": false,
-   "sarja": "N",
-   "sijainti": "San Jose, Calif.",
-   "joukkueet": [
-    "wyoming-n",
-    "san-jose-state-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "San Jose State University",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    },
-    {
-     "joukkue": "san-jose-state-n",
-     "vastustaja": "Wyoming",
-     "paikka": "koti",
-     "tulos": null,
-     "striimi": null,
-     "live": null,
-     "linkki": "https://sjsuspartans.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "bd7f679677",
    "alku": "2027-01-27T23:30:00.000Z",
    "tba": false,
@@ -18373,6 +18338,41 @@
    ]
   },
   {
+   "id": "bc81f815c9",
+   "alku": "2027-01-28T03:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "San Jose, CA",
+   "joukkueet": [
+    "wyoming-n",
+    "san-jose-state-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "San Jose State University",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    },
+    {
+     "joukkue": "san-jose-state-n",
+     "vastustaja": "Wyoming",
+     "paikka": "koti",
+     "tulos": null,
+     "striimi": null,
+     "live": null,
+     "linkki": "https://sjsuspartans.com/sports/womens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
    "id": "54245e99b2",
    "alku": "2027-01-28T23:00:00.000Z",
    "tba": false,
@@ -18609,29 +18609,6 @@
      "striimi": null,
      "live": null,
      "linkki": "https://tulsahurricane.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
-   "id": "32c085169a",
-   "alku": "2027-01-30T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "Las Vegas, NV",
-   "joukkueet": [
-    "wyoming-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "UNLV",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -18954,6 +18931,29 @@
      "striimi": null,
      "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=troy",
      "linkki": "https://troytrojans.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "32c085169a",
+   "alku": "2027-01-30T22:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "Las Vegas, NV",
+   "joukkueet": [
+    "wyoming-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "UNLV",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -21145,29 +21145,6 @@
    ]
   },
   {
-   "id": "cb4702f701",
-   "alku": "2027-02-13T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "El Paso, TX",
-   "joukkueet": [
-    "wyoming-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "UTEP",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "6486465d81",
    "alku": "2027-02-13T17:00:00.000Z",
    "tba": false,
@@ -21507,6 +21484,29 @@
      "striimi": null,
      "live": null,
      "linkki": "https://troytrojans.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "cb4702f701",
+   "alku": "2027-02-13T21:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "El Paso, TX",
+   "joukkueet": [
+    "wyoming-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "UTEP",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -21881,29 +21881,6 @@
    ]
   },
   {
-   "id": "599bbce7d0",
-   "alku": "2027-02-17T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "Albuquerque, NM",
-   "joukkueet": [
-    "wyoming-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "New Mexico",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": null,
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "2e2c256a34",
    "alku": "2027-02-17T17:00:00.000Z",
    "tba": true,
@@ -22105,6 +22082,29 @@
      "striimi": "https://www.hbomax.com/",
      "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=butl",
      "linkki": "https://butlersports.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "fc15e3d3cf",
+   "alku": "2027-02-18T02:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "Albuquerque, NM",
+   "joukkueet": [
+    "wyoming-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "New Mexico",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": null,
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
@@ -23158,29 +23158,6 @@
    ]
   },
   {
-   "id": "c56f7fbd06",
-   "alku": "2027-02-24T17:00:00.000Z",
-   "tba": true,
-   "sarja": "N",
-   "sijainti": "Manoa, HI",
-   "joukkueet": [
-    "wyoming-n"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "wyoming-n",
-     "vastustaja": "Hawaii",
-     "paikka": "vieras",
-     "tulos": null,
-     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
-     "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "e4a0890289",
    "alku": "2027-02-24T20:30:00.000Z",
    "tba": false,
@@ -23474,6 +23451,29 @@
      "striimi": null,
      "live": null,
      "linkki": "https://pepperdinewaves.com/sports/mens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "e58be8b97f",
+   "alku": "2027-02-25T04:00:00.000Z",
+   "tba": false,
+   "sarja": "N",
+   "sijainti": "Manoa, HI",
+   "joukkueet": [
+    "wyoming-n"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "wyoming-n",
+     "vastustaja": "Hawaii",
+     "paikka": "vieras",
+     "tulos": null,
+     "striimi": "https://watch.themw.com/wyoming/?ra=wyoming",
+     "live": null,
+     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
