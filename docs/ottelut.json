@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-12T16:17:35.972Z",
+ "paivitetty": "2026-11-12T20:17:24.765Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -6126,7 +6126,7 @@
      "vastustaja": "Cleveland State",
      "paikka": "koti",
      "tulos": null,
-     "striimi": "https://www.espn.com/watch/",
+     "striimi": "https://www.espn.com/watch/player/_/eventCalendarId/401913018?gameId=401913018&sourceLang=en&om-navmethod=espn:globalsearch:results",
      "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=xavi",
      "linkki": "https://goxavier.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
@@ -6966,7 +6966,7 @@
      "vastustaja": "Ohio",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": "https://www.espn.com/watch/",
+     "striimi": "https://www.espn.com/watch/player/_/eventCalendarId/401913019?gameId=401913019&sourceLang=en&om-navmethod=espn:globalsearch:results",
      "live": null,
      "linkki": "https://goxavier.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
@@ -7449,7 +7449,7 @@
      "vastustaja": "Dayton",
      "paikka": "vieras",
      "tulos": null,
-     "striimi": "https://www.espn.com/watch/",
+     "striimi": "https://www.espn.com/watch/player/_/eventCalendarId/401913020?gameId=401913020&sourceLang=en&om-navmethod=espn:globalsearch:results",
      "live": null,
      "linkki": "https://goxavier.com/sports/womens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
@@ -22654,7 +22654,7 @@
   {
    "id": "de092a68a8",
    "alku": "2027-02-20T21:00:00.000Z",
-   "tba": false,
+   "tba": true,
    "sarja": "N",
    "sijainti": "San Jose, Calif.",
    "joukkueet": [
