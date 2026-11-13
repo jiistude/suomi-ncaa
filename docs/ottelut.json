@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-13T05:17:27.985Z",
+ "paivitetty": "2026-11-13T06:17:28.460Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -35,7 +35,7 @@
    "koulu": "UCLA",
    "sarja": "N",
    "saldo": {
-    "v": 2,
+    "v": 3,
     "t": 0
    }
   },
@@ -5698,14 +5698,27 @@
      "joukkue": "ucla-n",
      "vastustaja": "Arizona",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 76,
+      "vast": 44
+     },
      "striimi": null,
-     "live": null,
-     "linkki": "https://uclabruins.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "live": "https://wmt.games/ucla/stats/match/full/6648114",
+     "linkki": "https://uclabruins.com/boxscore/19157",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "wmt",
+      "games": 6648114,
+      "xml": "https://stats.uclabruins.com/api/v1/game/xml/19157"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "aarnisalo-elina": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "20ea708822",
