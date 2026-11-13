@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-13T01:17:34.647Z",
+ "paivitetty": "2026-11-13T02:17:29.899Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -17,7 +17,7 @@
    "koulu": "Tulsa",
    "sarja": "N",
    "saldo": {
-    "v": 1,
+    "v": 2,
     "t": 1
    }
   },
@@ -45,7 +45,7 @@
    "sarja": "N",
    "saldo": {
     "v": 1,
-    "t": 1
+    "t": 2
    }
   },
   {
@@ -63,7 +63,7 @@
    "sarja": "N",
    "saldo": {
     "v": 3,
-    "t": 0
+    "t": 1
    }
   },
   {
@@ -207,7 +207,7 @@
    "sarja": "M",
    "saldo": {
     "v": 1,
-    "t": 2
+    "t": 3
    }
   },
   {
@@ -5457,14 +5457,26 @@
      "joukkue": "tulsa-n",
      "vastustaja": "Oklahoma State",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 64,
+      "vast": 62
+     },
      "striimi": "https://www.espn.com/watch/player/_/eventCalendarId/401907049?gameId=401907049&sourceLang=en&om-navmethod=espn:globalsearch:results",
      "live": null,
-     "linkki": "https://tulsahurricane.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://tulsahurricane.com/sports/womens-basketball/stats/2026-27/oklahoma-state/boxscore/16420",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://tulsahurricane.com/sports/womens-basketball/stats/2026-27/oklahoma-state/boxscore/16420"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "seppala-teresa": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "442e23cbb8",
@@ -5537,14 +5549,48 @@
      "joukkue": "ohio-state-n",
      "vastustaja": "No. 4 UCONN",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 55,
+      "vast": 87
+     },
      "striimi": "https://www.foxsports.com/live/fs1",
      "live": null,
-     "linkki": "https://ohiostatebuckeyes.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://ohiostatebuckeyes.com/sports/womens-basketball/stats/2026-27/no-4-uconn/boxscore/22886",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://ohiostatebuckeyes.com/sports/womens-basketball/stats/2026-27/no-4-uconn/boxscore/22886"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "lemmila-elsa": {
+     "min": 29,
+     "p": 4,
+     "lp": 1,
+     "s": 2,
+     "r": 1,
+     "t": 3,
+     "m": 5,
+     "kh": [
+      2,
+      7
+     ],
+     "kolme": [
+      0,
+      2
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 0,
+     "pl": 1,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "3acf19717f",
@@ -5560,14 +5606,26 @@
      "joukkue": "north-dakota-n",
      "vastustaja": "Milwaukee",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 49,
+      "vast": 77
+     },
      "striimi": "https://www.espn.com/search/_/appearance/dark/type/upcoming/o/watch/q/milwaukee",
-     "live": "https://stats.statbroadcast.com/broadcast/?id=689172",
-     "linkki": "https://fightinghawks.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "live": null,
+     "linkki": "https://fightinghawks.com/sports/womens-basketball/stats/2026-27/milwaukee/boxscore/14707",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://fightinghawks.com/sports/womens-basketball/stats/2026-27/milwaukee/boxscore/14707"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "haddad-juliana": {
+     "eiPelannut": true
+    }
+   }
   },
   {
    "id": "3fc12b5c3a",
@@ -5583,14 +5641,48 @@
      "joukkue": "loyola-maryland-m",
      "vastustaja": "Towson",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 60,
+      "vast": 90
+     },
      "striimi": "https://go.flocollege.com/partner/caa?utm_medium=partner&utm_source=multiple&utm_content=landingpage&utm_term=towson&contract_id=0063m00000qeqqqaao",
      "live": null,
-     "linkki": "https://loyolagreyhounds.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://loyolagreyhounds.com/sports/mens-basketball/stats/2026-27/towson/boxscore/18136",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://loyolagreyhounds.com/sports/mens-basketball/stats/2026-27/towson/boxscore/18136"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "amzil-abdullah": {
+     "min": 22,
+     "p": 2,
+     "lp": 5,
+     "s": 1,
+     "r": 2,
+     "t": 0,
+     "m": 1,
+     "kh": [
+      1,
+      6
+     ],
+     "kolme": [
+      0,
+      5
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 2,
+     "pl": 3,
+     "vi": 0,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "0a94244fc2",
@@ -5812,29 +5904,6 @@
    ]
   },
   {
-   "id": "6aed81090e",
-   "alku": "2026-11-14T17:00:00.000Z",
-   "tba": true,
-   "sarja": "M",
-   "sijainti": "Towson, Md.",
-   "joukkueet": [
-    "loyola-maryland-m"
-   ],
-   "osapuolet": [
-    {
-     "joukkue": "loyola-maryland-m",
-     "vastustaja": "Morgan State or UMBC",
-     "paikka": "koti",
-     "tulos": null,
-     "striimi": "https://go.flocollege.com/partner/caa?utm_medium=partner&utm_source=multiple&utm_content=landingpage&utm_term=towson&contract_id=0063m00000qeqqqaao",
-     "live": null,
-     "linkki": "https://loyolagreyhounds.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
-    }
-   ]
-  },
-  {
    "id": "b23c5c261c",
    "alku": "2026-11-14T18:00:00.000Z",
    "tba": false,
@@ -5944,6 +6013,29 @@
      "striimi": "https://www.espn.com/watch/player/_/id/3e196a46-a619-41f1-8c62-6b2647bd436c",
      "live": null,
      "linkki": "https://calbears.com/sports/womens-basketball/schedule",
+     "linkkiTyyppi": "ohjelma",
+     "tilastolahde": null
+    }
+   ]
+  },
+  {
+   "id": "6aed81090e",
+   "alku": "2026-11-14T22:00:00.000Z",
+   "tba": false,
+   "sarja": "M",
+   "sijainti": "Towson, Md.",
+   "joukkueet": [
+    "loyola-maryland-m"
+   ],
+   "osapuolet": [
+    {
+     "joukkue": "loyola-maryland-m",
+     "vastustaja": "Morgan State",
+     "paikka": "koti",
+     "tulos": null,
+     "striimi": "https://go.flocollege.com/partner/caa?utm_medium=partner&utm_source=multiple&utm_content=landingpage&utm_term=towson&contract_id=0063m00000qeqqqaao",
+     "live": null,
+     "linkki": "https://loyolagreyhounds.com/sports/mens-basketball/schedule",
      "linkkiTyyppi": "ohjelma",
      "tilastolahde": null
     }
