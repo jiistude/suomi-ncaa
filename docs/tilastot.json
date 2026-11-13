@@ -2033,5 +2033,30 @@
  },
  "0a94244fc2|aarnisalo-elina": {
   "eiPelannut": true
+ },
+ "20ea708822|ogun-nicole": {
+  "min": 25,
+  "p": 16,
+  "lp": 9,
+  "s": 3,
+  "r": 2,
+  "t": 0,
+  "m": 0,
+  "kh": [
+   5,
+   11
+  ],
+  "kolme": [
+   0,
+   0
+  ],
+  "vh": [
+   6,
+   8
+  ],
+  "hl": 6,
+  "pl": 3,
+  "vi": 3,
+  "ver": 2
  }
 }
