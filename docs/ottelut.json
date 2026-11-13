@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-12T21:54:38.199Z",
+ "paivitetty": "2026-11-13T01:17:34.647Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -72,7 +72,7 @@
    "sarja": "N",
    "saldo": {
     "v": 3,
-    "t": 0
+    "t": 1
    }
   },
   {
@@ -80,7 +80,7 @@
    "koulu": "California",
    "sarja": "N",
    "saldo": {
-    "v": 3,
+    "v": 4,
     "t": 0
    }
   },
@@ -5400,14 +5400,48 @@
      "joukkue": "california-n",
      "vastustaja": "Charleston",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 78,
+      "vast": 64
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/42d05159-d65d-464a-851c-b36cb1f5804a",
      "live": null,
-     "linkki": "https://calbears.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://calbears.com/sports/womens-basketball/stats/2026-27/charleston/boxscore/38785",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://calbears.com/sports/womens-basketball/stats/2026-27/charleston/boxscore/38785"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "syla-albina": {
+     "min": 24,
+     "p": 6,
+     "lp": 8,
+     "s": 1,
+     "r": 0,
+     "t": 0,
+     "m": 1,
+     "kh": [
+      3,
+      5
+     ],
+     "kolme": [
+      0,
+      0
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 3,
+     "pl": 5,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "e140e8a739",
@@ -5446,14 +5480,48 @@
      "joukkue": "sacramento-state-n",
      "vastustaja": "Buffalo",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 60,
+      "vast": 67
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/1f201306-0467-4e72-bdf9-b167062abcbd",
-     "live": "https://ubbulls.com/sidearmstats/wbball/summary",
-     "linkki": "https://hornetsports.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "live": null,
+     "linkki": "https://hornetsports.com/sports/womens-basketball/stats/2026-27/buffalo/boxscore/16878",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://hornetsports.com/sports/womens-basketball/stats/2026-27/buffalo/boxscore/16878"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "paananen-pinja": {
+     "min": 13,
+     "p": 0,
+     "lp": 0,
+     "s": 1,
+     "r": 0,
+     "t": 0,
+     "m": 0,
+     "kh": [
+      0,
+      1
+     ],
+     "kolme": [
+      0,
+      1
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 0,
+     "pl": 0,
+     "vi": 1,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "707d048fef",
