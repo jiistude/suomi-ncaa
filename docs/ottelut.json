@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-14T03:17:28.987Z",
+ "paivitetty": "2026-11-14T04:17:56.000Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -26,7 +26,7 @@
    "koulu": "Wyoming",
    "sarja": "N",
    "saldo": {
-    "v": 1,
+    "v": 2,
     "t": 2
    }
   },
@@ -179,7 +179,7 @@
    "koulu": "NC State",
    "sarja": "M",
    "saldo": {
-    "v": 3,
+    "v": 4,
     "t": 0
    }
   },
@@ -269,7 +269,7 @@
    "koulu": "Arkansas",
    "sarja": "M",
    "saldo": {
-    "v": 2,
+    "v": 3,
     "t": 1
    }
   }
@@ -5906,12 +5906,19 @@
      "joukkue": "nc-state-m",
      "vastustaja": "Troy",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 81,
+      "vast": 62
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/6449ed0a-940a-444c-81ea-50bd92a1859f",
      "live": null,
-     "linkki": "https://gopack.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://gopack.com/sports/mens-basketball/stats/2026-27/troy/boxscore/24849",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://gopack.com/sports/mens-basketball/stats/2026-27/troy/boxscore/24849"
+     }
     },
     {
      "joukkue": "troy-m",
@@ -5999,14 +6006,48 @@
      "joukkue": "arkansas-m",
      "vastustaja": "Central Arkansas",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 79,
+      "vast": 66
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/e4fc6d7c-d6a0-46db-ab15-c5576ca9cda3",
      "live": "http://stats.statbroadcast.com/broadcast/?id=678494",
-     "linkki": "http://stats.statbroadcast.com/broadcast/?id=678494",
-     "linkkiTyyppi": "live",
-     "tilastolahde": null
+     "linkki": "https://arkansasrazorbacks.com/wp-content/uploads/2026/11/Gm-4-Stats-vs-UCA.pdf",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "pdf",
+      "url": "https://arkansasrazorbacks.com/wp-content/uploads/2026/11/Gm-4-Stats-vs-UCA.pdf"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "muurinen-miikka": {
+     "min": 20,
+     "kh": [
+      3,
+      8
+     ],
+     "kolme": [
+      0,
+      3
+     ],
+     "vh": [
+      5,
+      6
+     ],
+     "lp": 2,
+     "p": 11,
+     "s": 1,
+     "m": 2,
+     "r": 3,
+     "t": 2,
+     "hl": 0,
+     "pl": 2,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "3b2dfa1900",
@@ -6022,14 +6063,48 @@
      "joukkue": "wyoming-n",
      "vastustaja": "Colorado State University",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 58,
+      "vast": 55
+     },
      "striimi": "https://www.youtube.com/pac12",
      "live": null,
-     "linkki": "https://gowyo.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://gowyo.com/sports/womens-basketball/stats/2026-27/colorado-state-university/boxscore/7086",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://gowyo.com/sports/womens-basketball/stats/2026-27/colorado-state-university/boxscore/7086"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ollilainen-kati": {
+     "min": 40,
+     "p": 5,
+     "lp": 8,
+     "s": 3,
+     "r": 1,
+     "t": 0,
+     "m": 1,
+     "kh": [
+      2,
+      6
+     ],
+     "kolme": [
+      0,
+      1
+     ],
+     "vh": [
+      1,
+      2
+     ],
+     "hl": 0,
+     "pl": 8,
+     "vi": 0,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "5510df5301",
