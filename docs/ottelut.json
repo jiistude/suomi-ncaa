@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-14T02:17:31.186Z",
+ "paivitetty": "2026-11-14T03:17:28.987Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -216,7 +216,7 @@
    "sarja": "M",
    "saldo": {
     "v": 1,
-    "t": 2
+    "t": 3
    }
   },
   {
@@ -5917,14 +5917,73 @@
      "joukkue": "troy-m",
      "vastustaja": "NC State",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 62,
+      "vast": 81
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/6449ed0a-940a-444c-81ea-50bd92a1859f",
      "live": null,
-     "linkki": "https://troytrojans.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://troytrojans.com/sports/mens-basketball/stats/2026-27/nc-state/boxscore/11183",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://troytrojans.com/sports/mens-basketball/stats/2026-27/nc-state/boxscore/11183"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "yalaho-eemeli": {
+     "min": 24,
+     "p": 7,
+     "lp": 4,
+     "s": 0,
+     "r": 0,
+     "t": 1,
+     "m": 1,
+     "kh": [
+      3,
+      7
+     ],
+     "kolme": [
+      1,
+      4
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 1,
+     "pl": 3,
+     "vi": 4,
+     "ver": 2
+    },
+    "kontuniemi-jayme": {
+     "min": 2,
+     "p": 0,
+     "lp": 0,
+     "s": 0,
+     "r": 0,
+     "t": 0,
+     "m": 0,
+     "kh": [
+      0,
+      0
+     ],
+     "kolme": [
+      0,
+      0
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 0,
+     "pl": 0,
+     "vi": 0,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "960cf31924",
