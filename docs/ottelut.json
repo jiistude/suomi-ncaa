@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-14T01:17:28.250Z",
+ "paivitetty": "2026-11-14T02:17:31.186Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -89,7 +89,7 @@
    "koulu": "North Alabama",
    "sarja": "N",
    "saldo": {
-    "v": 1,
+    "v": 2,
     "t": 2
    }
   },
@@ -234,7 +234,7 @@
    "sarja": "M",
    "saldo": {
     "v": 2,
-    "t": 1
+    "t": 2
    }
   },
   {
@@ -5791,14 +5791,48 @@
      "joukkue": "butler-m",
      "vastustaja": "Pittsburgh",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 64,
+      "vast": 76
+     },
      "striimi": "https://www.peacocktv.com/sports",
      "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=butl",
-     "linkki": "https://butlersports.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://butlersports.com/sports/mens-basketball/stats/2026-27/pittsburgh/boxscore/15705",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://butlersports.com/sports/mens-basketball/stats/2026-27/pittsburgh/boxscore/15705"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "adler-samu": {
+     "min": 12,
+     "p": 0,
+     "lp": 2,
+     "s": 2,
+     "r": 0,
+     "t": 0,
+     "m": 2,
+     "kh": [
+      0,
+      3
+     ],
+     "kolme": [
+      0,
+      2
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 0,
+     "pl": 2,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "5139c40620",
@@ -5814,14 +5848,48 @@
      "joukkue": "north-alabama-n",
      "vastustaja": "Fisk",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": true,
+      "oma": 92,
+      "vast": 48
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/c4a79bd5-d43b-4c57-9fc2-dcaec6ba1082",
-     "live": "https://stats.statbroadcast.com/broadcast/?id=690326",
-     "linkki": "https://roarlions.com/sports/womens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "live": "https://www.statbroadcast.com/events/statbroadcast.php?gid=noal",
+     "linkki": "https://roarlions.com/sports/womens-basketball/stats/2026-27/fisk/boxscore/5589",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://roarlions.com/sports/womens-basketball/stats/2026-27/fisk/boxscore/5589"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "ulander-venla": {
+     "min": 24,
+     "p": 10,
+     "lp": 4,
+     "s": 3,
+     "r": 0,
+     "t": 0,
+     "m": 0,
+     "kh": [
+      4,
+      9
+     ],
+     "kolme": [
+      2,
+      5
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 1,
+     "pl": 3,
+     "vi": 0,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "67dd7b6cd1",
