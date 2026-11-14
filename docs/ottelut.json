@@ -1,5 +1,5 @@
 {
- "paivitetty": "2026-11-14T04:17:56.000Z",
+ "paivitetty": "2026-11-14T05:17:52.820Z",
  "kausi": "2026-27",
  "virheet": [],
  "joukkueet": [
@@ -189,7 +189,7 @@
    "sarja": "M",
    "saldo": {
     "v": 3,
-    "t": 0
+    "t": 1
    }
   },
   {
@@ -225,7 +225,7 @@
    "sarja": "M",
    "saldo": {
     "v": 2,
-    "t": 0
+    "t": 1
    }
   },
   {
@@ -6120,14 +6120,49 @@
      "joukkue": "northwestern-m",
      "vastustaja": "DePaul",
      "paikka": "koti",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 47,
+      "vast": 67
+     },
      "striimi": null,
-     "live": null,
-     "linkki": "https://nusports.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "live": "https://wmt.games/nusports/stats/match/full/6649074",
+     "linkki": "https://nusports.com/boxscore/17958",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "wmt",
+      "games": 6649074,
+      "xml": "https://stats.nusports.com/api/v1/game/xml/17958"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "federiko-okku": {
+     "min": 25,
+     "p": 1,
+     "lp": 3,
+     "s": 0,
+     "r": 0,
+     "t": 0,
+     "m": 2,
+     "kh": [
+      0,
+      2
+     ],
+     "kolme": [
+      0,
+      0
+     ],
+     "vh": [
+      1,
+      2
+     ],
+     "hl": 1,
+     "pl": 2,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "71dcec4921",
@@ -6143,14 +6178,48 @@
      "joukkue": "uc-san-diego-m",
      "vastustaja": "Utah State",
      "paikka": "vieras",
-     "tulos": null,
+     "tulos": {
+      "voitto": false,
+      "oma": 82,
+      "vast": 120
+     },
      "striimi": "https://www.espn.com/watch/player/_/id/9702df32-501c-4e26-bf89-2c666120df75",
      "live": null,
-     "linkki": "https://ucsdtritons.com/sports/mens-basketball/schedule",
-     "linkkiTyyppi": "ohjelma",
-     "tilastolahde": null
+     "linkki": "https://ucsdtritons.com/sports/mens-basketball/stats/2026-27/utah-state/boxscore/12314",
+     "linkkiTyyppi": "poytakirja",
+     "tilastolahde": {
+      "tyyppi": "sidearm",
+      "url": "https://ucsdtritons.com/sports/mens-basketball/stats/2026-27/utah-state/boxscore/12314"
+     }
     }
-   ]
+   ],
+   "tilastot": {
+    "suutela-olavi": {
+     "min": 13,
+     "p": 4,
+     "lp": 2,
+     "s": 0,
+     "r": 0,
+     "t": 0,
+     "m": 2,
+     "kh": [
+      2,
+      3
+     ],
+     "kolme": [
+      0,
+      0
+     ],
+     "vh": [
+      0,
+      0
+     ],
+     "hl": 1,
+     "pl": 1,
+     "vi": 3,
+     "ver": 2
+    }
+   }
   },
   {
    "id": "b23c5c261c",
